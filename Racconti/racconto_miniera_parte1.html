@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>La Miniera del Patto Silente — Parte I — Cronache di Aral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
     @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
 
-    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav { position: -webkit-sticky; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
     nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
     nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
     nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
@@ -63,7 +63,7 @@
     .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
     .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
 
-    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer { text-align: center; padding: 3rem 2rem; padding-bottom: env(safe-area-inset-bottom, 0px); background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
     footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
     footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
 
