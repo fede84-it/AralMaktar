@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Accademia delle Arti e delle Scienze — Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a; --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a; --gold-light: #e8b84b; --crimson: #7a1a1a; }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: #1a1008; } ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; align-items: center; flex-wrap: wrap; padding: 0; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh; background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Accademia.webp') center center / cover no-repeat; overflow: hidden; }
+    .hero-bg-icon { position: absolute; opacity: 0.04; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; user-select: none; }
+    .hero-bg-icon img { width: 220px; height: 220px; object-fit: contain; }
+    .hero-ornament { color: var(--gold); font-size: 1.5rem; letter-spacing: 0.5em; margin-bottom: 1.2rem; animation: fadeIn 2s ease both; }
+    .hero-role { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; animation: fadeIn 2s 0.4s ease both; }
+    h1.page-name { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 7vw, 5rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.15; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; }
+    .hero-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: clamp(0.95rem, 2vw, 1.25rem); color: var(--parchment-dark); margin-top: 0.75rem; opacity: 0.75; letter-spacing: 0.1em; animation: fadeIn 2s 0.8s ease both; }
+    .hero-divider { margin: 2rem auto; width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+    section { padding: 5rem 2rem; max-width: 820px; margin: 0 auto; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 2.5rem 3rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); margin-bottom: 1.5rem; }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block p { color: var(--ink); margin-bottom: 1.2rem; font-size: 1.05rem; line-height: 1.85; text-align: justify; }
+    .parchment-block p:last-child { margin-bottom: 0; }
+    .parchment-block p.lead { font-size: 1.1rem; font-style: italic; color: var(--ink-light); border-left: 3px solid var(--gold); padding-left: 1.2rem; margin-bottom: 1.8rem; }
+    .drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+    .info-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.3); border-left: 4px solid var(--gold); border-radius: 2px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+    .info-block-title { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--crimson); margin-bottom: 1rem; display: block; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(200,151,42,0.35); }
+    .info-block p { color: var(--ink); font-size: 1.02rem; line-height: 1.8; margin-bottom: 1rem; text-align: justify; }
+    .info-block p:last-child { margin-bottom: 0; }
+    .section-divider { text-align: center; color: var(--gold); opacity: 0.35; font-size: 1rem; letter-spacing: 0.8rem; padding: 0.5rem 0; margin-bottom: 1.5rem; }
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.9rem 1rem; font-size: 0.7rem; } .parchment-block, .info-block { padding: 1.8rem 1.5rem; } }
+  </style>
+</head>
+<body>
+<nav><a href="../index.html">← Torna ad Aral Maktar</a></nav>
+
+<header>
+  <div class="hero-bg-icon"><img src="../Immagini/Accademia_icon.png" alt=""></div>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-role">Istituzione Culturale</span>
+  <h1 class="page-name">L'Accademia</h1>
+  <p class="hero-sub">Custode della Memoria del Nuovo Impero</p>
+  <div class="hero-divider"></div>
+</header>
+
+<section>
+
+  <!-- INTRODUZIONE NARRATIVA -->
+  <div class="parchment-block reveal">
+    <p class="lead">"Il sapere perduto non torna da solo. Va cercato, copiato, tradotto e custodito. Generazione dopo generazione."<br><em>— Loraine, Rettrice dell'Accademia</em></p>
+    <p class="drop-cap">Varcando gli archi maestosi dell'Accademia di Aral Maktar, lo studioso si trova circondato da scaffali colmi di pergamene antiche, mappe logorate dal tempo e strumenti utilizzati da generazioni di ricercatori. Ogni stanza racconta una storia: sale dedicate agli studi storici accolgono cronache di guerre, rivoluzioni e fondazioni; aule di giurisprudenza custodiscono codici e trattati che hanno guidato la civiltà imperiale; laboratori e studi artistici conservano disegni, progetti e opere che testimoniano il raffinato gusto di chi ha cercato di rendere il mondo più armonioso.</p>
+    <p>L'Accademia non è soltanto un luogo di apprendimento — è un ponte tra passato e presente, dove la conoscenza si intreccia con la contemplazione delle leggi, delle arti e dei misteri del mondo. La sua funzione non è preservare il sapere sotto vetro, come un reperto da museo: è tenerlo vivo, farlo crescere, passarlo di mano in mano a chi verrà dopo.</p>
+  </div>
+
+  <div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+  <!-- DISCIPLINE -->
+  <div class="info-block reveal">
+    <span class="info-block-title">Le Discipline</span>
+    <p>L'Accademia abbraccia un ventaglio di saperi che pochi altri luoghi di Landmar possono vantare. Le sale storiche custodiscono cronache di guerre, rivoluzioni e fondazioni imperiali. Le aule di giurisprudenza conservano i codici e i trattati che hanno guidato la civiltà eliantiriana attraverso i secoli. I laboratori e gli studi artistici raccolgono disegni, progetti architettonici e opere che testimoniano secoli di ingegno.</p>
+    <p>L'Accademia non si limita alle discipline tradizionali. Dietro pareti decorate e scaffali riservati, i più curiosi possono trovare tracce di conoscenze arcane: simboli dimenticati, diagrammi di fenomeni naturali e osservazioni che sfiorano l'inspiegabile. Qui la storia e la legge si intrecciano con le forze nascoste della realtà — senza mai sovrapporsi al rigore della ragione, ma senza nemmeno ignorarle.</p>
+  </div>
+
+  <!-- FORMAZIONE -->
+  <div class="info-block reveal">
+    <span class="info-block-title">La Formazione degli Studiosi</span>
+    <p>Gli studiosi dell'Accademia imparano a leggere il mondo attraverso i segni del passato, a interpretare le leggi con saggezza, a osservare la natura con occhio critico e a dare forma alla bellezza attraverso l'arte. Non si forma qui soltanto un erudito: si forma una mente capace di comprendere la complessità del mondo nella sua interezza.</p>
+    <p>Ogni passo nei corridoi antichi è un invito a riflettere sul valore della memoria, sulla responsabilità della conoscenza e sul delicato equilibrio tra ordine e caos. Chi entra all'Accademia con la sola ambizione di accumulare nozioni, raramente vi resta a lungo. Chi vi entra con la curiosità di capire — quello rimane.</p>
+  </div>
+
+  <!-- LORAINE -->
+  <div class="info-block reveal">
+    <span class="info-block-title">Loraine — Rettrice</span>
+    <p>Al vertice dell'Accademia siede <strong>Loraine</strong>, rettrice dalle conoscenze vaste e dalla mente acuta, capace di bilanciare rigore e intuizione. La sua presenza è discreta ma autorevole: accompagna gli studenti nel loro percorso, stimola le ricerche più ardite e guida le decisioni dell'istituzione con saggezza.</p>
+    <p>Si dice che abbia studiato ogni disciplina dell'Accademia — dalla storia alla giurisprudenza, dall'arte alle scienze, senza trascurare le conoscenze più arcane — e che la sua parola sia sempre ascoltata con rispetto. Arrivata giovane alla Biblioteca di Aral per studiare i testi superstiti dell'Impero Acheranide, vi rimase: prima come copista, poi come docente, infine come Rettrice. Sotto la sua guida, l'Accademia ha accolto studiosi da ogni angolo di Landmar e inaugurato il nuovo osservatorio astronomico.</p>
+  </div>
+
+  <!-- OGGI -->
+  <div class="info-block reveal">
+    <span class="info-block-title">Il Suo Ruolo Oggi</span>
+    <p>L'Accademia di Aral Maktar è un cuore pulsante di cultura e disciplina, in cui si forgiano menti in grado di comprendere il mondo nella sua interezza. Non è un'istituzione distante dalla vita della città — collabora con il Collegio dei Giudici per l'interpretazione delle leggi, offre consulenza storica alla Corona e forma quanti aspirano a servire l'Impero con strumenti diversi dalla spada.</p>
+    <p>Nell'epoca di Re Raziel Firelair, la Rettrice Loraine è anche consulente personale del Re per le questioni storiche e diplomatiche legate alle tradizioni eliantiriane. Un ruolo che rispecchia perfettamente la missione dell'Accademia: preservare la memoria per guidare il presente.</p>
+  </div>
+
+</section>
+
+<footer>
+  <p class="footer-title">Aral Maktar</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 120); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

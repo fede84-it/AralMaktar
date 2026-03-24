@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Storia di Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    @font-face {
+      font-family: 'GoudyInitialen';
+      src: url('Font/GoudyInitialen.ttf') format('truetype');
+      font-weight: normal; font-style: normal;
+    }
+
+    /* ─── NAV ─── */
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.6rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    /* ─── HERO ─── */
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('Immagini/Storia_Aral.webp') center center / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.5rem; letter-spacing: 0.5em; margin-bottom: 1.2rem; animation: fadeIn 2s ease both; }
+    .hero-label { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; animation: fadeIn 2s 0.3s ease both; }
+    h1.hero-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.15; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .hero-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: clamp(0.95rem, 2vw, 1.25rem); color: var(--parchment-dark); margin-top: 0.75rem; opacity: 0.75; letter-spacing: 0.1em; animation: fadeIn 2s 0.8s ease both; }
+    .hero-divider { margin: 2rem auto; width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    /* ─── TIMELINE ─── */
+    .timeline-wrap { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 2rem; }
+    .timeline-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); text-align: center; display: block; margin-bottom: 2.5rem; }
+    .timeline { display: flex; align-items: flex-start; justify-content: center; gap: 0; position: relative; flex-wrap: wrap; }
+    .timeline::before { content: ''; position: absolute; top: 22px; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(200,151,42,0.5), transparent); }
+    .tl-item { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 100px; max-width: 150px; cursor: pointer; text-decoration: none; }
+    .tl-dot { width: 14px; height: 14px; border-radius: 50%; background: #1a1008; border: 2px solid var(--gold); position: relative; z-index: 1; transition: background 0.3s, transform 0.3s; margin-bottom: 0.6rem; }
+    .tl-item:hover .tl-dot { background: var(--gold); transform: scale(1.3); }
+    .tl-era { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 0.2rem; }
+    .tl-name { font-family: 'IM Fell English', serif; font-size: 0.78rem; color: var(--parchment-dark); text-align: center; line-height: 1.4; opacity: 0.75; }
+    .tl-item:hover .tl-name { opacity: 1; color: var(--parchment); }
+
+    /* ─── SECTIONS ─── */
+    .era-section { padding: 4rem 2rem; max-width: 860px; margin: 0 auto; }
+    .era-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .era-number { font-family: 'Cinzel Decorative', serif; font-size: 3rem; font-weight: 700; color: rgba(200,151,42,0.18); line-height: 1; flex-shrink: 0; }
+    .era-titles { flex: 1; }
+    .era-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.4rem; }
+    h2.era-name { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 400; color: var(--parchment); line-height: 1.2; text-shadow: 0 2px 20px rgba(200,151,42,0.2); }
+    .era-line { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-top: 0.8rem; opacity: 0.4; }
+
+    /* ─── PARCHMENT ─── */
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 2.5rem 3rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block p { color: var(--ink); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    .parchment-block p:last-child { margin-bottom: 0; }
+    .parchment-block p.lead { font-size: 1.12rem; font-style: italic; color: var(--ink-light); border-left: 3px solid var(--gold); padding-left: 1.2rem; margin-bottom: 1.8rem; }
+    .drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+
+    /* ─── DIVIDER ─── */
+    .section-divider { text-align: center; color: var(--gold); opacity: 0.35; font-size: 1.2rem; letter-spacing: 1rem; padding: 0.5rem 0; }
+
+    /* ─── FOOTER ─── */
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.1em; }
+      .parchment-block { padding: 1.8rem 1.5rem; }
+      .timeline::before { display: none; }
+      .era-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .era-number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Aral Maktar</a>
+  <a href="#era1">Il Vecchio Impero</a>
+  <a href="#era2">L'Esilio</a>
+  <a href="#era3">La Fondazione</a>
+  <a href="#era4">Il Nuovo Impero</a>
+  <a href="#era5">L'Era del Caos</a>
+  <a href="#era6">Il Regno</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-label">Dalle Cronache di Aral</span>
+  <h1 class="hero-title">La Storia di Aral Maktar</h1>
+  <p class="hero-sub">Dal Vecchio Impero alle Ceneri del Caos</p>
+  <div class="hero-divider"></div>
+</header>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap reveal">
+  <span class="timeline-label">Le Sei Ere di Aral</span>
+  <div class="timeline">
+    <a href="#era1" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">I Era</span>
+      <span class="tl-name">Il Vecchio Impero</span>
+    </a>
+    <a href="#era2" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">II Era</span>
+      <span class="tl-name">La Caduta e l'Esilio</span>
+    </a>
+    <a href="#era3" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">III Era</span>
+      <span class="tl-name">La Fondazione</span>
+    </a>
+    <a href="#era4" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">IV Era</span>
+      <span class="tl-name">Il Nuovo Impero</span>
+    </a>
+    <a href="#era5" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">V Era</span>
+      <span class="tl-name">L'Era del Caos</span>
+    </a>
+    <a href="#era6" class="tl-item">
+      <div class="tl-dot"></div>
+      <span class="tl-era">VI Era</span>
+      <span class="tl-name">Il Regno di Aral</span>
+    </a>
+  </div>
+</div>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA I -->
+<section id="era1" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">I</div>
+    <div class="era-titles">
+      <span class="era-label">Prima Era</span>
+      <h2 class="era-name">Il Vecchio Impero</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Eliantir. Il nome suona come un'eco lontana, come il ricordo di un sogno fatto da bambini. Eppure fu reale — più reale di qualunque cosa abbiamo costruito dopo."<br><em>— frammento dai Tomi Perduti dell'Accademia</em></p>
+    <p class="drop-cap">Molto prima che Aral Maktar sorgesse sulle pianure di Landmar, esisteva un altro impero — grande, antico e potente come nessun altro nella memoria dei mortali. Nell'isola di <em>Eliantir</em>, gli uomini avevano edificato l'<strong>Impero Acheranide</strong>, che prosperò per millenni sotto la guida di una dinastia di sovrani che facevano risalire le proprie origini allo stesso dio Alisard.</p>
+    <p>Era un impero di leggi e di pietra, di conoscenza e di fede. Le sue città erano maraviglie di ingegneria, i suoi eserciti imbattibili, i suoi templi i più belli del mondo conosciuto. La capitale portava il nome di <em>Aral Maktar</em> — nome che i sopravvissuti avrebbero portato con sé attraverso i secoli, come si porta una reliquia sacra.</p>
+    <p>Le arti magiche fiorivano nell'Impero Acheranide sotto la guida dei saggi dell'<em>Ambalas</em>, custodi di conoscenze arcane oggi irrimediabilmente perdute. I loro studi spaziavano dalla comprensione dei piani d'esistenza alla manipolazione della materia stessa, elevando la civiltà eliantiriana a vette che nessuno ha più raggiunto. Quella luce, però, era destinata a spegnersi.</p>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA II -->
+<section id="era2" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">II</div>
+    <div class="era-titles">
+      <span class="era-label">Seconda Era</span>
+      <h2 class="era-name">La Caduta e l'Esilio</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Il mare è smarrimento e divisione. Così insegna la tradizione. Eppure fu il mare a salvarci, quella notte in cui il fuoco divorava la nostra patria."<br><em>— Cronache degli Esuli, anno ignoto</em></p>
+    <p class="drop-cap">Devastato da una tremenda guerra civile e colpito da un cataclisma magico di proporzioni apocalittiche, l'Impero Acheranide implodde su sé stesso. Le cause profonde di quella caduta sono ancora oggi oggetto di disputa tra gli studiosi dell'Accademia: alcuni parlano di ambizioni smodate dei grandi casati, altri di un rituale andato storto nelle camere più segrete dell'Ambalas, altri ancora di una punizione divina per la superbia di chi aveva osato equipararsi agli dèi.</p>
+    <p>Quel che è certo è che Eliantir bruciò. Le biblioteche andarono perdute, i templi crollarono, le strade si aprirono in voragini di fuoco. Gli ultimi sopravvissuti si gettarono sul mare con le navi che riuscirono a recuperare — portando con sé poco più delle proprie vite, qualche reliquia sacra, e il ricordo di ciò che erano stati.</p>
+    <p>Gran parte delle conoscenze circa la geografia, il clima, e persino la posizione di Eliantir andarono irrimediabilmente perdute. Ciò che rimase agli Eliantiriani furono principalmente conoscenze pratiche di ingegneria, muratura e idraulica — sapere senza comprensione, forma senza spirito. Quel vuoto di conoscenza avrebbe plasmato per sempre il carattere del popolo: un pessimismo quieto, un attaccamento quasi morboso al passato, la sensazione perenne di non essere all'altezza di ciò che si era stati.</p>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA III -->
+<section id="era3" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">III</div>
+    <div class="era-titles">
+      <span class="era-label">Terza Era</span>
+      <h2 class="era-name">La Fondazione</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Una visione. Un cerchio di pietre. Una pianura fertile oltre il mare. L'Imperatore disse che era la voce di Alisard. Chi avrebbe osato dubitarne?"<br><em>— dal Codex degli Esuli Eliantiriani</em></p>
+    <p class="drop-cap">Fu una visione divina a guidare il loro Imperatore. Nelle acque agitate del mare sconosciuto, egli disse di aver ricevuto da <em>Alisard</em> stessa un segno: un Cerchio di Pietre su una pianura fertile, al termine del viaggio. Già prima della caduta di Eliantir, l'Imperatore invecchiava assai lentamente — un segno, per il suo popolo, della grazia del dio. Oggi la sua età supera i cinquecento anni, e con lui è scomparsa l'ultima memoria diretta della patria perduta.</p>
+    <p>Le navi degli Esuli approdarono sulle rive nord-occidentali di Landmar. Le fertili pianure e la posizione strategica — snodo commerciale tra mari e terre continentali — convinsero i sopravvissuti a fermarsi. Dove i nobili eliantiriani piantarono le tende del primo accampamento, nacque una città. Il suo nome fu scelto deliberatamente uguale a quello della capitale perduta: <em>Aral Maktar</em>. Non per nostalgia, ma per ammonimento — affinché nessuno dimenticasse mai ciò che era stato, e ciò che si era perso.</p>
+    <p>Nei decenni successivi la città crebbe rapidamente. Le conoscenze pratiche di ingegneria degli Eliantiriani permisero di erigere mura, acquedotti e strade in tempi straordinariamente brevi. La posizione geografica favorì i commerci, e presto Aral Maktar divenne il principale centro di scambio dell'intera regione nord-occidentale di Landmar, accogliendo viaggiatori, mercanti e pellegrini di ogni razza ed etnia.</p>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA IV -->
+<section id="era4" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">IV</div>
+    <div class="era-titles">
+      <span class="era-label">Quarta Era</span>
+      <h2 class="era-name">Il Nuovo Impero</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Non era l'Impero che avevamo perduto. Ma era l'Impero che avevamo saputo costruire. E forse questo, alla fine, valeva di più."<br><em>— iscrizione sulla Porta dei Fondatori, Aral Maktar</em></p>
+    <p class="drop-cap">Nei secoli che seguirono la fondazione, Aral Maktar divenne la capitale di quello che il suo popolo chiamò orgogliosamente il <strong>Nuovo Impero</strong> — erede morale, se non territoriale, dell'antico Impero Acheranide. La città era ormai il centro politico, commerciale e religioso di Landmar, sede delle istituzioni più antiche e prestigiose del continente.</p>
+    <p>Nel <strong>399 DE</strong> nacquero due istituzioni destinate a segnare per sempre la storia della città: la <em>G.Ar.Me.</em> — la Gilda delle Arti e dei Mestieri — e l'<em>A.S.I.A.</em>, l'Accademia di Storia Imperiale di Aral. La prima fu fondata per regolamentare il mercato, raccogliere i migliori artigiani di Landmar e garantire qualità e onestà nei commerci. La seconda nacque dalla volontà di recuperare le conoscenze perdute dell'Eliantir, tenere viva la memoria del Vecchio Impero e formare nuove generazioni di studiosi.</p>
+    <p>La città viveva di due anime in costante tensione: da un lato la <em>Città Bianca</em>, la maestosa fortezza sorvegliata dai <strong>Dragoni Imperiali</strong> e illuminata dal Culto di Alisard, simbolo dell'ordine e della fede imperiale; dall'altro la città portuale, con i suoi vicoli animati dalla comunità Halfling e i suoi moli carichi di merci, rumori e segreti. Luci e ombre, legge e compromesso, gloria e corruzione — Aral Maktar ha sempre contenuto entrambe, e da entrambe è stata plasmata.</p>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA V -->
+<section id="era5" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">V</div>
+    <div class="era-titles">
+      <span class="era-label">Quinta Era</span>
+      <h2 class="era-name">L'Era del Caos</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Il Caos non arrivò come un'armata. Arrivò come un dubbio. Come una crepa nel muro. Come una notte che non finiva mai."<br><em>— Commentari della Legge Vivente, libro delle Prove</em></p>
+    <p class="drop-cap">La <strong>Maledizione del Cerchio</strong> — evento catastrofico di natura arcana la cui origine è ancora oggetto di studio — sconvolse le fondamenta di Landmar. Le sue conseguenze si riversarono su Aral Maktar in ondate successive: guerre, epidemie, invasioni, e soprattutto una destabilizzazione politica che avrebbe messo alla prova ogni istituzione costruita nei secoli precedenti.</p>
+    <p>Le guerre orcesche lasciarono cicatrici profonde. Un'intera era fu segnata da assedi, incursioni e battaglie campali alle porte della città. La più cocente sconfitta fu quella in cui Aral Maktar cadde per la prima volta dall'interno, quando un'orda penetrò attraverso antichi condotti sotterranei, riversandosi per le strade e devastando i quartieri civili. Fu una ferita all'orgoglio imperiale che richiedrà generazioni per essere assorbita.</p>
+    <p>Ma la minaccia più oscura fu quella del <em>Varuna Nero</em> e del suo araldo <em>Goth-mog</em>, entità demoniache che orchestrarono la cosiddetta <strong>Guerra Nera</strong>. Goth-mog oscurò il cielo sull'intera isola di Landmar per giorni interi, alimentando le proprie forze con il sangue versato durante la battaglia. Solo il sacrificio eroico di Yashmak, Generale dei Dragoni, e l'intervento di forze che andavano oltre la comprensione mortale permisero di ribaltare le sorti dello scontro. Ma la vittoria costò cara, e il suo prezzo fu pagato per decenni.</p>
+    <p>A tutto questo si aggiunse la minaccia interna: reggenti corrotti, tiranni travestiti da governatori, fazioni in guerra tra loro. La scomparsa dell'Imperatore aprì un vuoto di potere che il reggente <em>Vagus</em> tentò di riempire con il pugno di ferro, scatenando una guerra civile repressa solo dall'intervento delle Legioni Atoriane. Fu in questo contesto che un uomo — giudice, fabbro e cercatore di verità — fu chiamato per la prima volta a governare la città in rovina.</p>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- ERA VI -->
+<section id="era6" class="era-section">
+  <div class="era-header reveal">
+    <div class="era-number">VI</div>
+    <div class="era-titles">
+      <span class="era-label">Sesta Era · Era Presente</span>
+      <h2 class="era-name">Il Regno di Aral</h2>
+      <div class="era-line"></div>
+    </div>
+  </div>
+  <div class="parchment-block reveal">
+    <p class="lead">"Né gli dèi né i demoni governano la Legge. Essa resta, finché resta chi la serve."<br><em>— Raziel Firelair, Governatore di Aral Maktar, 578 DE</em></p>
+    <p class="drop-cap">Quando l'Imperatore <em>Amshodaran</em> — soggiogato dalla succube <em>Sammirah</em> — pronunciò il suo ultimo decreto sciogliendo l'Impero e abbandonò le insegne imperiali, Aral rimase in piedi. La cittadella bruciava, le idre si riversavano dalle fogne, e il Governatore Raziel Firelair combatteva tra le rovine con i suoi Dragoni. Ma la città non cadde. E la Legge rimase.</p>
+    <p>Nel <strong>578 DE</strong>, dopo tre anni di transizione silenziosa, le assemblee cittadine, i giudici, i comandanti dei Dragoni e le corporazioni mercantili si riunirono nel <em>Foro di Alisard</em>. Per acclamazione, di fronte a migliaia di cittadini radunati nella piazza, fu proclamato il <strong>Regno di Aral</strong> — erede morale dell'Impero Acheranide, non per sangue né per conquista, ma per scelta. E fu proclamato il suo primo Re.</p>
+    <p>Raziel Firelair, già fabbro, guerriero, giudice e governatore, si presentò senza corone né gioielli. Solo il mantello bianco bordato d'oro dei governatori. Ricevette la corona come peso da sostenere, non come privilegio da esibire. Al momento dell'incoronazione rimase in silenzio più a lungo del consueto. Poi disse soltanto: <em>"Che la Legge regni, non l'uomo."</em></p>
+    <p>Oggi il Regno di Aral è il più influente centro culturale e commerciale di Landmar. La Biblioteca è aperta, i mercati prosperano, i Dragoni presidiano le frontiere. Le città di <em>Tyrion</em> e <em>Bran Ator</em> rimangono alleate sotto il patto della Legge Imperiale. Un giuramento inciso nel marmo del Foro di Alisard chiude questa storia — e ne apre un'altra: <em>"Finché vi sarà un uomo che difende la Legge, Aral non cadrà mai."</em></p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-title">Aral Maktar</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+  <p style="font-size:0.75rem; opacity:0.4; margin-top:0.5rem;">Questo sito è un omaggio alla città di Aral Maktar e al mondo di The Gate.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

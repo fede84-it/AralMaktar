@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Hero — Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --parchment: #f2e8c9;
+      --parchment-dark: #e0ccA0;
+      --ink: #2a1a0a;
+      --ink-light: #5c3d1e;
+      --ink-faded: #8b6340;
+      --gold: #c8972a;
+      --gold-light: #e8b84b;
+      --crimson: #7a1a1a;
+      --shadow: rgba(30,10,0,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #1a1008;
+      color: var(--ink);
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    /* ─── EMBER CANVAS ─── */
+    #ember-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    header > *:not(#ember-canvas):not(.scroll-hint) { position: relative; z-index: 2; }
+
+    /* ─── HEADER / HERO ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 25rem 2rem 3rem;
+      background:
+        linear-gradient(to bottom, rgba(10,5,0,0.3) 0%, rgba(26,16,8,0.5) 60%, rgba(26,16,8,1) 100%),
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,151,42,0.10) 0%, transparent 70%),
+        url('Immagini/Mattina.jpg') center center / cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero-subtitle-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-ornament {
+    }
+    .hero-ornament .ornament-anim {
+      animation: emblemReveal 1.8s cubic-bezier(.16,1,.3,1) both;
+    }
+    .hero-ornament img {
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 18px rgba(200,151,42,0.5));
+      animation: emblemPulse 4s ease-in-out infinite;
+      transition: filter 0.4s ease, transform 0.4s ease;
+      cursor: default;
+    }
+    .hero-ornament.left  img:hover { transform: scale(1.1); }
+    .hero-ornament.right img:hover { transform: scale(1.1); }
+    .hero-ornament img:hover {
+      filter: drop-shadow(0 0 32px rgba(232,184,75,0.85)) drop-shadow(0 0 12px rgba(200,151,42,0.6));
+    }
+
+    h1.city-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.8rem, 9vw, 6.5rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    .city-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--parchment-dark);
+      margin-top: 0.75rem;
+      opacity: 0.8;
+      letter-spacing: 0.15em;
+      animation: fadeIn 2s 0.8s ease both;
+    }
+
+    .hero-divider {
+      margin: 2.5rem auto;
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: fadeIn 2s 1s ease both;
+    }
+
+    .hero-intro {
+      max-width: 640px;
+      color: var(--parchment);
+      opacity: 0.75;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      animation: fadeIn 2s 1.2s ease both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      opacity: 0.5;
+      z-index: 2;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      animation: pulse 2.5s infinite;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes emblemReveal {
+      from { opacity: 0; transform: scale(0.7); filter: drop-shadow(0 0 0px rgba(200,151,42,0)); }
+      60%  { opacity: 1; transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(200,151,42,0.7)); }
+      to   { opacity: 1; transform: scale(1);    filter: drop-shadow(0 0 18px rgba(200,151,42,0.5)); }
+    }
+    @keyframes emblemPulse {
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(200,151,42,0.35)) drop-shadow(0 0 5px rgba(200,151,42,0.2)); }
+      50%      { filter: drop-shadow(0 0 24px rgba(232,184,75,0.55)) drop-shadow(0 0 10px rgba(200,151,42,0.4)); }
+    }
+
+    @keyframes heroReveal {
+      from { opacity: 0; transform: translateY(30px) scale(0.96); letter-spacing: 0.2em; }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 0.9; }
+    }
+
+    /* ─── TEST CONTROLS ─── */
+    .test-controls {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10000;
+      background: rgba(26,16,8,0.9);
+      border: 1px solid var(--gold);
+      padding: 0.8rem 1.2rem;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .test-controls .test-label {
+      text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .test-controls .test-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .test-controls button {
+      background: rgba(200,151,42,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .test-controls button:hover {
+      background: rgba(200,151,42,0.35);
+    }
+    .test-controls button.active {
+      background: var(--gold);
+      color: #1a0a00;
+    }
+  </style>
+</head>
+<body>
+
+<div class="test-controls">
+  <div class="test-label" id="test-info">Seleziona fascia oraria</div>
+  <div class="test-buttons">
+    <button onclick="setHero('Mattina')">Mattina</button>
+    <button onclick="setHero('Pomeriggio')">Pomeriggio</button>
+    <button onclick="setHero('Sera')">Sera</button>
+    <button onclick="setHero('Notte')">Notte</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header>
+  <canvas id="ember-canvas"></canvas>
+  <h1 class="city-name">Aral Maktar</h1>
+  <div class="hero-subtitle-row">
+    <div class="hero-ornament left"><div class="ornament-anim"><img src="Immagini/Icona_aral_sinistra.png" alt="Stemma di Aral Maktar"></div></div>
+    <p class="city-subtitle">La Capitale del Nuovo Impero</p>
+    <div class="hero-ornament right"><div class="ornament-anim"><img src="Immagini/Icona_aral_destra.png" alt="Stemma di Aral Maktar"></div></div>
+  </div>
+  <div class="hero-divider"></div>
+  <p class="hero-intro">
+    Fondata sulle ceneri di un esilio e cresciuta in secoli di fuoco e legge,
+    Aral Maktar è il cuore pulsante di Landmar — crocevia di razze e commerci,
+    culla di segreti antichi. Le sue torri toccano le nuvole e le sue radici affondano nell'oscurità.
+    Benvenuto, viandante. La Via di Alisard inizia qui.
+  </p>
+  <div class="scroll-hint">↓ &nbsp; scorri &nbsp; ↓</div>
+</header>
+
+<script>
+// ── MANUAL HERO BACKGROUND SWITCH ──
+function setHero(fascia) {
+  const header = document.querySelector('header');
+  const info = document.getElementById('test-info');
+  const img = 'Immagini/' + fascia + '.jpg';
+
+  header.style.background =
+    'linear-gradient(to bottom, rgba(10,5,0,0.3) 0%, rgba(26,16,8,0.5) 60%, rgba(26,16,8,1) 100%), ' +
+    'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,151,42,0.10) 0%, transparent 70%), ' +
+    "url('" + img + "') center center / cover no-repeat";
+
+  info.textContent = 'Fascia: ' + fascia;
+
+  document.querySelectorAll('.test-buttons button').forEach(function(btn) {
+    btn.classList.toggle('active', btn.textContent === fascia);
+  });
+}
+
+// ── EMBER PARTICLES ──
+(function() {
+  const canvas = document.getElementById('ember-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, embers = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function Ember() { this.reset(true); }
+
+  Ember.prototype.reset = function(init) {
+    this.x = Math.random() * W;
+    this.y = init ? Math.random() * H : H + 10;
+    this.size = Math.random() * 2.2 + 0.4;
+    this.speedY = Math.random() * 0.75 + 0.25;
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.opacity = Math.random() * 0.55 + 0.2;
+    this.life = init ? Math.floor(Math.random() * 280) : 0;
+    this.maxLife = Math.random() * 280 + 180;
+    this.flicker = Math.random() * Math.PI * 2;
+    this.flickerSpeed = 0.06 + Math.random() * 0.05;
+    this.waveAmp = 0.2 + Math.random() * 0.35;
+    this.waveFreq = 0.025 + Math.random() * 0.02;
+  };
+
+  Ember.prototype.update = function() {
+    this.y -= this.speedY;
+    this.x += this.speedX + Math.sin(this.life * this.waveFreq) * this.waveAmp;
+    this.life++;
+    this.flicker += this.flickerSpeed;
+    if (this.life > this.maxLife || this.y < -10) this.reset(false);
+  };
+
+  Ember.prototype.draw = function() {
+    const progress = this.life / this.maxLife;
+    const flicker  = 0.72 + 0.28 * Math.sin(this.flicker);
+    const alpha    = this.opacity * (1 - progress) * flicker;
+    const r        = this.size * (1 + 0.4 * flicker);
+
+    ctx.save();
+    ctx.globalAlpha = Math.min(alpha, 0.85);
+    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 2.2);
+    grad.addColorStop(0,   '#fff7c0');
+    grad.addColorStop(0.3, '#e8b84b');
+    grad.addColorStop(0.7, '#c8972a');
+    grad.addColorStop(1,   'rgba(180,80,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, r * 2.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  for (let i = 0; i < 55; i++) embers.push(new Ember());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    embers.forEach(e => { e.update(); e.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+</script>
+
+</body>
+</html>

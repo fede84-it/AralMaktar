@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Leggenda di Re Ektalis — Parte II — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Ektalis_sacrificio.jpg') center 40% / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    .hero-series { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.95rem; color: var(--parchment-dark); opacity: 0.6; margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.4s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.5rem, 5vw, 3.2rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .hero-part { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--parchment-dark); margin-top: 0.5rem; opacity: 0.7; position: relative; z-index: 2; animation: fadeIn 2s 0.8s ease both; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.95rem; color: var(--parchment-dark); margin-top: 0.6rem; opacity: 0.65; animation: fadeIn 2s 0.9s ease both; position: relative; z-index: 2; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+
+    .chapter-title { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); margin: 2rem 0 1rem; }
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    blockquote { border-left: 2px solid var(--gold); margin: 1.2rem 0 1.2rem 1.5rem; padding: 0.4em 0 0.4em 1.2em; font-style: italic; color: var(--ink-light); font-size: 1.02rem; line-height: 1.8; }
+    blockquote cite { display: block; margin-top: 0.4em; font-style: normal; font-size: 0.8rem; color: var(--gold); font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
+
+    .whisper { text-align: center; font-style: italic; font-size: 1.06rem; color: var(--ink-light); margin: 1.5rem 0 0.5rem; line-height: 1.8; }
+
+    .nav-parts { display: flex; justify-content: space-between; align-items: stretch; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .prev-part, .next-part { background: linear-gradient(135deg, rgba(242,232,201,0.95) 0%, rgba(220,198,148,0.9) 100%); border: 1px solid rgba(200,151,42,0.35); border-top: 3px solid var(--gold); border-radius: 2px; padding: 1.5rem 2rem; flex: 1; min-width: 200px; display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .prev-part { justify-content: flex-start; gap: 1rem; }
+    .prev-part:hover, .next-part:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .nav-part-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.3rem; }
+    .nav-part-title { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--crimson); }
+    .nav-part-arrow { font-size: 1.5rem; color: var(--gold); }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+
+    .back-link { display: block; text-align: center; margin-top: 2rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } .nav-parts { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Aral Maktar</a>
+  <a href="../cronache.html">Cronache di Aral</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Leggenda &nbsp;·&nbsp; Emer</span>
+  <p class="hero-series">Cronache dell'Emer</p>
+  <h1 class="story-title">La Leggenda di Re Ektalis</h1>
+  <p class="hero-part">Parte II — La Cerca e il Sacrificio</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="chapter-title">IV. La Guerra Civile e la Cerca</p>
+      <p class="drop-cap">Seguirono tempi oscuri. Scomparso il re, scoppiò la guerra civile — come sempre accade quando i potenti si combattono per l'ascesa al potere. Il paese fu messo a ferro e fuoco. Ma fra molti si levò un uomo che aveva combattuto al fianco del re: Dian Cet, primo generale di Ektalis. Fu lui a porre fine alla rivolta e a riportare la pace nel regno in lutto.</p>
+      <p>Quando il regno fu in pace, Dian Cet si sfilò dal dito un anello di minerale nero con una splendida pietra verde a forma di mezzaluna incastonata, lo diede al suo bambino, e senza girarsi uscì dalla porta di casa, cingendosi la grande spada intorno alla vita. Insieme agli eroi della leggenda — il biondo Manannan, il grande Fand, Feidelm cugino di Ektalis, e il saggio Innel — partì alla ricerca del re.</p>
+      <p>Partirono dalla casa di Feidelm, in una piccola città ancora in costruzione, e viaggiarono attraverso la grande pianura fino a giungere a un castello in rovina addossato alle montagne, che sembrava fondersi con esse. Attraverso gli interminabili corridoi del castello raggiunsero una caverna buia. Guidati dal saggio Innel la percorsero per intero — miglia e miglia nell'oscurità, superando frane e smottamenti. A tratti la grotta era ampia e regolare, a tratti stretta e informe. L'acqua infine la allagò, e gli uomini vi si immersero, riemergendo in un lago sull'altro lato delle montagne.</p>
+      <p>Giunsero così in una terra straniera, fino a una città lontana. In una disperata lotta notturna riuscirono a liberare il proprio re dalla prigione. I nemici erano alle loro calcagna: per preservare il segreto della via sotto la montagna decisero di scalare le vette e, attraverso alti passi, ritornarono a casa che l'inverno era già alle porte.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p class="chapter-title">V. La Valle del Lago di Cristallo</p>
+      <p class="drop-cap">Ma erano braccati. Per sfuggire al nemico si nascosero in una valle riparata tra le montagne orientali, dove un piccolo lago di cristallo specchiava il cielo. E là combatterono la loro ultima battaglia.</p>
+      <p>Il primo a cadere fu il grande Fand, che si lanciò davanti al sovrano per proteggerlo da una pioggia di frecce nere. Lo si vide rotolare lungo il costone roccioso mentre i nemici lo superavano, entrando in una stretta galleria. Grazie al suo sacrificio la compagnia riuscì a guadagnare la vallata.</p>
+      <p>All'interno scoppiò presto una cruenta battaglia: le lame saettavano veloci e i primi avversari caddero a terra morti. Ma poi la pressione del nemico si fece terribile e lo sbarramento cedette. I quattro amici si misero spalla contro spalla, formando un quadrato attorno al re. Ektalis si sentiva debole e provato per la lunga prigionia e combatteva con poco vigore.</p>
+      <p>Allora Innel pronunciò un sacro incantesimo e nelle mani di Ektalis comparve un'enorme spadone: una spada di strano metallo, l'elsa tempestata di gemme di straordinaria bellezza, la lama affilata come la luce del mattino. Ektalis baciò la lunga lama luccicante e sembrò che tutta la fatica accumulata nei mesi di prigionia svanisse, mentre un rinnovato vigore percorse il suo corpo.</p>
+      <p>I compagni combattevano al suo fianco e lo scontro sembrava potesse presto volgere a loro favore. Poi dalla galleria emerse una figura mostruosa rivestita di nera armatura. Il volto era grottesco, gli occhi erano fiamme, e lunghi canini — quasi zanne — si protendevano dalla sua bocca. Il mostro lanciò un urlo di battaglia e, brandendo una lunga spada rossa, si scagliò contro il re guerriero.</p>
+      <p>Ektalis calò un fendente tremendo contro di lui; la spada rossa parò il colpo e spezzò la lama del re. Ma il re non si perse d'animo. Il combattimento fu terribile, e Ektalis si ritrovò coperto da innumerevoli ferite. Brandendo allora la spada spezzata si gettò contro il suo avversario, colpendolo con un fendente formidabile.</p>
+      <p>Miracolo. Dove la lama si era spezzata una luce bianca aveva preso il suo posto. Tutta la lama brillò mentre attraversava il braccio del nemico, troncandolo di netto. Non il ferro, non l'acciaio potevano ferire quel corpo immortale — ma dalla luce degli Dei egli non poté difendersi.</p>
+      <p>La vittoria sembrava vicina. Ma dal moncherino del Dio Oscuro un fumo nero fuoriuscì, formando un mostruoso artiglio che si mosse veloce verso la gola di Ektalis. Fu Feidelm, cugino del re, a frapporsi. La mano mostruosa si strinse intorno al suo collo, spezzandolo, ed egli morente cadde a terra.</p>
+      <p>In preda alla rabbia Ektalis si scagliò contro il Dio Oscuro e ancora una volta la spada di luce colpì, trapassando la gorgiera e recidendo la carotide del nemico. Una nuvola nera uscì dal corpo del mostro, mentre gli ultimi seguaci si diedero alla fuga.</p>
+      <p>Ma Ektalis fu avvolto dal fumo nero e cadde a terra inginocchiato. Quella voce oscura urlò:</p>
+      <blockquote>
+        "Il Figlio della Notte non perderà! Vieni a me, mio Sire!"
+      </blockquote>
+      <p>Il re urlò per il dolore. Ma il suo orgoglio, la sua nobiltà e il suo coraggio ebbero la meglio sul Nemico. Per un attimo i suoi occhi divennero rossi, poi tornarono ad essere castani. Quando la nuvola si dissolse egli si rialzò, stanco e provato, e disse a voce bassa:</p>
+      <blockquote>
+        "Il Nemico è dentro di me. Non potrò resistere a lungo."
+      </blockquote>
+      <p>Si guardò intorno e indicò con le sue ultime forze il piccolo lago cristallino.</p>
+      <blockquote>
+        "Innel, nascondi il mio corpo nelle acque del Lago di Cristallo. Finché il mio corpo esiste, Egli è in trappola."
+      </blockquote>
+      <p>La limpida voce di Innel risuonò nell'aria, mentre una luce bianca avvolgeva il corpo del Re:</p>
+      <blockquote>
+        "Per tutto ciò che è sacro, io ti bandisco. Che la Sua morte sia la nostra vita!"
+        <cite>— Innel</cite>
+      </blockquote>
+      <p>Poi Ektalis crollò a terra mentre la vita lo abbandonava. I suoi Amici lo seppellirono con tutti gli onori nelle acque del Lago di Cristallo, e Innel prese la spada di luce, sottraendosi con essa alla vista degli uomini mortali.</p>
+      <p class="whisper"><em>"Ma il Cerchio non è chiuso."</em></p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine —</p>
+    </div>
+  </div>
+
+  <div class="nav-parts reveal">
+    <a href="racconto_ektalis_parte1.html" class="prev-part">
+      <span class="nav-part-arrow">←</span>
+      <div>
+        <span class="nav-part-label">Torna a</span>
+        <span class="nav-part-title">La Leggenda di Re Ektalis — Parte I</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Guardiani della Soglia — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Armand.jpg') center 35% / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: var(--parchment-dark); margin-top: 0.8rem; opacity: 0.7; animation: fadeIn 2s 0.8s ease both; position: relative; z-index: 2; }
+    .story-meta span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+    .story-text p.lapidary { font-family: 'Cinzel', serif; font-size: 0.95rem; letter-spacing: 0.06em; color: var(--crimson); text-align: center; margin: 1.8rem 0; font-style: normal; }
+
+    /* Iscrizione funeraria dei Tredici */
+    .inscription {
+      background: rgba(42,26,10,0.06);
+      border: 1px solid rgba(200,151,42,0.25);
+      border-top: 2px solid rgba(200,151,42,0.4);
+      border-bottom: 2px solid rgba(200,151,42,0.4);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .inscription-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.7; display: block; margin-bottom: 1rem; }
+    .inscription-names { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-light); font-size: 1rem; line-height: 2; }
+
+    /* Decreto finale in prosa */
+    .decree { background: rgba(42,26,10,0.04); border-left: 3px solid rgba(200,151,42,0.4); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+    .decree p { font-size: 1rem; color: var(--ink-light); margin-bottom: 0.8rem; font-style: italic; }
+    .decree p:last-child { margin-bottom: 0; }
+
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+    .story-end .end-author { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-faded); margin-top: 0.5rem; font-size: 0.95rem; }
+
+    .back-link { display: block; text-align: center; margin-top: 3.5rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Aral Maktar</a>
+  <a href="../cronache.html">Cronache di Aral</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Leggenda &nbsp;·&nbsp; Annali del Nuovo Impero</span>
+  <h1 class="story-title">I Guardiani della Soglia</h1>
+  <p class="story-meta">dagli <span>Annali del Nuovo Impero di Eliantir</span> — Libro II, Della Fondazione e del Sacrificio</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="drop-cap">Nel quinto anno successivo al Grande Esodo, sotto il regno di Sua Maestà Amshodaran I, Imperatore del Nuovo Impero di Eliantir, avvennero fatti di tale importanza da segnare in modo irrevocabile il destino della nostra gente. In quel tempo, le terre di Landmar erano ancora incerte e perigliose. Le legioni, da poco stanziate, erano impegnate nella difesa dei primi insediamenti e nella protezione del sito ritenuto sacro del Cerchio di Pietre, luogo legato alle visioni profetiche dell'Imperatore.</p>
+
+      <p>Nel mese del Disgelo, una forza ostile appartenente alle orde orchesche della Torma Wraxk mosse improvviso attacco contro il fortilizio eretto a difesa del suddetto sito. L'assalto, sebbene condotto da un numero limitato di nemici, fu di inaudita violenza e colse le nostre difese in un momento di relativa sicurezza, rivelatasi poi grave errore di valutazione.</p>
+
+      <p>Le difese esterne cedettero sotto l'urto iniziale: le palizzate furono infrante, le torri di guardia date alle fiamme e i portoni sventrati da arieti improvvisati. I corridoi interni divennero presto teatro di combattimenti serrati, ove piccoli gruppi di soldati furono costretti a opporsi all'avanzata nemica in spazi ristretti, pagando ogni passo con sangue e fatica.</p>
+
+      <p>Fu allora che il nemico, guidato dal capo torma Gorzak Tar-Bruk, riuscì a penetrare oltre le linee difensive, dirigendosi con feroce determinazione verso il cuore del fortilizio, ove si trovavano le stanze imperiali.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>In tale frangente si distinse sopra tutti <strong>Armand Dor Ionek</strong>, Capitano della Legione Aksakra, uomo di comprovato valore e disciplina, già noto per le sue capacità strategiche e per la sua incrollabile lealtà alla Corona. Radunati attorno a sé i pochi uomini ancora in grado di combattere, egli ordinò la ritirata verso l'interno — non per fuggire, ma per restringere il fronte e rallentare l'avanzata del nemico.</p>
+
+      <p>Con lui rimasero i suoi più fedeli legionari. I loro nomi sono oggi incisi nella pietra dei Nerocolli:</p>
+
+      <div class="inscription">
+        <span class="inscription-title">I Tredici della Legione Aksakra — Guardiani della Soglia</span>
+        <div class="inscription-names">
+          Zigleth Khimran &nbsp;·&nbsp; Hadan Pharanath &nbsp;·&nbsp; Munar Zadar<br>
+          Ganath Nate &nbsp;·&nbsp; Glirmiel Nilzadar &nbsp;·&nbsp; Tungrim Imar<br>
+          Marik Dor Ginnamar &nbsp;·&nbsp; Ulbarun Nar-Adar &nbsp;·&nbsp; Yazirik Tamrak<br>
+          Ogranil Tar-Abar &nbsp;·&nbsp; Belkhiran Dor Abeth &nbsp;·&nbsp; Alzar Imar<br>
+          Rinath Ar-Sakaman
+        </div>
+      </div>
+
+      <p class="lapidary">Nessuno di essi arretrò.</p>
+
+      <p>Essi si disposero lungo i corridoi interni come una barriera vivente, trasformando ogni passaggio in un campo di morte. Zigleth Khimran fu il primo a cadere, trafitto mentre difendeva un varco secondario. Hadan Pharanath combatté fino a quando il suo scudo non si spezzò tra le mani. Munar Zadar e Ganath Nate resistettero fianco a fianco, cedendo solo quando sopraffatti dal numero.</p>
+
+      <p>Glirmiel Nilzadar e Tungrim Imar mantennero una posizione avanzata più a lungo di quanto fosse ritenuto possibile, rallentando l'avanzata nemica e concedendo tempo prezioso ai compagni. Marik Dor Ginnamar e Ulbarun Nar-Adar caddero proteggendo la ritirata verso le stanze interne, mentre Yazirik Tamrak e Ogranil Tar-Abar opposero un'ultima difesa disperata presso l'ultimo corridoio. Belkhiran Dor Abeth, Alzar Imar e Rinath Ar-Sakaman furono gli ultimi a cadere prima che il nemico giungesse dinanzi al loro Capitano.</p>
+
+      <p>Così, uno dopo l'altro, i Tredici della Aksakra sacrificarono la propria vita affinché la linea non cedesse.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>Infine, Armand Dor Ionek rimase solo. Già ferito in più parti del corpo, con l'armatura segnata dai colpi e il respiro affannoso, egli si pose quale ultimo baluardo dinanzi all'accesso delle stanze imperiali. Non vi fu esitazione in lui, né volontà di ritirarsi.</p>
+
+      <p>Quando Gorzak Tar-Bruk lo raggiunse, lo scontro ebbe inizio. Il capo torma, armato di una pesante mazza da guerra, sferrò colpi di tale violenza da scuotere le strutture stesse del fortilizio. Il Capitano oppose a tali assalti la propria lama e il proprio scudo, deviando e contenendo ogni impatto con disciplina e misura, pur arretrando di pochi passi sotto la forza dell'avversario.</p>
+
+      <p>Colpito, ferito e infine privato dello scudo, egli continuò a combattere con la sola spada impugnata a due mani. Ogni colpo che sferrava non era volto alla vittoria, ma al tempo: tempo guadagnato, istante dopo istante, per permettere all'Imperatore di fuggire.</p>
+
+      <p>Tale intento fu compiuto. Mentre lo scontro infuriava, le guardie imperiali riuscirono a evacuare Sua Maestà attraverso i passaggi interni del fortilizio, allontanandolo definitivamente dal pericolo immediato.</p>
+
+      <p>Rimasto solo, ormai allo stremo delle forze, il Capitano Armand Dor Ionek sostenne l'ultimo assalto. Il colpo che lo abbatté fu mortale. Eppure, anche nella caduta, il suo corpo rimase a ostacolare il passaggio — come se la volontà stessa del Capitano si fosse rifiutata di cedere. Si narra che Gorzak Tar-Bruk dovette spingerlo via con la forza per oltrepassare la soglia. E quando infine avanzò, le stanze imperiali erano già vuote. Il silenzio che lo accolse fu la risposta del Capitano.</p>
+
+      <p class="lapidary">Il sacrificio era compiuto.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>Per diretto volere di Sua Maestà, il Capitano Armand Dor Ionek fu onorato quale Eroe del Nuovo Impero e i Tredici della Legione Aksakra proclamati <em>Guardiani della Soglia</em>. Le loro spoglie furono tumulate con onori straordinari nel complesso funerario edificato con il contributo degli alleati nani, noto oggi come i <strong>Nerocolli</strong> — sito consacrato quale memoria imperiale e ultima dimora degli eroi caduti durante i primi anni della fondazione. La Legione Aksakra fu elevata al rango di guardia personale dell'Imperatore, assumendo in seguito il nome di <strong>Guardie Nere</strong>.</p>
+
+      <p>Là, nelle profondità della pietra, i loro nomi non conoscono oblio.</p>
+
+      <p>Così fu preservato l'Impero. Così ebbe inizio la sua ascesa.</p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine —</p>
+      <p class="end-author">dagli Annali del Nuovo Impero di Eliantir, Libro II</p>
+    </div>
+  </div>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

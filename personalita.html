@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Consiglio Cittadino di Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    /* NAV */
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    /* HERO */
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh; background:
+        linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%),
+        url('Immagini/Consiglio.jpg') center center / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.8rem; letter-spacing: 0.5em; margin-bottom: 1.5rem; animation: fadeIn 2s ease both; }
+    h1.page-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 7vw, 4.5rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.15; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; }
+    .hero-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: clamp(0.95rem, 2vw, 1.25rem); color: var(--parchment-dark); margin-top: 0.75rem; opacity: 0.75; letter-spacing: 0.1em; animation: fadeIn 2s 0.8s ease both; }
+    .hero-divider { margin: 2rem auto; width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    /* SECTION */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.75rem; }
+    h2 { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 400; color: var(--parchment); line-height: 1.3; text-shadow: 0 2px 20px rgba(200,151,42,0.2); }
+    .ornament-line { margin: 1.5rem auto 0; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .section-divider { text-align: center; color: var(--gold); opacity: 0.35; font-size: 1.2rem; letter-spacing: 1rem; padding: 1rem 0; }
+
+    /* PERSONALITIES GRID */
+    .personalities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
+
+    /* PERSONALITY CARD */
+    .personality-card { background: linear-gradient(160deg, rgba(242,232,201,0.97) 0%, rgba(220,198,148,0.92) 100%); border: 1px solid rgba(200,151,42,0.35); border-top: 3px solid var(--gold); border-radius: 2px; padding: 0; overflow: hidden; box-shadow: 0 4px 30px rgba(0,0,0,0.45); transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s, border-color 0.4s; position: relative; }
+    .personality-card:hover { transform: translateY(-7px); box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 40px rgba(200,151,42,0.22); border-color: rgba(200,151,42,0.8); }
+
+
+    /* Featured card (Raziel) */
+    .personality-card.featured { border-top: 3px solid var(--gold-light); grid-column: 1 / -1; display: grid; grid-template-columns: 260px 1fr; }
+    @media (max-width: 680px) { .personality-card.featured { grid-template-columns: 1fr; } }
+
+    .card-portrait { background: linear-gradient(180deg, rgba(200,151,42,0.08) 0%, transparent 100%); padding: 2rem 1.5rem; text-align: center; border-right: 1px solid rgba(200,151,42,0.2); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+    .personality-card:not(.featured) .card-portrait { border-right: none; border-bottom: 1px solid rgba(200,151,42,0.2); padding: 1.8rem 1.5rem 1.2rem; }
+
+    .portrait-img { width: 140px; height: 140px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(200,151,42,0.4); box-shadow: 0 4px 16px rgba(0,0,0,0.4); margin-bottom: 1rem; transition: box-shadow 0.4s, transform 0.4s cubic-bezier(.16,1,.3,1); }
+    .personality-card:hover .portrait-img { transform: scale(1.06); box-shadow: 0 0 0 2px var(--gold), 0 0 28px rgba(200,151,42,0.55), 0 8px 24px rgba(0,0,0,0.5); }
+    .portrait-placeholder { width: 140px; height: 140px; border-radius: 2px; border: 1px solid rgba(200,151,42,0.3); background: linear-gradient(135deg, rgba(200,151,42,0.08) 0%, rgba(200,151,42,0.04) 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem; margin-bottom: 1rem; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+    .personality-card:not(.featured) .portrait-placeholder { width: 100px; height: 100px; font-size: 3rem; }
+    .personality-card:not(.featured) .portrait-img { width: 100px; height: 100px; }
+
+    .card-name { font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 600; color: var(--crimson); letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .featured .card-name { font-size: 1.2rem; }
+    .card-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .card-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 1rem; }
+
+    .card-stats { width: 100%; text-align: left; }
+    .card-stat { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--ink); padding: 0.28rem 0; border-bottom: 1px solid rgba(200,151,42,0.18); }
+    .card-stat:last-child { border-bottom: none; }
+    .card-stat span:first-child { font-family: 'Cinzel', serif; color: var(--ink-faded); letter-spacing: 0.03em; }
+    .card-stat span:last-child { font-weight: 600; text-align: right; }
+
+    .card-body { padding: 2rem 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+    .personality-card:not(.featured) .card-body { padding: 1.5rem 1.8rem; }
+
+    .card-body .lead { font-style: italic; font-size: 1rem; color: var(--ink-light); border-left: 3px solid var(--gold); padding-left: 1rem; margin-bottom: 1.4rem; line-height: 1.7; text-shadow: none; transition: color 0.4s, border-color 0.4s, transform 0.4s cubic-bezier(.16,1,.3,1), text-shadow 0.4s; }
+    .personality-card:hover .card-body .lead { color: #5a0a0a; border-color: var(--gold-light); transform: translateY(-3px); text-shadow: 0 0 1px #5a0a0a, 0 0 1px #5a0a0a; }
+    .card-body p { font-size: 0.97rem; color: var(--ink); margin-bottom: 1rem; line-height: 1.7; }
+    .card-body p:last-child { margin-bottom: 0; }
+    .personality-card:not(.featured) .card-body p { font-size: 0.92rem; }
+    .personality-card:not(.featured) .card-body .lead { font-size: 0.92rem; margin-bottom: 1rem; transition: color 0.4s, border-color 0.4s, transform 0.4s cubic-bezier(.16,1,.3,1), font-size 0.4s cubic-bezier(.16,1,.3,1); }
+    .personality-card:not(.featured).hovered .card-body .lead { color: #5a0a0a !important; border-color: var(--gold-light) !important; transform: translateY(-3px) !important; text-shadow: 0 0 1px #5a0a0a, 0 0 1px #5a0a0a !important; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    /* ─── FONT & DROP CAP ─── */
+    @font-face {
+      font-family: 'GoudyInitialen';
+      src: url('Font/GoudyInitialen.ttf') format('truetype');
+      font-weight: normal; font-style: normal;
+    }
+    .drop-cap::first-letter {
+      font-family: 'GoudyInitialen', 'Cinzel Decorative', serif;
+      font-size: 4.2em;
+      line-height: 0.82;
+      float: left;
+      margin-top: 0.04em;
+      margin-right: 0.08em;
+      margin-bottom: -0.06em;
+      color: var(--crimson);
+      text-shadow: 1px 2px 6px rgba(200,151,42,0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      nav a { padding: 0.9rem 1rem; font-size: 0.7rem; letter-spacing: 0.1em; }
+      .personalities-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">← Aral Maktar</a>
+  <a href="#sovrano">Il Sovrano</a>
+  <a href="#figure">I Consiglieri</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <h1 class="page-title">Il Consiglio Cittadino</h1>
+  <p class="hero-sub">Il Re e i suoi Consiglieri</p>
+  <div class="hero-divider"></div>
+</header>
+
+<!-- IL SOVRANO -->
+<section id="sovrano">
+  <div class="section-header reveal">
+    <span class="section-label">Il Sovrano</span>
+    <h2>Il Re di Aral Maktar</h2>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="personalities-grid">
+    <div class="personality-card featured reveal">
+      <div class="card-portrait">
+        <img src="Immagini/raziel.jpg" alt="Raziel Firelair" class="portrait-img">
+        <div class="card-name">Raziel Firelair</div>
+        <div class="card-title">Re di Aral Maktar</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Nato nel</span><span>400 DE</span></div>
+          <div class="card-stat"><span>Gov. di Aral</span><span>528–578 DE</span></div>
+          <div class="card-stat"><span>Re di Aral</span><span>578 DE</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"Che la Legge regni, non l'uomo."<br><em>— al momento dell'incoronazione, 578 DE</em></p>
+        <p class="drop-cap">Nato nell'anno <strong>400 DE</strong> nelle campagne intorno ad Aral Maktar, Raziel Firelair visse una notte di terrore che lo privò della famiglia e lo segnò per sempre — lasciandogli sul braccio destro la cicatrice di un artiglio demoniaco. Giunto esausto alle porte della capitale, fu accolto da un fabbro che lo allevò come figlio. Nella fucina imparò a forgiare ferro e volontà, a leggere le leggi, a cercare la verità.</p>
+        <p>Partito per <em>Bran Ator</em>, divenne prima fabbro d'armi per le Legioni, poi <strong>Giudice Supremo</strong> della città. Nel <strong>423 DE</strong> contribuì alla stesura del <em>Codice delle Leggi Imperiali</em> — ancora oggi considerato uno dei pilastri della civiltà di Landmar.</p>
+        <p>Per decenni percorse Landmar alla ricerca della verità sulla distruzione della sua famiglia, affrontando emanazioni del Caos e comprendendo che il male non si distrugge, si contiene. Governatore di Aral dal <strong>528 al 578 DE</strong>, guidò le Legioni imperiali nella <em>Guerra dell'Orda Nera</em> contro Azog; affrontò i Templari corrotti di Gojir di Mezzaluna; resistette all'oscuramento dell'Imperatore Amshodaran. Nel <strong>578 DE</strong>, per acclamazione nel Foro di Alisard, fu proclamato <strong>Re di Aral</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+<!-- FIGURE DI RILIEVO -->
+<section id="figure">
+  <div class="section-header reveal">
+    <span class="section-label">I Consiglieri</span>
+    <h2>I Pilastri del Regno</h2>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="personalities-grid">
+
+    <!-- LOU -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Lou.jpg" alt="Lou Sol'Ek" class="portrait-img">
+        <div class="card-name">Lou Sol'Ek</div>
+        <div class="card-title">Generale dei Dragoni Imperiali</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Grado</span><span>Generale</span></div>
+          <div class="card-stat"><span>Ordine</span><span>Dragoni Imperiali</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"Un esercito senza disciplina è solo una folla armata. E le folle non difendono le città."</p>
+        <p class="drop-cap">Lou ha scalato i ranghi dei Dragoni Imperiali con una carriera che molti considerano il modello di ciò che l'Ordine dovrebbe rappresentare: rigore, lealtà e la capacità di mantenere la testa fredda quando il ferro canta. Nominato Generale per volontà diretta del Re, sovrintende all'organizzazione militare di Aral Maktar e alla difesa delle sue frontiere.</p>
+        <p>Uomo di poche parole e molti fatti, Lou è noto per condurre ispezioni senza preavviso e per pretendere dagli ufficiali lo stesso livello di preparazione che chiede alle reclute. I soldati lo temono e lo rispettano in egual misura — il segno, si dice ad Aral, di un buon comandante.</p>
+      </div>
+    </div>
+
+    <!-- GALYN -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Galyn.jpg" alt="Galyn" class="portrait-img">
+        <div class="card-name">Galyn</div>
+        <div class="card-title">Presidente della Garme</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Ruolo</span><span>Presidente</span></div>
+          <div class="card-stat"><span>Istituzione</span><span>La Garme</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"La Garme non è un peso sul commercio. È la garanzia che il commercio valga qualcosa."</p>
+        <p class="drop-cap">Galyn presiede la Garme — l'organo preposto alla regolamentazione e alla tassazione dei traffici commerciali di Aral Maktar — con la precisione di un orologiaio e la fermezza di un giudice. Sotto la sua guida, la Garme è diventata una delle istituzioni più temute e rispettate della capitale.</p>
+        <p>Diplomatico per natura ma inflessibile nei principi, Galyn è riuscito nell'impresa difficile di guadagnarsi la fiducia tanto del Re quanto dei mercanti, pur non cedendo mai a favoritismi. Il suo ufficio è aperto ogni mattina all'alba e chiude dopo il tramonto: un'abitudine, si dice, che ha adottato il primo giorno di mandato e non ha mai abbandonato.</p>
+      </div>
+    </div>
+
+    <!-- VALURD -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Valurd.jpg" alt="Valurd" class="portrait-img">
+        <div class="card-name">Valurd</div>
+        <div class="card-title">Amministratore della Garme</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Ruolo</span><span>Amministratore</span></div>
+          <div class="card-stat"><span>Istituzione</span><span>La Garme</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"Se i numeri non tornano, c'è qualcuno che li ha fatti tornare. Troverò chi."</p>
+        <p class="drop-cap">Valurd è il meccanismo interno della Garme: gestisce archivi, registri e verifiche con una meticolosità che i suoi collaboratori definiscono — a seconda del momento — ammirevole o estenuante. Nessun documento che passi per la Garme sfugge alla sua revisione, e nessuna discrepanza nei conti rimane irrisolta a lungo.</p>
+        <p>La sua fama di incorruttibilità lo ha reso inviso a più di un mercante disonesto e prezioso per il Re. Valurd non cerca onori né visibilità, ma chi conosce il funzionamento di Aral Maktar sa che senza di lui l'intera macchina amministrativa della Garme si incepperebbe nel giro di una settimana.</p>
+      </div>
+    </div>
+
+    <!-- LORAINE -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Loraine.jpg" alt="Lady Loraine Kora" class="portrait-img">
+        <div class="card-name">Lady Loraine Kora</div>
+        <div class="card-title">Rettrice dell'Accademia</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Ruolo</span><span>Rettrice</span></div>
+          <div class="card-stat"><span>Istituzione</span><span>Accademia delle Arti e delle Scienze</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"Il sapere perduto non torna da solo. Va cercato, copiato, tradotto e custodito. Generazione dopo generazione."</p>
+        <p class="drop-cap">Loraine guida l'Accademia delle Arti e delle Scienze di Aral Maktar con la stessa dedizione con cui un tempo ne era semplice studiosa. Arrivata giovane alla Biblioteca di Aral per studiare i testi superstiti dell'Impero Acheranide, vi rimase — prima come copista, poi come docente, infine come Rettrice.</p>
+        <p>Sotto la sua direzione, l'Accademia ha accolto studiosi da ogni angolo di Landmar, avviato scambi di manoscritti con le biblioteche di Bran Ator e Tyrion, e inaugurato il nuovo osservatorio astronomico. Loraine è anche nota per la sua corrispondenza con il Re, cui offre consulenza storica e diplomatica in materia di tradizioni eliantiriane.</p>
+      </div>
+    </div>
+
+    <!-- TAYCOM -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Taycom.jpg" alt="Taycom Vismok" class="portrait-img">
+        <div class="card-name">Taycom Vismok</div>
+        <div class="card-title">Presidente della Gilda del Sole</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Ruolo</span><span>Presidente</span></div>
+          <div class="card-stat"><span>Istituzione</span><span>Gilda del Sole</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"Chi nutre la città ha il diritto di sedersi al tavolo dove si decide il suo destino."</p>
+        <p class="drop-cap">Taycom è cresciuto tra i campi che circondano Aral Maktar, figlio di agricoltori che per generazioni hanno coltivato le fertili pianure attorno alla capitale. Ha imparato il mestiere dalla terra prima che dai libri, e questa concretezza si riflette nel modo in cui presiede la Gilda del Sole: con i piedi ben piantati a terra e la voce ferma.</p>
+        <p>Negoziatore tenace, Taycom ha ottenuto dalla Corona importanti tutele per i membri della Gilda, tra cui la riduzione delle tasse sui prodotti agricoli nei periodi di carestia e il riconoscimento ufficiale degli alchimisti come categoria protetta. È benvoluto tanto dai locandieri quanto dai contadini — impresa non semplice, considerata la rivalità storica tra le due categorie.</p>
+      </div>
+    </div>
+
+    <!-- THERIDION -->
+    <div class="personality-card reveal">
+      <div class="card-portrait">
+        <img src="Immagini/Theridion.jpg" alt="Theridion Dor Ionek" class="portrait-img">
+        <div class="card-name">Theridion Dor Ionek</div>
+        <div class="card-title">Ministro della Guerra</div>
+        <div class="card-divider"></div>
+        <div class="card-stats">
+          <div class="card-stat"><span>Ruolo</span><span>Ministro</span></div>
+          <div class="card-stat"><span>Incarico</span><span>Ministero della Guerra</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="lead">"La pace non si mantiene pregando. Si mantiene facendo sì che nessuno voglia rompere quel che ci ha costato così caro costruire."</p>
+        <p class="drop-cap">Theridion è il consigliere militare più anziano della corte di Aral Maktar. Veterano di campagne che molti preferirebbero dimenticare, porta sul corpo e nell'anima i segni di decenni passati a difendere i confini del regno. La sua nomina a Ministro della Guerra è stata accolta con sollievo dai comandanti sul campo e con qualche apprensione dai diplomatici.</p>
+        <p>Uomo di strategia tanto quanto di battaglia, Theridion sa quando conviene negoziare e quando è necessario combattere — e soprattutto sa che la differenza tra le due situazioni non è sempre ovvia. Lavora a stretto contatto con il Generale Lou Sol'Ek per coordinare le operazioni dei Dragoni, e con il Re per definire la politica di difesa del regno.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <p class="footer-title">Aral Maktar</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+  <p style="font-size:0.75rem; opacity:0.4;">Questo sito è un omaggio alla città di Aral Maktar e al mondo di The Gate.</p>
+</footer>
+
+<script>
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Reveal quote su schede non-featured
+  document.querySelectorAll('.personality-card:not(.featured)').forEach(card => {
+    card.addEventListener('mouseenter', () => card.classList.add('hovered'));
+    card.addEventListener('mouseleave', () => card.classList.remove('hovered'));
+  });
+
+</script>
+
+</body>
+</html>

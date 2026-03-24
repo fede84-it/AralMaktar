@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Leggenda di Re Ektalis — Parte I — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Ektalis_trionfo.jpg') center 40% / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    .hero-series { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.95rem; color: var(--parchment-dark); opacity: 0.6; margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.4s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.5rem, 5vw, 3.2rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .hero-part { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--parchment-dark); margin-top: 0.5rem; opacity: 0.7; position: relative; z-index: 2; animation: fadeIn 2s 0.8s ease both; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.95rem; color: var(--parchment-dark); margin-top: 0.6rem; opacity: 0.65; animation: fadeIn 2s 0.9s ease both; position: relative; z-index: 2; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+
+    .chapter-title { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--crimson); margin: 2rem 0 1rem; }
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    blockquote { border-left: 2px solid var(--gold); margin: 1.2rem 0 1.2rem 1.5rem; padding: 0.4em 0 0.4em 1.2em; font-style: italic; color: var(--ink-light); font-size: 1.02rem; line-height: 1.8; }
+    blockquote cite { display: block; margin-top: 0.4em; font-style: normal; font-size: 0.8rem; color: var(--gold); font-family: 'Cinzel', serif; letter-spacing: 0.08em; }
+
+    .cliffhanger { text-align: center; font-style: italic; font-size: 1.06rem; color: var(--ink-light); margin: 1.5rem 0 0.5rem; line-height: 1.8; }
+
+    .next-part { background: linear-gradient(135deg, rgba(242,232,201,0.95) 0%, rgba(220,198,148,0.9) 100%); border: 1px solid rgba(200,151,42,0.35); border-top: 3px solid var(--gold); border-radius: 2px; padding: 1.5rem 2rem; margin-top: 2.5rem; display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .next-part:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .next-part-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.3rem; }
+    .next-part-title { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--crimson); }
+    .next-part-arrow { font-size: 1.5rem; color: var(--gold); }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+
+    .back-link { display: block; text-align: center; margin-top: 2rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Aral Maktar</a>
+  <a href="../cronache.html">Cronache di Aral</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Leggenda &nbsp;·&nbsp; Emer</span>
+  <p class="hero-series">Cronache dell'Emer</p>
+  <h1 class="story-title">La Leggenda di Re Ektalis</h1>
+  <p class="hero-part">Parte I — La Gloria e il Tradimento</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="chapter-title">I. Prologo</p>
+      <p class="drop-cap">In un'epoca lontana, quando la terra dell'Emer aveva appena conosciuto la pace dopo anni di guerre, regnava un uomo la cui storia sarebbe rimasta viva nei secoli. Si chiamava Ektalis, e quella che segue è la leggenda di come egli diede la propria vita per la salvezza del suo popolo, e di come i suoi Amici lottarono per la Causa fino alla fine.</p>
+      <p>È una storia di eroi, di battaglie, di morte e di sangue. Ma è anche una storia di uomini coraggiosi e forti, e di come il sacrificio di uno solo possa reggere le sorti di un intero regno.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p class="chapter-title">II. La Battaglia della Valle</p>
+      <p class="drop-cap">Immaginate una piccola valle gremita di uomini armati: tutti in piedi, in silenzio, gli occhi fissi su uno sparuto gruppo di cavalieri che avanzava verso il centro della formazione. I loro visi erano seri e tirati. Nessuno osava fiatare.</p>
+      <p>In mezzo a loro, alto di spalle e stretto di fianchi, con braccia abbronzate e segnate da molte cicatrici, avanzava un uomo dal volto squadrato e avvenente, gli occhi tanto scuri da sembrare neri. Una folta chioma nera gli circondava il capo e indossava una splendida armatura luccicante. Quando sollevò una mano, anche gli ultimi sussurri scomparvero e la tensione divenne palpabile come l'aria prima di un temporale.</p>
+      <p>La sua voce si udì ovunque, calda e carica di potere:</p>
+      <blockquote>
+        "Amici, dopo anni di guerre la nostra terra ha conosciuto la pace. I nostri figli crescono nella serenità ed il contadino miete i suoi raccolti. Oggi un nemico crudele avanza e distrugge tutto ciò che incontra. Oggi combatteremo e lo sconfiggeremo, ricacciandolo oltre le montagne. Combatteremo per la nostra terra, le nostre case, le nostre donne ed i nostri figli. Combatteremo insieme ed insieme vinceremo!"
+        <cite>— Ektalis, Re dell'Emer</cite>
+      </blockquote>
+      <p>Così dicendo estrasse un grande spadone e lo levò al cielo impugnandolo con una sola mano. Migliaia di spade si sollevarono di rimando verso il cielo e da migliaia di gole un solo nome si levò come un ruggito: <em>Ektalis! Ektalis Re!</em></p>
+      <p>Dal suo stallone — un enorme cavallo nero — il re si rivolse ai capitani con voce ferma:</p>
+      <blockquote>
+        "Sapete tutti cosa fare e non c'è bisogno che ve lo ripeta. Dobbiamo schiacciarli prima che si riversino sulla piana. Ricordate che il re combatte al vostro fianco!"
+      </blockquote>
+      <p>Intorno a loro iniziò un'attività frenetica: soldati che si disponevano in formazioni ordinate, cavalli che nitrivano sotto i cavalieri impazienti, ordini che si spandevano lungo le file come un'eco. Migliaia di uomini si mossero verso la stretta gola dove stava passando la lunga colonna nemica.</p>
+      <p>La cavalleria guidata da Ektalis puntava dritta verso la sinistra del nemico, quattrocento cavalieri che sollevavano nuvole soffocanti di polvere. Ma quando ormai gli avversari stavano sollevando gli scudi per ricevere l'impatto della carica, Ektalis tirò le redini e fece voltare il suo stallone. Alle sue spalle la cavalleria dell'Emer cambiò a sua volta direzione, deviando verso i seicento cavalieri nemici che attendevano al centro dello schieramento avversario.</p>
+      <p>Il re abbassò la lancia e la puntò contro un ufficiale dal lungo mantello rosso. Troppo tardi il nemico si rese conto di essere il bersaglio della prima carica. Ormai la cavalleria di Ektalis era loro addosso, travolgendo tutto con selvagge urla di battaglia, gettando di sella gli avversari con le lance e seminando il panico nelle file dei cavalieri. La cavalleria nemica fu costretta a indietreggiare fra le linee degli arcieri e dei frombolieri che, privi di armatura, cominciarono a cadere sotto gli zoccoli dei cavalli in preda al panico. Il centro dello schieramento crollò nella confusione totale.</p>
+      <p>Dai boschi vicini emersero allora le riserve dell'Emer, che si gettarono a capofila della carica. <em>Morte! Morte!</em> ruggì l'esercito, e la fanteria si abbatté sullo schieramento frontale del nemico come un'ascia in un pezzo di legno.</p>
+      <p>Poi iniziò la carneficina. Ektalis cavalcò verso il re nemico e lo uccise in duello. Quando questi cadde, il centro avversario cedette di schianto. La furia della battaglia cominciò ad affievolirsi: gruppi isolati vennero circondati e distrutti, e solo uno sparuto gruppo di nemici riuscì a fuggire nella pianura, portando con sé il corpo del loro re caduto.</p>
+      <p>La battaglia era finita. L'Emer aveva vinto.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p class="chapter-title">III. Il Tradimento</p>
+      <p class="drop-cap">Era sera, e nell'accampamento in festa alcuni uomini uscivano da una grande tenda. Uno di essi si voltò verso il re con rispetto:</p>
+      <blockquote>
+        "Mio re, anche se sei il più grande generale dei nostri tempi, devi riposare! Altre fatiche ci attendono domani!"
+      </blockquote>
+      <p>Passarono solo pochi istanti, quando nel buio della notte alcune guardie barcollarono per un istante e nei loro occhi brillò una strana luce. Entrarono nella tenda senza produrre alcun rumore. Mani crudeli afferrarono il sovrano addormentato, gettandolo a terra e coprendogli la bocca. Nella mano di uno degli uomini comparve un lungo pugnale seghettato dalla lama nera, e lentamente questi lo affondò nel cuore del sovrano.</p>
+      <p>La scena rallentò sempre più, fino a fermarsi del tutto. Intorno regnava il silenzio assoluto. Lentamente qualcosa emerse dal corpo di Ektalis: una figura eterea, un uomo alto e muscoloso il cui corpo risplendeva di luce dorata. Mentre emergeva, si girò lentamente. Dietro di lui una nuvola nera fuoriusciva dalla bocca del suo assassino.</p>
+      <p>Lo spirito di Ektalis aprì le labbra e parole di fuoco si formarono nell'aria:</p>
+      <blockquote>
+        "Aiuta la mia terra."
+      </blockquote>
+      <p>Un urlo di rabbia ruppe il silenzio eterno, e la nebbia assunse le fattezze di un volto mostruoso che urlava: <em>"Chi sei maledetto? Chi sei?"</em></p>
+      <p>La scena riprese a scorrere. Il pugnale venne estratto dal corpo di Ektalis. La nuvola nera si dissolse e uno degli assassini si accasciò a terra. Gli altri afferrarono il corpo del re e lo caricarono su un cavallo, fuggendo nella notte.</p>
+      <p class="cliffhanger">Il corpo di Ektalis non fu mai trovato.</p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine della Parte I —</p>
+    </div>
+  </div>
+
+  <a href="racconto_ektalis_parte2.html" class="next-part reveal">
+    <div>
+      <span class="next-part-label">Continua con</span>
+      <span class="next-part-title">La Leggenda di Re Ektalis — Parte II</span>
+    </div>
+    <span class="next-part-arrow">→</span>
+  </a>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

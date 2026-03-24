@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Un Nuovo Inizio per Aral — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Nuovo_inizio.jpg') center 35% / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: var(--parchment-dark); margin-top: 0.8rem; opacity: 0.7; animation: fadeIn 2s 0.8s ease both; position: relative; z-index: 2; }
+    .story-meta span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+    .story-text p.thought { font-style: italic; color: var(--ink-light); border-left: 2px solid rgba(200,151,42,0.4); padding-left: 1rem; margin-left: 0.5rem; }
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+    .story-end .end-author { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-faded); margin-top: 0.5rem; font-size: 0.95rem; }
+
+    .back-link { display: block; text-align: center; margin-top: 3.5rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+
+    footer { text-align: center; padding: 3rem 2rem; background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Aral Maktar</a>
+  <a href="../cronache.html">Cronache di Aral</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Intrigo &nbsp;·&nbsp; Porte di Aral Maktar</span>
+  <h1 class="story-title">Un Nuovo Inizio per Aral</h1>
+  <p class="story-meta">dalle <span>Cronache di Aral Maktar</span> — Anno 528 DE, diciottesimo giorno del Mese della Fertilità</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="drop-cap">La sera era mite e una leggera brezza soffiava da est quando la gran parte della popolazione di Aral Maktar si radunò alle porte della città. I pochi Dragoni Imperiali rimasti in servizio erano presenti tra i cittadini, a dare voce ai malcontenti che da mesi covavano sotto la cenere. Il Capitano Dresan guidava i suoi uomini con la stessa fermezza con cui li aveva sempre guidati — ma quella sera la fermezza era rivolta contro il palazzo, non a sua difesa.</p>
+
+      <p>Quando Lord Gamled Alart si presentò alla folla, il Capitano Dresan lo affrontò senza esitazioni. Elencò con voce ferma le mancanze del suo governo: due anni di paralisi, di diffidenza, di incapacità a reggere le redini di una capitale che aveva bisogno di guida. Il culmine era stato il rapimento del Governatore per mano degli Orchi — un evento che aveva bloccato ogni decisione, ogni azione, ogni speranza di ripresa. Gamled ascoltò in silenzio, poi si limitò a sussurrare:</p>
+
+      <p class="thought">«Capisco.»</p>
+
+      <p>E riprese a chiedere ai presenti se davvero si stessero rivoltando, con un distacco che apparve a tutti come la conferma definitiva della sua incapacità.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>Dalle strade salirono grida e invettive. Fu allora che Raziel Firelair si fece avanti per mediare, offrendo al vecchio Governatore un incarico in un nuovo governo — una via d'uscita onorevole. Gamled esitò. Poi accusò Dresan di tradimento, un'accusa che il Capitano respinse con poche parole, rimarcando la sua lealtà al popolo e ad Alisard. Le pergamene furono preparate: il potere militare sarebbe passato a Dresan, quello politico all'uomo che il popolo di Aral aveva indicato — Raziel Firelair, già chiamato in passato a riordinare la capitale.</p>
+
+      <p>Profondamente onorato, ma conscio del peso di quel mandato, Raziel accettò.</p>
+
+      <p>Lord Gamled si allontanò dalla folla senza proferire parola. Passarono le ore. Nessun messaggero arrivò, nessuna pergamena fu consegnata. La folla era di nuovo sull'orlo della violenza quando alcuni soldati della guardia cittadina, fino a quel momento fermi e silenziosi, iniziarono ad attaccare i presenti. Il vecchio Comandante della Guardia Nera, Korath l'Immenso, intervenne incredulo — quegli erano uomini che lui stesso aveva addestrato.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>La situazione era degenerata. Dragoni e cittadini armati si unirono per proteggere i più inermi. Sgominato il primo manipolo, il gruppo si incamminò per le strade alla ricerca del Governatore. Altri soldati tentarono di bloccarli senza successo.</p>
+
+      <p>Lord Gamled fu trovato al bancone del Drago Rosso, seduto a bere tranquillamente con cinque guardie al fianco. Alla vista degli inseguitori, scagliò i suoi uomini contro di loro e fuggì. Anche quella volta la guardia fu sopraffatta — ma Gamled era già scomparso nel buio della notte piovosa.</p>
+
+      <p>Era passata la mezzanotte quando il Governatore fu trovato per l'ultima volta, nascosto nelle gradinate del teatro cittadino con le ultime due guardie rimaste al suo fianco. Lo scontro fu breve e inevitabile. I due difensori caddero. Gamled, ferito mortalmente da Korath, tentò un ultimo fendente disperato che il Comandante schivò con agilità, prima che il Capitano Dresan lo stendesse con un colpo preciso. Fu ordinato che nessuno lo colpisse — era un prigioniero, non un cadavere.</p>
+
+      <p>Mentre veniva cercata una corda, un grido straziante risuonò nel teatro vuoto. Lord Gamled si era tolto la vita prima di essere catturato.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>Raziel osservò il corpo del vecchio Siniscalco di Bran — l'uomo con cui aveva condiviso decenni nella città fortezza dei legionari, l'uomo al suo fianco nell'anno 472 quando insieme avevano rimosso il Governatore Vagus. Questa volta era lui ad essere caduto. La cosa arrecò un dolore che non poteva essere mostrato. Il popolo necessitava di una guida forte e risoluta.</p>
+
+      <p>Il diciannovesimo giorno del Mese della Fertilità, la pioggia aveva smesso di cadere. Le grida di gioia di chi aveva affrontato quella lunga notte riecheggiavano nei corridoi del teatro. Mentre il gruppo si avvicinava all'imponente entrata che affaccia sul giardino, il sole iniziava a sorgere da est.</p>
+
+      <p>La notte era passata. Molto sangue era stato versato — troppo. Ma era l'alba di un nuovo giorno, e un nuovo inizio per Aral.</p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine —</p>
+      <p class="end-author">dalle Cronache di Aral Maktar, Anno 528 DE</p>
+    </div>
+  </div>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

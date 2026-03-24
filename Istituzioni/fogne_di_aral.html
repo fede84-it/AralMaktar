@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Fogne di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --mold: #2A3A1A;
+      --mold-dark: #161F0D;
+      --mold-light: #4A6A2A;
+      --slime: #3A5A1A;
+      --stone: #1A1A12;
+      --stone-deep: #0D0D08;
+      --rust: #5A3A1A;
+      --fog: #C8C8A0;
+      --fog-dark: #A0A078;
+      --fog-faded: #707058;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--stone-deep);
+      color: var(--fog);
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      cursor: url('../Immagini/Cursore_fogne.png') 0 0, crosshair;
+    }
+
+    a, button, .zone-card, [onclick] {
+      cursor: url('../Immagini/Cursore_fogne.png') 0 0, pointer;
+    }
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+    body::after {
+      content: '';
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent 0%, var(--mold) 20%, var(--mold-light) 50%, var(--mold) 80%, transparent 100%);
+      z-index: 9998;
+      box-shadow: 0 0 20px rgba(42,58,26,0.6);
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--stone-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--mold-dark); border-radius: 0; }
+
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    /* ─── HERO ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 2rem;
+      background:
+        linear-gradient(to bottom, rgba(5,8,3,0.55) 0%, rgba(13,13,8,0.75) 60%, rgba(13,13,8,1) 100%),
+        url('../Immagini/Fogne.jpg') center center / cover no-repeat;
+      overflow: hidden;
+    }
+    .hero-bg-symbol {
+      position: absolute;
+      font-size: clamp(180px, 38vw, 400px);
+      color: rgba(42,58,26,0.05);
+      user-select: none; pointer-events: none;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      line-height: 1;
+    }
+    .drip {
+      position: fixed;
+      top: 4px;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--mold-light), rgba(74,106,42,0));
+      border-radius: 0 0 4px 4px;
+      opacity: 0;
+      z-index: 9997;
+      animation: drip var(--d, 4s) var(--delay, 0s) infinite ease-in;
+    }
+    @keyframes drip {
+      0%   { height: 0;   top: 4px;  opacity: 0; }
+      10%  { opacity: 0.8; }
+      80%  { height: var(--h, 60px); top: 4px; opacity: 0.7; }
+      100% { height: var(--h, 60px); top: calc(4px + var(--h, 60px)); opacity: 0; }
+    }
+    .hero-ornament { color: var(--mold-light); font-size: 1.4rem; letter-spacing: 0.6em; margin-bottom: 1.5rem; animation: fadeIn 3s ease both; position: relative; z-index: 2; text-shadow: 0 0 20px rgba(74,106,42,0.5); }
+    h1.org-name { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 7vw, 5rem); font-weight: 700; color: var(--mold-light); text-shadow: 0 0 60px rgba(42,58,26,0.8), 0 2px 0 rgba(0,0,0,0.9); letter-spacing: 0.06em; line-height: 1.15; animation: heroReveal 2s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .org-subtitle { font-family: 'IM Fell English', serif; font-style: italic; font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--fog-faded); margin-top: 0.8rem; letter-spacing: 0.2em; animation: fadeIn 3s 1s ease both; position: relative; z-index: 2; }
+    .hero-divider { margin: 2rem auto; width: 200px; height: 1px; background: linear-gradient(90deg, transparent, var(--mold), transparent); animation: fadeIn 3s 1.2s ease both; box-shadow: 0 0 8px rgba(42,58,26,0.4); }
+    .hero-warning { max-width: 580px; color: var(--fog-faded); font-size: 0.95rem; line-height: 1.9; animation: fadeIn 3s 1.5s ease both; position: relative; z-index: 2; font-style: italic; }
+    .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: var(--mold-light); opacity: 0.4; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Cinzel', serif; z-index: 2; animation: pulse 3s infinite; }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 5rem 2rem; max-width: 820px; margin: 0 auto; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--mold-light); display: block; margin-bottom: 0.75rem; text-align: center; text-shadow: 0 0 10px rgba(74,106,42,0.4); }
+    h2 { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 400; color: var(--fog-dark); text-align: center; line-height: 1.3; margin-bottom: 0.8rem; }
+    .ornament-line { margin: 0 auto 3rem; width: 140px; height: 1px; background: linear-gradient(90deg, transparent, var(--mold), transparent); opacity: 0.5; }
+
+    /* ─── DARK BLOCK ─── */
+    .dark-block {
+      background: linear-gradient(135deg, rgba(20,26,12,0.97) 0%, rgba(13,18,8,0.95) 100%);
+      border: 1px solid rgba(42,58,26,0.35);
+      border-left: 3px solid var(--mold-dark);
+      border-radius: 2px;
+      padding: 2.5rem 3rem;
+      position: relative;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.9), inset 0 0 60px rgba(42,58,26,0.03);
+      margin-bottom: 2rem;
+    }
+    .dark-block::before { content: '◆'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--mold); font-size: 0.7rem; opacity: 0.3; }
+    .dark-block::after  { content: '◆'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--mold); font-size: 0.7rem; opacity: 0.3; }
+    .dark-block p { color: var(--fog-faded); margin-bottom: 1.2rem; font-size: 1.02rem; line-height: 1.85; }
+    .dark-block p:last-child { margin-bottom: 0; }
+    .dark-block p.lead { font-style: italic; color: rgba(74,106,42,0.75); border-left: 2px solid rgba(42,58,26,0.4); padding-left: 1.2rem; margin-bottom: 1.8rem; font-size: 1.05rem; }
+
+    .drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--mold-light); text-shadow: 1px 2px 6px rgba(42,58,26,0.5); }
+
+    /* ─── ZONE GRID ─── */
+    .zones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
+    .zone-card { background: linear-gradient(160deg, rgba(18,22,10,0.97) 0%, rgba(10,13,6,0.95) 100%); border: 1px solid rgba(42,58,26,0.2); border-top: 2px solid var(--mold-dark); border-radius: 2px; padding: 1.5rem 1.4rem; }
+    .zone-symbol { font-size: 1.8rem; display: block; text-align: center; margin-bottom: 0.6rem; filter: grayscale(0.2); }
+    .zone-name { font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600; color: var(--mold-light); text-align: center; margin-bottom: 0.2rem; letter-spacing: 0.05em; }
+    .zone-type { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mold-dark); text-align: center; margin-bottom: 0.7rem; }
+    .zone-card p { font-size: 0.85rem; color: var(--fog-faded); line-height: 1.6; text-align: center; }
+
+    /* ─── DIVIDER ─── */
+    .section-divider { text-align: center; color: var(--mold-dark); opacity: 0.6; font-size: 1rem; letter-spacing: 1rem; padding: 0.5rem 0; }
+
+    /* ─── FOOTER ─── */
+    footer { text-align: center; padding: 3rem 2rem; background: var(--stone-deep); border-top: 1px solid rgba(42,58,26,0.15); color: var(--fog-faded); font-size: 0.82rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--mold-light); margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(74,106,42,0.4); }
+    footer p { opacity: 0.4; font-style: italic; }
+
+    /* ─── BACK BUTTON ─── */
+    .back-wrap { text-align: center; padding: 2rem 0 0; }
+    .btn-back { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--fog-faded); background: transparent; border: 1px solid rgba(42,58,26,0.3); padding: 0.75rem 2rem; border-radius: 2px; cursor: url('../Immagini/Cursore_fogne.png') 0 0, pointer; transition: color 0.3s, border-color 0.3s; }
+    .btn-back:hover { color: var(--mold-light); border-color: rgba(42,58,26,0.6); }
+
+    /* ─── WARNING OVERLAY ─── */
+    #warning-overlay { position: fixed; inset: 0; z-index: 99999; background: #0D0D08; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+    #warning-overlay.active { opacity: 1; pointer-events: all; }
+    #warning-msg { font-family: 'IM Fell English', Georgia, serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.5rem); color: var(--mold-light); letter-spacing: 0.15em; text-align: center; text-shadow: 0 0 30px rgba(74,106,42,0.6); opacity: 0; transition: opacity 0.6s ease 0.4s; max-width: 500px; padding: 0 2rem; }
+    #warning-overlay.active #warning-msg { opacity: 1; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) { .dark-block { padding: 1.8rem 1.5rem; } .zones-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- Gocce d'acqua decorative -->
+<div class="drip" style="left:8%;--d:6s;--delay:0s;--h:90px;"></div>
+<div class="drip" style="left:19%;--d:8s;--delay:1.2s;--h:70px;"></div>
+<div class="drip" style="left:33%;--d:7s;--delay:2.5s;--h:100px;"></div>
+<div class="drip" style="left:51%;--d:9s;--delay:0.7s;--h:80px;"></div>
+<div class="drip" style="left:67%;--d:6.5s;--delay:3.1s;--h:95px;"></div>
+<div class="drip" style="left:80%;--d:8s;--delay:1.8s;--h:75px;"></div>
+<div class="drip" style="left:92%;--d:7.5s;--delay:0.3s;--h:85px;"></div>
+
+<div id="warning-overlay">
+  <p id="warning-msg">Dimentica la strada che hai percorso.<br>Nessuno risale da qui indenne.</p>
+</div>
+
+<header>
+  <div class="hero-bg-symbol">☠</div>
+  <div class="hero-ornament">— ◆ —</div>
+  <h1 class="org-name">Le Fogne di Aral</h1>
+  <p class="org-subtitle">Sotto la Capitale — dove la Legge non arriva</p>
+  <div class="hero-divider"></div>
+  <p class="hero-warning">Hai trovato questa pagina. Significa che qualcuno te ne ha parlato — o che sei sceso troppo in profondità.<br>In entrambi i casi, non è una buona notizia.</p>
+  <div class="scroll-hint">↓ &nbsp; scendi &nbsp; ↓</div>
+</header>
+
+<div class="section-divider">◆ &nbsp; ◆ &nbsp; ◆</div>
+
+<!-- ORIGINI -->
+<section>
+  <span class="section-label reveal">Origini</span>
+  <h2 class="reveal">Più Antica della Città</h2>
+  <div class="ornament-line reveal"></div>
+
+  <div class="dark-block reveal">
+    <p class="lead">"Le fogne non le ha costruite nessuno. Sono sempre state lì. Noi ci siamo solo… adattati."</p>
+    <p class="drop-cap">Quando gli Eliantiriani posarono le prime pietre di Aral Maktar, trovarono già qualcosa sotto. Non le catacombe di un popolo precedente, non le fondamenta di una civiltà sepolta — qualcosa di più antico e meno comprensibile. Cunicoli di pietra levigata dall'acqua, gallerie che scendevano verso il basso senza una logica architettonica riconoscibile, camere allagate in cui la luce non entrava e il suono si comportava in modo strano.</p>
+    <p>Per secoli le autorità imperiali ignorarono ciò che giaceva sotto. Sigillarono gli accessi che trovavano, murandoli con la stessa diligenza con cui si murano i segreti scomodi. Ma l'acqua trova sempre una strada, e così fanno gli uomini disperati. I cunicoli tornarono ad aprirsi. Gli scarichi della città nuova si fusero con i passaggi di quella vecchia. E nelle zone più profonde, dove nessuna guardia imperiale si avventura volentieri, qualcosa prese a prosperare.</p>
+    <p>Oggi le Fogne di Aral sono una città dentro la città — disordinata, pericolosa, priva di qualsiasi legge scritta. Chiunque vi scenda lo fa sapendo che la superficie potrebbe non rivederla più.</p>
+  </div>
+</section>
+
+<div class="section-divider">◆ &nbsp; ◆ &nbsp; ◆</div>
+
+<!-- ZONE -->
+<section>
+  <span class="section-label reveal">Geografie</span>
+  <h2 class="reveal">I Livelli del Sottosuolo</h2>
+  <div class="ornament-line reveal"></div>
+
+  <div class="dark-block reveal">
+    <p class="lead">"Non chiedere quanto è profondo. Chiediti se vale la pena scoprirlo."</p>
+    <p class="drop-cap">Le Fogne si dividono in livelli non ufficiali, nomi dati da chi ci vive piuttosto che da chi le governa — e nessuno le governa davvero. Ogni livello ha le sue regole non scritte, i suoi abitanti, i suoi pericoli specifici.</p>
+  </div>
+
+  <div class="zones-grid reveal">
+    <div class="zone-card">
+      <span class="zone-symbol">🪫</span>
+      <div class="zone-name">I Canali Alti</div>
+      <div class="zone-type">Primo Livello</div>
+      <p>La zona più vicina alla superficie. Contrabbandieri, debitori in fuga, fuggiaschi di ogni tipo. Pericoloso ma negoziabile — con le parole giuste e le monete giuste.</p>
+    </div>
+    <div class="zone-card">
+      <span class="zone-symbol">🕳️</span>
+      <div class="zone-name">Il Mercato Nero</div>
+      <div class="zone-type">Secondo Livello</div>
+      <p>Una rete di gallerie illuminate da torce sempre accese. Si compra e si vende tutto ciò che non si può comprare e vendere in superficie. Nessun nome, nessuna ricevuta.</p>
+    </div>
+    <div class="zone-card">
+      <span class="zone-symbol">🦟</span>
+      <div class="zone-name">Le Paludi Interne</div>
+      <div class="zone-type">Terzo Livello</div>
+      <p>Dove i canali si allargano in bacini stagnanti. L'acqua è nera e non riflette la luce. Creature che nessun naturalista ha mai catalogato vi abitano da generazioni.</p>
+    </div>
+    <div class="zone-card">
+      <span class="zone-symbol">⬛</span>
+      <div class="zone-name">Il Profondo</div>
+      <div class="zone-type">Quarto Livello</div>
+      <p>Nessuno sa con certezza cosa ci sia qui. Chi è sceso e è tornato non ha mai raccontato la stessa storia due volte. Chi non è tornato non ha raccontato nulla.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">◆ &nbsp; ◆ &nbsp; ◆</div>
+
+<!-- ABITANTI -->
+<section>
+  <span class="section-label reveal">Abitanti</span>
+  <h2 class="reveal">Chi Vive nel Buio</h2>
+  <div class="ornament-line reveal"></div>
+
+  <div class="dark-block reveal">
+    <p class="lead">"Laggiù non ci sono buoni e cattivi. Ci sono solo quelli che conoscono le regole e quelli che le stanno imparando — nel modo più doloroso possibile."</p>
+    <p class="drop-cap">Le Fogne non appartengono a nessuna fazione in particolare. I Vecchi Moli vi hanno interessi commerciali nei Canali Alti, ma nessuno di loro si avventura oltre il secondo livello senza ragioni molto serie. Le Ombre del Crepuscolo usano certi passaggi come vie di fuga o come luoghi di incontro, ma tengono le distanze da ciò che abita più in profondità — e le Ombre non tengono distanze da molte cose.</p>
+    <p>Poi ci sono gli altri. Quelli che nelle Fogne ci vivono davvero — non per scelta ma perché non hanno più un posto in superficie. Esiliati, ricercati, creature che non appartengono al mondo della luce. Alcuni sono pericolosi. Alcuni sono semplicemente perduti. La differenza, nelle gallerie buie del sottosuolo, è spesso impossibile da distinguere prima che sia troppo tardi.</p>
+    <p>E poi c'è ciò che abita il Quarto Livello. Su questo, anche i più spericolati frequentatori delle Fogne preferiscono non esprimersi.</p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-title">Le Fogne di Aral</p>
+  <p>Sotto la Capitale — dove la Legge non arriva.</p>
+  <div class="back-wrap">
+    <button class="btn-back" onclick="leavePage()">↑ Risali alla superficie</button>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 120); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  function leavePage() {
+    const overlay = document.getElementById('warning-overlay');
+    overlay.classList.add('active');
+    setTimeout(() => { document.getElementById('warning-msg').style.opacity = '0'; }, 2200);
+    setTimeout(() => { window.location.href = '../index.html'; }, 3000);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segheria — Strumenti di Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    @font-face { font-family: 'GoudyInitialen'; src: url('Font/GoudyInitialen.ttf') format('truetype'); }
+
+    /* ─── HERO ─── */
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('Immagini/Segheria.webp') center top / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.5rem; letter-spacing: 0.5em; margin-bottom: 1.2rem; animation: fadeIn 2s ease both; }
+    h1.page-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 7vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.15; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; }
+    .hero-sub { font-family: 'IM Fell English', serif; font-style: italic; font-size: clamp(0.95rem, 2vw, 1.25rem); color: var(--parchment-dark); margin-top: 0.75rem; opacity: 0.75; letter-spacing: 0.1em; animation: fadeIn 2s 0.8s ease both; }
+    .hero-divider { margin: 2rem auto; width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    /* ─── TOOL SECTION ─── */
+    .tool-wrap { max-width: 800px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .parchment-block {
+      background: linear-gradient(135deg, var(--parchment) 0%, #ede0c0 100%);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 3px;
+      padding: 2.5rem 2.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.5rem;
+      color: var(--crimson);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── INPUT AREA ─── */
+    .input-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .input-row label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+    }
+
+    .input-row input {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.1rem;
+      width: 120px;
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--parchment-dark);
+      border-radius: 2px;
+      background: rgba(255,255,255,0.5);
+      color: var(--ink);
+      text-align: center;
+      transition: border-color 0.3s;
+    }
+    .input-row input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 8px rgba(200,151,42,0.3);
+    }
+
+    .btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.4rem;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-add {
+      background: var(--gold);
+      color: var(--ink);
+    }
+    .btn-add:hover {
+      background: var(--gold-light);
+    }
+    .btn-reset {
+      background: transparent;
+      color: var(--crimson);
+      border-color: var(--crimson);
+    }
+    .btn-reset:hover {
+      background: var(--crimson);
+      color: var(--parchment);
+    }
+
+    /* ─── LOG TABLE ─── */
+    .log-section {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--parchment-dark);
+      padding-top: 1.5rem;
+    }
+
+    .log-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    .log-table th {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+      border-bottom: 1px solid var(--parchment-dark);
+      padding: 0.5rem;
+      text-align: center;
+    }
+    .log-table td {
+      padding: 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(224,204,160,0.5);
+    }
+    .log-empty {
+      text-align: center;
+      color: var(--ink-faded);
+      font-style: italic;
+      padding: 1.5rem;
+    }
+
+    /* ─── RESULTS ─── */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .result-card {
+      background: rgba(255,255,255,0.35);
+      border: 1px solid var(--parchment-dark);
+      border-radius: 3px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s, background 0.3s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .result-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .result-card.counting {
+      border-color: var(--gold);
+      background: rgba(200,151,42,0.1);
+    }
+    .result-card.counting .result-time {
+      color: var(--crimson);
+    }
+    .result-card.done {
+      border-color: #4a7a2a;
+      background: rgba(74,122,42,0.12);
+    }
+    .result-card.done .result-time {
+      color: #4a7a2a;
+      font-weight: 700;
+    }
+
+    .result-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+      margin-bottom: 0.8rem;
+    }
+
+    .result-qty {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2.2rem;
+      color: var(--crimson);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-time {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--parchment-dark);
+      letter-spacing: 0.05em;
+    }
+
+    .totals-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--parchment-dark);
+      flex-wrap: wrap;
+    }
+
+    .total-item {
+      text-align: center;
+    }
+
+    .total-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-faded);
+    }
+
+    .total-value {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+
+    /* ─── FOOTER ─── */
+    footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(200,151,42,0.15); color: var(--parchment-dark); opacity: 0.5; font-size: 0.85rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .results-grid { grid-template-columns: 1fr; }
+      .parchment-block { padding: 1.5rem 1.2rem; }
+      .input-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <h1 class="page-title">Segheria</h1>
+  <p class="hero-sub">Calcolatore di produzione legname</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="tool-wrap">
+
+  <!-- INPUT -->
+  <div class="parchment-block">
+    <h2 class="section-title">Registro Tronchi</h2>
+
+    <div class="input-row">
+      <label for="peso">Peso del tronco</label>
+      <input type="number" id="peso" min="1" placeholder="libbre">
+      <button class="btn btn-add" id="btn-add">Aggiungi</button>
+      <button class="btn btn-reset" id="btn-reset">Reset</button>
+    </div>
+
+    <div class="log-section">
+      <div class="log-title">Tronchi raccolti</div>
+      <table class="log-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Peso</th>
+          </tr>
+        </thead>
+        <tbody id="log-body">
+        </tbody>
+      </table>
+      <div class="log-empty" id="log-empty">Nessun tronco registrato</div>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="parchment-block">
+    <h2 class="section-title">Produzione Stimata</h2>
+
+    <div class="results-grid">
+      <div class="result-card" data-type="paletti">
+        <div class="result-label">Paletti</div>
+        <div class="result-qty" id="qty-paletti">0</div>
+        <div class="result-time" id="time-paletti">0s</div>
+      </div>
+      <div class="result-card" data-type="pioli">
+        <div class="result-label">Pioli</div>
+        <div class="result-qty" id="qty-pioli">0</div>
+        <div class="result-time" id="time-pioli">0s</div>
+      </div>
+      <div class="result-card" data-type="blocchi">
+        <div class="result-label">Blocchi</div>
+        <div class="result-qty" id="qty-blocchi">0</div>
+        <div class="result-time" id="time-blocchi">0s</div>
+      </div>
+    </div>
+
+    <div class="totals-row">
+      <div class="total-item">
+        <div class="total-label">Tronchi</div>
+        <div class="total-value" id="tot-tronchi">0</div>
+      </div>
+      <div class="total-item">
+        <div class="total-label">Peso totale</div>
+        <div class="total-value" id="tot-peso">0</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">Aral Maktar</a> — Strumenti
+</footer>
+
+<script>
+(function() {
+  var tronchi = [];
+  var tempi = { paletti: 0, pioli: 0, blocchi: 0 };
+  var countdowns = { paletti: null, pioli: null, blocchi: null };
+
+  // Audio alert via Web Audio API — Campana medievale
+  var audioCtx = null;
+  function playAlert() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var t = audioCtx.currentTime;
+    // Strike impact
+    var strike = audioCtx.createOscillator();
+    var strikeGain = audioCtx.createGain();
+    strike.type = 'sine';
+    strike.frequency.value = 800;
+    strikeGain.gain.setValueAtTime(0.3, t);
+    strikeGain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
+    strike.connect(strikeGain);
+    strikeGain.connect(audioCtx.destination);
+    strike.start(t);
+    strike.stop(t + 0.1);
+    // Bell body — fundamental
+    var bell1 = audioCtx.createOscillator();
+    var gain1 = audioCtx.createGain();
+    bell1.type = 'sine';
+    bell1.frequency.value = 220;
+    gain1.gain.setValueAtTime(0.4, t);
+    gain1.gain.exponentialRampToValueAtTime(0.01, t + 3.5);
+    bell1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    bell1.start(t);
+    bell1.stop(t + 3.5);
+    // Bell body — minor third harmonic
+    var bell2 = audioCtx.createOscillator();
+    var gain2 = audioCtx.createGain();
+    bell2.type = 'sine';
+    bell2.frequency.value = 264;
+    gain2.gain.setValueAtTime(0.2, t);
+    gain2.gain.exponentialRampToValueAtTime(0.01, t + 2.8);
+    bell2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    bell2.start(t);
+    bell2.stop(t + 2.8);
+    // High overtone
+    var bell3 = audioCtx.createOscillator();
+    var gain3 = audioCtx.createGain();
+    bell3.type = 'sine';
+    bell3.frequency.value = 550;
+    gain3.gain.setValueAtTime(0.12, t);
+    gain3.gain.exponentialRampToValueAtTime(0.01, t + 2);
+    bell3.connect(gain3);
+    gain3.connect(audioCtx.destination);
+    bell3.start(t);
+    bell3.stop(t + 2);
+    // Subtle vibrato on fundamental
+    var lfo = audioCtx.createOscillator();
+    var lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 4;
+    lfoGain.gain.value = 1.5;
+    lfo.connect(lfoGain);
+    lfoGain.connect(bell1.frequency);
+    lfo.start(t);
+    lfo.stop(t + 3.5);
+  }
+  var inputPeso = document.getElementById('peso');
+  var btnAdd = document.getElementById('btn-add');
+  var btnReset = document.getElementById('btn-reset');
+  var logBody = document.getElementById('log-body');
+  var logEmpty = document.getElementById('log-empty');
+
+  function formatTime(seconds) {
+    if (seconds < 60) return seconds + 's';
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
+    if (m < 60) return m + 'm ' + s + 's';
+    var h = Math.floor(m / 60);
+    m = m % 60;
+    return h + 'h ' + m + 'm ' + s + 's';
+  }
+
+  function update() {
+    var numTronchi = tronchi.length;
+    var pesoTotale = 0;
+    for (var i = 0; i < tronchi.length; i++) pesoTotale += tronchi[i];
+
+    var paletti = 0, pioli = 0, blocchi = 0;
+    for (var i = 0; i < tronchi.length; i++) {
+      paletti += Math.ceil(tronchi[i] / 12);
+      pioli   += Math.ceil(tronchi[i] / 8);
+      blocchi += Math.ceil(tronchi[i] / 20);
+    }
+
+    var tempoPaletti = (paletti * 10) + (numTronchi * 10);
+    var tempoPioli   = (pioli * 10)   + (numTronchi * 10);
+    var tempoBlocchi = (blocchi * 10)  + (numTronchi * 10);
+
+    tempi.paletti = tempoPaletti;
+    tempi.pioli   = tempoPioli;
+    tempi.blocchi = tempoBlocchi;
+
+    document.getElementById('qty-paletti').textContent = paletti;
+    document.getElementById('qty-pioli').textContent   = pioli;
+    document.getElementById('qty-blocchi').textContent  = blocchi;
+
+    // Only update time display if no countdown is active for that type
+    if (!countdowns.paletti) document.getElementById('time-paletti').textContent = formatTime(tempoPaletti);
+    if (!countdowns.pioli)   document.getElementById('time-pioli').textContent   = formatTime(tempoPioli);
+    if (!countdowns.blocchi) document.getElementById('time-blocchi').textContent  = formatTime(tempoBlocchi);
+
+    document.getElementById('tot-tronchi').textContent = numTronchi;
+    document.getElementById('tot-peso').textContent    = pesoTotale;
+
+    // Update log table
+    logBody.innerHTML = '';
+    if (tronchi.length === 0) {
+      logEmpty.style.display = 'block';
+    } else {
+      logEmpty.style.display = 'none';
+      for (var i = 0; i < tronchi.length; i++) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + tronchi[i] + '</td>';
+        logBody.appendChild(tr);
+      }
+    }
+  }
+
+  btnAdd.addEventListener('click', function() {
+    var peso = parseInt(inputPeso.value);
+    if (!peso || peso < 1) return;
+    tronchi.push(peso);
+    inputPeso.value = '';
+    inputPeso.focus();
+    update();
+  });
+
+  inputPeso.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') btnAdd.click();
+  });
+
+  btnReset.addEventListener('click', function() {
+    tronchi = [];
+    // Clear all active countdowns
+    ['paletti', 'pioli', 'blocchi'].forEach(function(type) {
+      if (countdowns[type]) {
+        clearInterval(countdowns[type]);
+        countdowns[type] = null;
+      }
+      var card = document.querySelector('.result-card[data-type="' + type + '"]');
+      card.classList.remove('counting', 'done');
+    });
+    update();
+    inputPeso.focus();
+  });
+
+  // Countdown on card click
+  function startCountdown(type) {
+    var card = document.querySelector('.result-card[data-type="' + type + '"]');
+    var timeEl = document.getElementById('time-' + type);
+    var totalSeconds = tempi[type];
+
+    if (totalSeconds <= 0) return;
+
+    // If done, reset everything
+    if (card.classList.contains('done')) {
+      card.classList.remove('done');
+      tronchi = [];
+      ['paletti', 'pioli', 'blocchi'].forEach(function(t) {
+        if (countdowns[t]) { clearInterval(countdowns[t]); countdowns[t] = null; }
+        document.querySelector('.result-card[data-type="' + t + '"]').classList.remove('counting', 'done');
+      });
+      update();
+      inputPeso.focus();
+      return;
+    }
+
+    // If already counting, stop it
+    if (countdowns[type]) {
+      clearInterval(countdowns[type]);
+      countdowns[type] = null;
+      card.classList.remove('counting');
+      timeEl.textContent = formatTime(totalSeconds);
+      return;
+    }
+
+    // Start countdown
+    card.classList.remove('done');
+    card.classList.add('counting');
+
+    var remaining = totalSeconds;
+    timeEl.textContent = formatTime(remaining);
+
+    countdowns[type] = setInterval(function() {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(countdowns[type]);
+        countdowns[type] = null;
+        card.classList.remove('counting');
+        card.classList.add('done');
+        timeEl.textContent = 'Completato!';
+        playAlert();
+      } else {
+        timeEl.textContent = formatTime(remaining);
+      }
+    }, 1000);
+  }
+
+  document.querySelectorAll('.result-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      startCountdown(card.dataset.type);
+    });
+  });
+
+  update();
+})();
+</script>
+
+</body>
+</html>

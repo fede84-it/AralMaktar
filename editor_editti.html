@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Editti — Aral Maktar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--parchment-dark); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    @font-face { font-family: 'GoudyInitialen'; src: url('Font/GoudyInitialen.ttf') format('truetype'); }
+
+    /* ─── LAYOUT ─── */
+    .editor-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .editor-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2rem;
+      color: var(--gold-light);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .editor-sub {
+      font-style: italic;
+      text-align: center;
+      color: var(--ink-faded);
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* ─── FORM ─── */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(242,232,201,0.08);
+      border: 1px solid rgba(200,151,42,0.3);
+      border-radius: 2px;
+      color: var(--parchment);
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 1rem;
+      padding: 0.7rem 1rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: #1a1008;
+      color: var(--parchment);
+    }
+
+    /* ─── BLOCCHI ─── */
+    .blocks-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .blocks-header label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .block-item {
+      background: rgba(242,232,201,0.05);
+      border: 1px solid rgba(200,151,42,0.2);
+      border-radius: 2px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .block-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .block-type-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+
+    .block-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .block-item textarea {
+      width: 100%;
+      background: rgba(242,232,201,0.08);
+      border: 1px solid rgba(200,151,42,0.2);
+      border-radius: 2px;
+      color: var(--parchment);
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 0.95rem;
+      padding: 0.6rem 0.8rem;
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .block-item textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .list-items-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .list-item-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .list-item-row input {
+      flex: 1;
+      background: rgba(242,232,201,0.08);
+      border: 1px solid rgba(200,151,42,0.2);
+      border-radius: 2px;
+      color: var(--parchment);
+      font-family: 'IM Fell English', Georgia, serif;
+      font-size: 0.95rem;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .list-item-row input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .list-item-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--gold);
+      min-width: 1.5rem;
+      text-align: center;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid rgba(200,151,42,0.4);
+      border-radius: 2px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: transparent;
+      color: var(--parchment-dark);
+    }
+
+    .btn:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: rgba(200,151,42,0.08);
+    }
+
+    .btn-gold {
+      background: rgba(200,151,42,0.15);
+      border-color: var(--gold);
+      color: var(--gold-light);
+    }
+
+    .btn-gold:hover {
+      background: rgba(200,151,42,0.3);
+    }
+
+    .btn-crimson {
+      border-color: var(--crimson);
+      color: var(--crimson);
+    }
+
+    .btn-crimson:hover {
+      background: rgba(122,26,26,0.15);
+    }
+
+    .btn-small {
+      font-size: 0.62rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .btn-add-list {
+      margin-top: 0.5rem;
+      font-size: 0.62rem;
+      padding: 0.3rem 0.6rem;
+    }
+
+    .add-block-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── DIVIDER ─── */
+    .section-divider {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 0.5em;
+      margin: 2.5rem 0;
+      opacity: 0.5;
+    }
+
+    /* ─── PREVIEW ─── */
+    .preview-section {
+      margin-bottom: 2rem;
+    }
+
+    .preview-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .edict {
+      background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%);
+      border: 1px solid rgba(200,151,42,0.4);
+      border-radius: 2px;
+      padding: 3rem 3rem 2.5rem;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06);
+      color: var(--ink);
+    }
+
+    .edict-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--parchment-dark);
+    }
+
+    .edict-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .edict-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.6rem;
+      color: var(--crimson);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .edict-date {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--ink-faded);
+    }
+
+    .edict-body { margin-bottom: 2rem; }
+    .edict-body p { margin-bottom: 1rem; text-align: justify; }
+
+    .edict-body .drop-cap::first-letter {
+      font-family: 'GoudyInitialen', serif;
+      font-size: 3.8rem;
+      float: left;
+      line-height: 0.65;
+      margin: 0.08em 0.12em 0 0;
+      color: var(--crimson);
+    }
+
+    .edict-body ul, .edict-body ol { margin: 1rem 0 1rem 1.5rem; }
+    .edict-body li { margin-bottom: 0.5rem; }
+
+    .edict-signature {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--parchment-dark);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .signature-block { text-align: center; }
+    .signature-img { max-width: 280px; height: auto; display: block; margin: 0 auto; }
+    .seal-img { width: 100px; height: 100px; object-fit: contain; display: block; margin: 0 auto; }
+
+    /* ─── CODE OUTPUT ─── */
+    .code-section {
+      margin-bottom: 2rem;
+    }
+
+    .code-output {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(200,151,42,0.3);
+      border-radius: 2px;
+      padding: 1.2rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: var(--parchment);
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+
+    .code-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .copy-feedback {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      margin-left: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .copy-feedback.show {
+      opacity: 1;
+    }
+
+    /* ─── INSTRUCTIONS ─── */
+    .instructions {
+      background: rgba(200,151,42,0.08);
+      border: 1px solid rgba(200,151,42,0.2);
+      border-radius: 2px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--parchment-dark);
+      line-height: 1.8;
+    }
+
+    .instructions strong {
+      color: var(--gold-light);
+    }
+
+    .instructions ol {
+      margin: 0.5rem 0 0 1.5rem;
+    }
+
+    .instructions code {
+      background: rgba(0,0,0,0.3);
+      padding: 0.1rem 0.4rem;
+      border-radius: 2px;
+      font-size: 0.82rem;
+      color: var(--gold-light);
+    }
+
+    /* ─── FOOTER ─── */
+    footer { text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(200,151,42,0.15); color: var(--parchment-dark); opacity: 0.5; font-size: 0.85rem; }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .editor-wrap { padding: 1rem; }
+      .edict { padding: 2rem 1.5rem; }
+      .edict-signature { flex-direction: column; align-items: center; gap: 1.5rem; }
+      .signature-img { max-width: 200px; }
+      .add-block-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="editor-wrap">
+
+  <h1 class="editor-title">Editor Editti</h1>
+  <p class="editor-sub">Componi un nuovo editto e genera il codice per editti_data.js</p>
+
+  <div class="instructions">
+    <strong>Come usare questo editor:</strong>
+    <ol>
+      <li>Compila titolo, data e aggiungi i blocchi di contenuto</li>
+      <li>Verifica l'anteprima in basso</li>
+      <li>Copia il codice generato</li>
+      <li>Apri <code>editti_data.js</code> e incolla il codice subito dopo <code>var EDITTI = [</code></li>
+      <li>Salva il file</li>
+    </ol>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-group">
+    <label>Titolo dell'editto</label>
+    <input type="text" id="edict-title" placeholder="Es: Sulla Riapertura della Biblioteca dell'Accademia">
+  </div>
+
+  <div class="form-group">
+    <label>Data</label>
+    <input type="text" id="edict-date" placeholder="Es: Aral Maktar — 583 DE">
+  </div>
+
+  <!-- BLOCKS -->
+  <div class="blocks-header">
+    <label>Contenuto</label>
+  </div>
+
+  <div id="blocks-container"></div>
+
+  <div class="add-block-bar">
+    <button class="btn btn-gold" onclick="addBlock('drop-cap')">+ Drop Cap</button>
+    <button class="btn btn-gold" onclick="addBlock('p')">+ Paragrafo</button>
+    <button class="btn btn-gold" onclick="addBlock('ol')">+ Lista Numerata</button>
+    <button class="btn btn-gold" onclick="addBlock('ul')">+ Lista Puntata</button>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">— ✦ —</div>
+
+  <!-- PREVIEW -->
+  <div class="preview-section">
+    <span class="preview-label">Anteprima</span>
+    <div id="preview-edict"></div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">— ✦ —</div>
+
+  <!-- CODE OUTPUT -->
+  <div class="code-section">
+    <span class="preview-label">Codice generato</span>
+    <div class="code-output" id="code-output"></div>
+    <div class="code-buttons">
+      <button class="btn btn-gold" onclick="copyCode()">Copia codice</button>
+      <span class="copy-feedback" id="copy-feedback">Copiato negli appunti!</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">Aral Maktar</a> — Strumenti
+</footer>
+
+<script>
+var blockCounter = 0;
+
+function addBlock(type) {
+  var container = document.getElementById('blocks-container');
+  var id = 'block-' + (blockCounter++);
+  var div = document.createElement('div');
+  div.className = 'block-item';
+  div.id = id;
+  div.setAttribute('data-type', type);
+
+  var typeLabels = {
+    'drop-cap': 'Paragrafo con Drop Cap (iniziale decorata)',
+    'p': 'Paragrafo',
+    'ol': 'Lista Numerata',
+    'ul': 'Lista Puntata'
+  };
+
+  var html = '<div class="block-item-header">';
+  html += '<span class="block-type-label">' + typeLabels[type] + '</span>';
+  html += '<div class="block-actions">';
+  html += '<button class="btn btn-small" onclick="moveBlock(\'' + id + '\', -1)">&#9650;</button>';
+  html += '<button class="btn btn-small" onclick="moveBlock(\'' + id + '\', 1)">&#9660;</button>';
+  html += '<button class="btn btn-small btn-crimson" onclick="removeBlock(\'' + id + '\')">&#10005;</button>';
+  html += '</div></div>';
+
+  if (type === 'ol' || type === 'ul') {
+    html += '<div class="list-items-wrap" id="' + id + '-list">';
+    html += buildListItem(id, 1);
+    html += '</div>';
+    html += '<button class="btn btn-small btn-add-list" onclick="addListItem(\'' + id + '\')">+ Aggiungi voce</button>';
+  } else {
+    html += '<textarea placeholder="Scrivi il testo del paragrafo..." oninput="updatePreview()"></textarea>';
+  }
+
+  div.innerHTML = html;
+  container.appendChild(div);
+  updatePreview();
+}
+
+function buildListItem(blockId, num) {
+  var itemId = blockId + '-item-' + num;
+  return '<div class="list-item-row" id="' + itemId + '">' +
+    '<span class="list-item-num">' + num + '.</span>' +
+    '<input type="text" placeholder="Voce della lista..." oninput="updatePreview()">' +
+    '<button class="btn btn-small btn-crimson" onclick="removeListItem(\'' + itemId + '\', \'' + blockId + '\')">&#10005;</button>' +
+    '</div>';
+}
+
+function addListItem(blockId) {
+  var listWrap = document.getElementById(blockId + '-list');
+  var count = listWrap.querySelectorAll('.list-item-row').length + 1;
+  var div = document.createElement('div');
+  div.innerHTML = buildListItem(blockId, count);
+  listWrap.appendChild(div.firstChild);
+  renumberList(blockId);
+  updatePreview();
+}
+
+function removeListItem(itemId, blockId) {
+  var item = document.getElementById(itemId);
+  if (item) {
+    var listWrap = item.parentElement;
+    if (listWrap.querySelectorAll('.list-item-row').length > 1) {
+      item.remove();
+      renumberList(blockId);
+      updatePreview();
+    }
+  }
+}
+
+function renumberList(blockId) {
+  var listWrap = document.getElementById(blockId + '-list');
+  if (!listWrap) return;
+  var rows = listWrap.querySelectorAll('.list-item-row');
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].querySelector('.list-item-num').textContent = (i + 1) + '.';
+  }
+}
+
+function moveBlock(id, direction) {
+  var block = document.getElementById(id);
+  var container = document.getElementById('blocks-container');
+  if (direction === -1 && block.previousElementSibling) {
+    container.insertBefore(block, block.previousElementSibling);
+  } else if (direction === 1 && block.nextElementSibling) {
+    container.insertBefore(block.nextElementSibling, block);
+  }
+  updatePreview();
+}
+
+function removeBlock(id) {
+  var block = document.getElementById(id);
+  if (block) {
+    block.remove();
+    updatePreview();
+  }
+}
+
+function getBlocksData() {
+  var container = document.getElementById('blocks-container');
+  var blocks = container.querySelectorAll('.block-item');
+  var data = [];
+  for (var i = 0; i < blocks.length; i++) {
+    var type = blocks[i].getAttribute('data-type');
+    if (type === 'ol' || type === 'ul') {
+      var inputs = blocks[i].querySelectorAll('.list-item-row input');
+      var voci = [];
+      for (var j = 0; j < inputs.length; j++) {
+        if (inputs[j].value.trim()) voci.push(inputs[j].value.trim());
+      }
+      if (voci.length > 0) data.push({ tipo: type, voci: voci });
+    } else {
+      var textarea = blocks[i].querySelector('textarea');
+      if (textarea && textarea.value.trim()) {
+        data.push({ tipo: type, testo: textarea.value.trim() });
+      }
+    }
+  }
+  return data;
+}
+
+function updatePreview() {
+  var title = document.getElementById('edict-title').value || 'Titolo dell\'editto';
+  var date = document.getElementById('edict-date').value || 'Aral Maktar — ... DE';
+  var blocks = getBlocksData();
+
+  var html = '<div class="edict">';
+  html += '<div class="edict-header">';
+  html += '<span class="edict-label">Editto Reale</span>';
+  html += '<h2 class="edict-title">' + escapeHtml(title) + '</h2>';
+  html += '<span class="edict-date">' + escapeHtml(date) + '</span>';
+  html += '</div>';
+  html += '<div class="edict-body">';
+
+  for (var i = 0; i < blocks.length; i++) {
+    var b = blocks[i];
+    if (b.tipo === 'drop-cap') {
+      html += '<p class="drop-cap">' + escapeHtml(b.testo) + '</p>';
+    } else if (b.tipo === 'p') {
+      html += '<p>' + escapeHtml(b.testo) + '</p>';
+    } else if (b.tipo === 'ol') {
+      html += '<ol>';
+      for (var k = 0; k < b.voci.length; k++) html += '<li>' + escapeHtml(b.voci[k]) + '</li>';
+      html += '</ol>';
+    } else if (b.tipo === 'ul') {
+      html += '<ul>';
+      for (var k = 0; k < b.voci.length; k++) html += '<li>' + escapeHtml(b.voci[k]) + '</li>';
+      html += '</ul>';
+    }
+  }
+
+  html += '</div>';
+  html += '<div class="edict-signature">';
+  html += '<div class="signature-block"><img src="Immagini/Firma_raziel.webp" alt="Firma di Raziel Firelair" class="signature-img"></div>';
+  html += '<div class="signature-block"><img src="Immagini/Sigillo.webp" alt="Sigillo Reale di Aral Maktar" class="seal-img"></div>';
+  html += '</div></div>';
+
+  document.getElementById('preview-edict').innerHTML = html;
+  updateCode();
+}
+
+function updateCode() {
+  var title = document.getElementById('edict-title').value.trim();
+  var date = document.getElementById('edict-date').value.trim();
+  var blocks = getBlocksData();
+
+  if (!title && !date && blocks.length === 0) {
+    document.getElementById('code-output').textContent = '// Compila il form per generare il codice...';
+    return;
+  }
+
+  var lines = [];
+  lines.push('  {');
+  lines.push('    titolo: "' + escapeJs(title) + '",');
+  lines.push('    data: "' + escapeJs(date) + '",');
+  lines.push('    corpo: [');
+
+  for (var i = 0; i < blocks.length; i++) {
+    var b = blocks[i];
+    if (b.tipo === 'ol' || b.tipo === 'ul') {
+      lines.push('      { tipo: "' + b.tipo + '", voci: [');
+      for (var k = 0; k < b.voci.length; k++) {
+        var comma = (k < b.voci.length - 1) ? ',' : '';
+        lines.push('        "' + escapeJs(b.voci[k]) + '"' + comma);
+      }
+      var blockComma = (i < blocks.length - 1) ? ',' : '';
+      lines.push('      ]}' + blockComma);
+    } else {
+      var blockComma = (i < blocks.length - 1) ? ',' : '';
+      lines.push('      { tipo: "' + b.tipo + '", testo: "' + escapeJs(b.testo) + '" }' + blockComma);
+    }
+  }
+
+  lines.push('    ]');
+  lines.push('  },');
+
+  document.getElementById('code-output').textContent = lines.join('\n');
+}
+
+function copyCode() {
+  var code = document.getElementById('code-output').textContent;
+  navigator.clipboard.writeText(code).then(function() {
+    var feedback = document.getElementById('copy-feedback');
+    feedback.classList.add('show');
+    setTimeout(function() { feedback.classList.remove('show'); }, 2000);
+  });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeJs(str) {
+  return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'");
+}
+
+// ── INIT ──
+document.getElementById('edict-title').addEventListener('input', updatePreview);
+document.getElementById('edict-date').addEventListener('input', updatePreview);
+
+// Aggiungi un drop-cap iniziale di default
+addBlock('drop-cap');
+updatePreview();
+</script>
+
+</body>
+</html>
