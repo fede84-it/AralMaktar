@@ -33,6 +33,19 @@
       overflow-x: hidden;
     }
 
+    /* iOS STATUS BAR COVER */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: env(safe-area-inset-top, 0px);
+      background: rgba(20, 12, 4, 0.95);
+      z-index: 200;
+      pointer-events: none;
+    }
+
     /* NOISE TEXTURE OVERLAY */
     body::before {
       content: '';
