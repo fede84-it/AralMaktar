@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Nel Ventre del Ghiaccio — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
+
+    nav { position: -webkit-sticky; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Isola_Riks.webp') center center / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: var(--parchment-dark); margin-top: 0.8rem; opacity: 0.7; animation: fadeIn 2s 0.8s ease both; position: relative; z-index: 2; }
+    .story-meta span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+    .story-text p.thought { font-style: italic; color: var(--ink-light); border-left: 2px solid rgba(200,151,42,0.4); padding-left: 1rem; margin-left: 0.5rem; }
+    .story-text p.dialogue { font-style: italic; color: var(--ink); padding-left: 1rem; }
+
+    .scene-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--crimson); text-align: center; margin: 2.5rem 0 1.5rem; }
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+    .story-end .end-author { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-faded); margin-top: 0.5rem; font-size: 0.95rem; }
+
+    .back-link { display: block; text-align: center; margin-top: 3.5rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+
+    footer { text-align: center; padding: 3rem 2rem; padding-bottom: env(safe-area-inset-bottom, 0px); background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">← Aral Maktar</a>
+  <a href="../cronache.html">Cronache di Aral</a>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Avventura &nbsp;·&nbsp; Isola di Riks</span>
+  <h1 class="story-title">Nel Ventre del Ghiaccio</h1>
+  <p class="story-meta">dai <span>Registri dell'Accademia di Storia Imperiale di Aral</span></p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="drop-cap">La grotta odorava di sangue. Il pavimento di ghiaccio era macchiato di scuro, e il corpo di un corsaro giaceva al centro come un dettaglio dimenticato. Non era il primo a cadere quella notte. Una zattera di larice veniva trascinata a fatica lungo la superficie liscia mentre la ciurma si riuniva attorno al proprio capitano, silenziosa e sporca di battaglia, in attesa.</p>
+
+      <p>Da qualche parte sotto di loro, una voce gridò qualcosa che il ghiaccio distorse e amplificò. Poi due parole risuonarono secche nella caverna, pronunciate ad alta voce come una sentenza — il nome della nave, come convenuto.</p>
+
+      <p>Il pavimento si scostò di lato.</p>
+
+      <p>Le scale di legno scendevano in un silenzio che aveva la consistenza del freddo stesso. Il capitano scese per primo. La ciurma seguì: chi con lo scudo già alzato, chi con la lama in mano, chi scivolando tra le ombre come se ne facesse parte. L'interno dell'iceberg li accolse con una luce bianchissima e impossibile, le pareti così pure da riflettere ogni cosa — le torce, i volti, i movimenti — moltiplicando la realtà in mille versioni leggermente diverse.</p>
+
+      <p>Ci furono sussurri, nella discesa. Qualcuno cercava qualcosa di personale in quel posto. Qualcuno non lo sapeva ancora.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h3 class="scene-title">Una Pinna Bianca</h3>
+
+      <p>La discesa continuò, stanza dopo stanza di ghiaccio identico, fino a che il pavimento non cedette il passo all'acqua.</p>
+
+      <p>Un lago.</p>
+
+      <p>Vasto, quieto, nero come l'inchiostro, adagiato nel ventre cavo dell'iceberg. I soffitti si perdevano nell'oscurità alta, e a poche centinaia di metri — appena visibile nella foschia gelida — si stagliava una piccola costruzione su palafitte. Lungo la riva giacevano sparse delle imbarcazioni: canoe di castagno, di quercia, di betulla, una zattera di larice, e più lontano, sull'acqua scura, le sagome di barche abbandonate di recente, come se qualcuno avesse previsto il loro arrivo.</p>
+
+      <p>Poi l'acqua si mosse.</p>
+
+      <p>Una pinna. Bianca. Grande.</p>
+
+      <p>Qualcuno disse che erano animali giocherelloni. Nessuno rise.</p>
+
+      <p>La battaglia con lo squalo fu breve e furiosa. La bestia attaccò da sotto, la ciurma rispose con tutto quello che aveva — spade, lance, alabarde — e il sangue si allargò sull'acqua nera come un fiore scuro. Poi lo squalo smise di muoversi, e il lago tornò immobile.</p>
+
+      <p>Seguì un trasporto caotico. Non c'erano abbastanza imbarcazioni per traghettare tutti insieme, e il capitano passò un'ora buona a coordinare andate e ritorni tra la riva e la costruzione al centro, con correnti sottomarine improvvise che rovesciavano i calcoli e qualcuno che quasi perdeva il controllo dell'imbarcazione su vortici silenziosi. Nel mezzo di questo andirivieni emerse un'informazione: nelle grotte laterali del lago c'era un'iscrizione nel ghiaccio, incompleta, che mostrava solo la seconda metà di una frase. <em>…lo squalo.</em> Mancava la prima parola.</p>
+
+      <p>La costruzione su palafitte aveva una porta con un piccolo sportellino — il tipo usato nelle guardiole per sapere chi bussa prima di aprire. Ci avevano già provato in molti modi: a martellate sui cardini, gridando verso la finestrella, invocando il nome di divinità locali. Niente.</p>
+
+      <p>Il capitano fece girare la ciurma attorno al lago fino alla grotta opposta, dove sperava di trovare il completamento dell'iscrizione. Invece trovò i serpenti marini.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h3 class="scene-title">A Volte Ritornano</h3>
+
+      <p>Le bestie emersero dai corridoi laterali come se fossero state lì ad aspettarli: lunghe, sibilanti, impossibilmente veloci sull'acqua. La prima battaglia costrinse tutta la ciurma all'armi in uno spazio stretto, con le barche che urtavano contro le pareti di ghiaccio e le lame che scintillavano nell'oscurità. Uno dei compagni prese un morso con il corpo per proteggere qualcun altro. Il capitano conficcò la propria spada nel fianco del secondo serpente con tutta la forza che aveva, e sentì qualcosa cedere sotto la lama. Il verso agonizzante dell'animale risuonò tra le pareti fino a spegnersi.</p>
+
+      <p>Nel silenzio che seguì, qualcuno disse piano:</p>
+
+      <p class="dialogue">— A volte ritornano.</p>
+
+      <p>Non era ancora finita. Il lago ne nascondeva altri.</p>
+
+      <p>La ciurma combatté tre volte, portandosi le barche per mano come zavorre tra una battaglia e l'altra, prima che l'acqua smettesse definitivamente di muoversi. Le ferite si accumulavano. Il respiro si faceva sempre più affannoso. Il capitano ordinò a tutti di scendere dalle imbarcazioni e si guardò attorno nel silenzio del lago conquistato.</p>
+
+      <p>Sul molo, sul ghiaccio, giaceva anche Vidak lo Squalo — così lo chiamavano, e così sarebbe rimasto. Il custode delle acque sotterranee. La guardia involontaria di tutto quello che stava oltre.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h3 class="scene-title">I Vivi e i Morti</h3>
+
+      <p>Il ladro aprì la porta con un grimaldello, in silenzio, senza cerimonie, mentre gli altri stavano ancora recuperando il fiato. Qualcuno fischiò con apprezzamento. Lui sparì di nuovo nell'ombra.</p>
+
+      <p>Il capitano aprì la porta e disse di avanzare con cautela.</p>
+
+      <p>Dietro c'era una guardiola ben fornita: lunghi tavoli, credenze piene di cibo, una piccola fontanella con acqua corrente. Il necessario per ospitare una folta schiera di soldati. E i soldati c'erano.</p>
+
+      <p>Filibustieri con catene chiodate arrivarono da nord. Corsari con scimitarre dalla lama nera arrivarono da ovest. Erano tanti e combatterono con la ferocia di chi non ha nient'altro da perdere. Il pavimento della guardiola si coprì di morti nel giro di pochi minuti, e la ciurma avanzò oltre — lungo corridoi scavati direttamente nel ghiaccio, stretti e irregolari, con le tracce degli scalpelli ancora visibili sulle pareti come cicatrici.</p>
+
+      <p>Stanza dopo stanza, porta dopo porta: depositi di armi in quantità militare, rastrelliere ordinate, casse sigillate, un magazzino di materie prime accumulato con la pazienza di chi stava costruendo qualcosa di grande e non aveva fretta. Lingotti di ferro. Carbone. Argilla. Cristalli.</p>
+
+      <p>Fu in quella sala che la ciurma trovò uno dei propri morti.</p>
+
+      <p>Non fu annunciato. Non ci fu un grido. Semplicemente, a un certo punto, il corpo era lì, e qualcuno lo stava sorreggendo in silenzio, sospirando. Non c'era niente da dire che valesse la pena dire, e nessuno disse nulla.</p>
+
+      <p>Uno dei compagni si fermò davanti al corpo di una donna. Rimase in piedi a guardarla per un momento che durò troppo. Poi si allontanò senza parlare.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <p>La strada per uscire fu più lunga del previsto.</p>
+
+      <p>Quando arrivarono alla luce, era già notte fonda. Una scogliera alta sul mare. Il vento da nordest. La neve fitta che si infittiva ancora. E ormeggiata contro la roccia — bianca come il ghiaccio che si lasciavano alle spalle, la quercia smaltata di fresco — la Gloria Imperiale.</p>
+
+      <p>Uno dopo l'altro, i membri della ciurma salirono a bordo, portandosi addosso i segni della notte: tagli, ammaccature, sangue rappreso, occhi stanchi. Qualcuno prese dal bordo provviste abbandonate lì da altri. Qualcuno si sedette e rimase immobile, a guardare il mare.</p>
+
+      <p>Il capitano sorrise al proprio secondo. Il secondo sorrise al capitano.</p>
+
+      <p>Poi l'uomo aprì i polmoni al vento gelido e gridò, con quella voce che non lasciava spazio a repliche, l'unica parola che contava ancora:</p>
+
+      <p class="dialogue">— Si salpa.</p>
+
+      <p>E la Gloria Imperiale lasciò la scogliera, portando con sé i suoi vivi e i suoi morti, nel buio del mare aperto.</p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine —</p>
+      <p class="end-author">Dai registri dell'Accademia di Storia Imperiale di Aral</p>
+    </div>
+  </div>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

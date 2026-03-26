@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>La Notte dell'Octavia — Cronache di Aral</title>
+  <title>L'Ultimo Ormeggio della Vecchia Nonna — Cronache di Aral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
@@ -20,18 +20,15 @@
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #1a1008; }
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-
     @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyInitialen.ttf') format('truetype'); }
 
-    /* ─── NAV ─── */
     nav { position: -webkit-sticky; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
     nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
     nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
     nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
 
-    /* ─── HERO ─── */
     header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
-      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Octavia.jpg') center 30% / cover no-repeat; overflow: hidden; }
+      background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Vecchia_Nonna.webp') center center / cover no-repeat; overflow: hidden; }
     .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
     .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
     h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
@@ -39,7 +36,6 @@
     .story-meta span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
     .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
 
-    /* ─── STORY BODY ─── */
     .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
     .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
     .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
@@ -50,12 +46,8 @@
     .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
     .story-text p.thought { font-style: italic; color: var(--ink-light); border-left: 2px solid rgba(200,151,42,0.4); padding-left: 1rem; margin-left: 0.5rem; }
 
-    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
-
     .scene-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--crimson); text-align: center; margin: 2.5rem 0 1.5rem; }
-
-    /* Nota finale */
-    .story-note { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(200,151,42,0.3); font-size: 0.88rem; font-style: italic; color: var(--ink-faded); text-align: center; }
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
 
     .story-end { text-align: center; margin-top: 2.5rem; }
     .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
@@ -73,12 +65,7 @@
     @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    @media (max-width: 600px) {
-      nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; }
-      .parchment-block { padding: 2rem 1.5rem; }
-      .story-text p { text-align: left; }
-    }
+    @media (max-width: 600px) { nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; } .parchment-block { padding: 2rem 1.5rem; } .story-text p { text-align: left; } }
   </style>
 </head>
 <body>
@@ -90,9 +77,9 @@
 
 <header>
   <div class="hero-ornament">— ✦ —</div>
-  <span class="hero-category">Avventura &nbsp;·&nbsp; Porto di Aral Maktar</span>
-  <h1 class="story-title">La Notte dell'Octavia</h1>
-  <p class="story-meta">dalle <span>Cronache di Aral Maktar</span> — Anno 579 DE, Giorno degli Eroi, terzo del Mese del Lupo</p>
+  <span class="hero-category">Avventura &nbsp;·&nbsp; I Vecchi Moli</span>
+  <h1 class="story-title">L'Ultimo Ormeggio della Vecchia Nonna</h1>
+  <p class="story-meta">dai <span>Registri dell'Accademia di Storia Imperiale di Aral</span></p>
   <div class="hero-divider"></div>
 </header>
 
@@ -100,57 +87,69 @@
   <div class="parchment-block reveal">
     <div class="story-text">
 
-      <p class="drop-cap">Gli Eliantiriani lo sanno da sempre: il mare non porta nulla di buono. È scritto nei loro proverbi, nei loro sogni, nel modo in cui i pescatori del porto basso guardano l'orizzonte al calar del sole — non con curiosità, ma con la diffidenza silenziosa di chi attende qualcosa che prima o poi arriverà. Il mare è smarrimento. Il mare è divisione. Il mare è la voce degli abissi che chiama i vivi verso il nulla.</p>
+      <p class="drop-cap">Il vento portava l'odore della salsedine e del legno marcio quando il gruppo si fermò davanti alla porta. Le assi erano sepolte sotto uno spesso manto di muschio verdastro; la maniglia, divorata dalla ruggine, sembrava sul punto di sgretolarsi al solo tocco. Nel fianco della nave qualcuno aveva intagliato, secoli addietro, la testa di un pesce spada — totem o avvertimento, era difficile dirlo. Le torce furono sollevate, le lame impugnate, e il gruppo entrò.</p>
 
-      <p>Quella notte, il mare aveva risposto.</p>
+      <p>L'interno del relitto li accolse con il silenzio pesante dei luoghi abbandonati. Grandi ragnatele penzolavano dal soffitto come tendaggi funebri. Il planciato scricchiolava a ogni passo. Al centro dell'imbarcazione la visuale si apriva in tutta la sua tetra bellezza — e fu lì che i corsari li trovarono.</p>
 
-      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+      <p>Lo scontro fu breve e violento. Scimitarre dalla lama nera cozzarono contro acciaio e mithril; catene chiodate fischiarono nell'aria. Una lama scattò di sorpresa nel mezzo di un'intercettazione, un corsaro fu disarmato con una finta fulminea, un altro cadde decapitato con un unico giro di spada. Quando l'ultimo urlo si spense, si sentiva solo il sibilo del vento tra le fessure dello scafo.</p>
 
-      <h3 class="scene-title">L'Ombra sull'Acqua</h3>
+      <p>Il gruppo avanzò, stanza per stanza, tenendo il ferro in pugno. Le cucine erano infestate di topi. Il refettorio puzzava di abbandono. Le scale verso il ponte nobile erano le uniche a conservare un brandello di decoro — il velluto rosso degli scalini ancora intatto, come se nessuno avesse mai osato salire abbastanza in fretta da consumarlo.</p>
 
-      <p>Nessuno la vide arrivare. Comparve nell'oscurità come un pensiero malvagio: prima un'ombra tra le onde, poi una sagoma che si faceva sempre più solida sotto il cielo senza stelle del Mese del Lupo. Si chiamava <em>Octavia</em>. Un vascello corsaro, lungo e scuro come una ferita nell'acqua, che gettò silenziosamente l'ancora al largo delle luci di Aral Maktar — abbastanza vicina da minacciare il porto, abbastanza lontana da beffare le pattuglie notturne.</p>
+      <p>In fondo al corridoio trovarono una statua rozza intagliata nel legno grezzo: un marinaio con le braccia conserte, il volto rivolto verso l'osservatore, e la gamba sinistra mancante. Chi capì infilò qualcosa nella cavità, e con uno scricchiolio profondo una botola nascosta si aprì sul soffitto. Poco più avanti, incisa a fuoco su una trave, una marchiatura — il nome del comandante del vascello.</p>
 
-      <p>Dalle sue murate scesero uomini armati. O almeno, creature che una volta lo erano state.</p>
+      <p class="thought">Iankul l'Artigliere.</p>
 
-      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
-
-      <h3 class="scene-title">Ossa sul Ponte</h3>
-
-      <p>La notizia corse per la città con la velocità propria delle cattive novelle. Gli avventurieri che vegliavano nei pressi del porto radunarono i loro compagni con la stessa urgenza di chi sa che rimandare significa perdere. Tra di loro c'era il Generale dei Dragoni di Aral — e dove c'era lui, non c'era luogo per l'esitazione.</p>
-
-      <p>Trovarono imbarcazioni. Attraversarono l'acqua nera. Abbordarono l'<em>Octavia</em>.</p>
-
-      <p>Ciò che li accolse sul ponte non era carne né sangue. Erano ossa. I corsari dell'<em>Octavia</em> erano scheletri — resti umani animati da una volontà oscura e straniera, armati come in vita, feroci come la morte stessa. Un abominio agli occhi di Alisard, un insulto alla Legge che regola l'ordine del mondo. Per un Eliantiriano, nulla è più perturbante del confine tra i vivi e i morti che viene violato: il soprannaturale è una minaccia che non si comprende, solo si teme o si distrugge.</p>
-
-      <p>Quella notte si scelse di distruggere. Senza pietà, senza esitazione, i soldati della capitale smantellarono uno dopo l'altro quegli abomini che calpestando i ponti dell'<em>Octavia</em> osavano ancora fingersi guerrieri. L'acciaio imperiale parlò chiaro: dove passa la giustizia di Alisard, il caos si ritira.</p>
+      <p>La torcia guizzò quasi spegnendosi al passaggio di una corrente d'aria, poi tornò vivida. Come se la nave stessa avesse esalato un respiro.</p>
 
       <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-      <h3 class="scene-title">L'Abbordatore</h3>
+      <h3 class="scene-title">La Picca d'Argento</h3>
 
-      <p>Ma il caos, quella notte, aveva ancora un nome.</p>
+      <p>Arrivò dall'alto, attraverso la botola, senza preavviso.</p>
 
-      <p>Sul castello di poppa, nell'ombra più profonda della nave, li attendeva <strong>Traaver l'Abbordatore</strong>. Chiunque avesse mai percorso le rotte di Landmar conosceva quel nome, o almeno ne conosceva la leggenda: uno dei corsari più pericolosi che infestassero i mari, un uomo la cui reputazione era costruita sull'abitudine di sopravvivere a tutto. La sua frusta sibilò nell'aria prima ancora che qualcuno potesse parlare, e si abbatté sul Generale dei Dragoni con la precisione di chi ha già vinto cento battaglie prima di questa.</p>
+      <p>Iankul l'Artigliere era una figura costruita apposta per incutere terrore: il corpo coperto di cicatrici fino alla faccia, solcata da due enormi cuciture che la dividevano in quattro parti come una mappa di battaglie perdute. I capelli radi, i denti ridotti a un terzo, le braccia come radici di quercia. Sul petto, tatuato in inchiostro scuro, un pesce spada mostruoso — lo stesso che aveva accolto il gruppo all'ingresso. Sul fianco, la lunga picca d'arrembaggio di mithril brillava come argento sotto la torcia.</p>
 
-      <p>Tutti si gettarono nella mischia. Lo scontro fu brutale e lungo oltre ogni aspettativa. Traaver non combatteva come un uomo che vuole vincere — combatteva come uno che sa di essere già morto e ha scelto di costare caro. Ogni colpo ceduto era pagato il doppio. Ogni momento in cui sembrava cedere, trovava un angolo di violenza ancora inesplorato. La superiorità numerica degli uomini di Aral contava poco contro la ferocia concentrata di quell'uomo enorme, e per lunghi, interminabili minuti il ponte dell'<em>Octavia</em> rimase un teatro di ferro e sangue senza un esito certo.</p>
+      <p>Non parlò. Attaccò.</p>
 
-      <p>Poi, infine, cadde. Traaver l'Abbordatore toccò il legno bagnato del suo stesso vascello, e su di lui scese la giustizia affilata di Alisard — definitiva come sempre, misericordiosa come mai.</p>
+      <p>I suoi filibustieri arrivarono subito dopo, sciamando dalla botola per fare muro attorno al loro capitano. Ogni tentativo di raggiungerlo si scontrava con un corpo che si gettava in mezzo. Le lame scivolarono via — deviate, deflesse, schivate — come se l'uomo fosse rivestito di qualcosa di più duro dell'acciaio. Un colpo al fianco, un fendente al braccio: tutto respinto con la stessa distratta facilità con cui si scaccia una mosca.</p>
+
+      <p>Poi arrivò il contrattacco. La picca di mithril descrisse un arco e colpì tutto ciò che aveva davanti: una striscia di ferro e dolore che attraversò gole, spalle, polpacci e fianchi in una sola devastante rotazione. Chi era già provato dallo scontro coi filibustieri fu ridotto in fin di vita.</p>
+
+      <p>Il gruppo si ritirò.</p>
 
       <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
 
-      <h3 class="scene-title">Le Vele Nere</h3>
+      <h3 class="scene-title">Ferro su Ferro</h3>
 
-      <p>I Dragoni tornarono a riva all'alba, stanchi e feriti, portando con sé la consapevolezza di qualcosa di nuovo. Non si trattava di una razzia isolata, di un predone solitario spinto dall'avidità o dalla fortuna. Questo era qualcosa di diverso. Un vascello senza uomini vivi. Un comandante che sembrava atteso da quegli abissi da cui era emerso.</p>
+      <p>Il corridoio era buio e silenzioso. Le ferite vennero tamponate come si poteva; ci volle tempo prima che le gambe tornassero a reggere il peso dei corpi. Si mangiò qualcosa. Si aspettò.</p>
 
-      <p>I Corsari erano arrivati a Landmar. E l'<em>Octavia</em> non era che la prima delle loro vele nere.</p>
+      <p>Iankul non inseguì — forse riteneva la battaglia già vinta, o forse aveva semplicemente altro da fare. Quando la porta in cima alle scale si riaprì, fu dall'interno.</p>
+
+      <p>L'Artigliere discese nel corridoio con un urlo che fece tremare le pareti. La stessa furia, la stessa velocità, la stessa apparente invulnerabilità. Lame su lame, tentativi di disarmo frustrati uno dopo l'altro. La picca di mithril continuò a devastare — colpi al collo, ferite distribuite tra chi osava avvicinarsi troppo. Iankul ringhiava come un animale.</p>
+
+      <p>Ma qualcosa stava cambiando.</p>
+
+      <p>Le ferite si accumulavano — minuscole, quasi impercettibili, ma continue. Il sangue scorreva. Poi, con un movimento veloce e preciso, la picca fu finalmente strappata dalle mani dell'Artigliere e fatta volteggiare lontano. Iankul si trovò disarmato per la prima volta.</p>
+
+      <p>Continuò a combattere a mani nude — ed erano comunque pericolose, quelle mani — ma qualcosa si era rotto nell'equilibrio della battaglia. Le ferite non rimarginavano più abbastanza in fretta. Una lama affondò nel ventre dell'Artigliere con tutta la forza disponibile. Iankul vacillò — ferito mortalmente, ma ancora in piedi, ancora combattendo, ancora ringhiante. Poi arrivò il colpo finale.</p>
+
+      <p>L'ultimo urlo di Iankul l'Artigliere risuonò sul ponte di avvistamento e si dissolse nel vento del mare.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h3 class="scene-title">Il Silenzio dopo la Battaglia</h3>
+
+      <p>Il gruppo rimase immobile per qualche secondo, in quel silenzio denso che seguiva ogni grande battaglia — il silenzio in cui si torna a sentire il proprio respiro e ci si accorge di quante cose fanno male. Il corpo dell'Artigliere giaceva tra le macchie di sangue, il tatuaggio del pesce spada immobile sul petto per sempre. La picca di mithril era a pochi passi, abbandonata sul legno scuro.</p>
+
+      <p>Un grido si levò tra i compagni e si perse verso il cielo aperto sopra al ponte di avvistamento.</p>
+
+      <p>La grande statua del pesce spada troneggiava ancora sul pontile, silenziosa testimone. Aveva visto arrivare Iankul, molti anni prima. Aveva visto arrivare loro, quella notte. Di tutto il resto — i morti, il sangue, le battaglie combattute in quei corridoi — non aveva mai detto nulla, e non avrebbe detto nulla adesso.</p>
 
     </div>
 
-    <p class="story-note">Questa cronaca è stata redatta dall'<em>Accademia di Storia Imperiale di Aral</em>, su testimonianza dei valorosi che parteciparono all'abbordaggio. Che il loro coraggio serva da monito e da esempio per coloro che verranno dopo, nel nome di Alisard e della Legge Imperiale.</p>
-
     <div class="story-end">
       <p class="end-mark">— Fine —</p>
-      <p class="end-author">Accademia di Storia Imperiale di Aral, Anno 579 DE</p>
+      <p class="end-author">Dai registri dell'Accademia di Storia Imperiale di Aral</p>
     </div>
   </div>
 
@@ -168,14 +167,10 @@
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 100);
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 100); observer.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
