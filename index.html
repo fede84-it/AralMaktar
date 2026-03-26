@@ -144,23 +144,13 @@
       background: rgba(20, 12, 4, 0.95);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(200,151,42,0.2);
+      box-shadow: 0 -150px 0 0 #1a1008;
       display: flex;
       justify-content: center;
       gap: 0;
       padding: constant(safe-area-inset-top) 0 0 0;
       padding: env(safe-area-inset-top, 0px) 0 0 0;
       flex-wrap: wrap;
-    }
-
-    nav::before {
-      content: '';
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      right: 0;
-      height: 150px;
-      background: #1a1008;
-      pointer-events: none;
     }
 
     nav a {
