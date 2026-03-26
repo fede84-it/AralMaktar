@@ -164,6 +164,8 @@
     }
     nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
     nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--gold-light); font-size: 1.5rem; padding: 0.9rem 1.5rem; cursor: pointer; align-self: flex-end; line-height: 1; }
+    @media (max-width: 768px) { .nav-toggle { display: block; } nav a { display: none; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(200,151,42,0.1); text-align: center; width: 100%; } nav.open a { display: block; } }
 
     /* ─── SECTIONS ─── */
     section {
@@ -644,6 +646,7 @@
 
 <!-- NAV -->
 <nav>
+  <button class="nav-toggle" aria-label="Menu">☰</button>
   <a href="#storia">La Storia</a>
   <a href="#editti">Editti Reali</a>
   <a href="#fazioni">Le Istituzioni</a>
@@ -1178,6 +1181,17 @@
   }
   animate();
 })();
+
+  // ── HAMBURGER MENU ──
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      nav.classList.toggle('open');
+      btn.textContent = nav.classList.contains('open') ? '✕' : '☰';
+    });
+  })();
 
 </script>
 

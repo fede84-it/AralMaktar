@@ -19,6 +19,8 @@
     nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
     nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
     nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--gold-light); font-size: 1.5rem; padding: 0.9rem 1.5rem; cursor: pointer; align-self: flex-end; line-height: 1; }
+    @media (max-width: 768px) { .nav-toggle { display: block; } nav a { display: none; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(200,151,42,0.1); text-align: center; width: 100%; } nav.open a { display: block; } }
     header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh; background: linear-gradient(to bottom, rgba(10,5,0,0.55) 0%, rgba(26,16,8,0.72) 60%, rgba(26,16,8,1) 100%), url('../Immagini/Garme.webp') center center / cover no-repeat; overflow: hidden; }
     .hero-bg-icon { position: absolute; opacity: 0.04; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; user-select: none; }
     .hero-bg-icon img { width: 220px; height: 220px; object-fit: contain; }
@@ -57,7 +59,7 @@
   </style>
 </head>
 <body>
-<nav><a href="../index.html">← Torna ad Aral Maktar</a></nav>
+<nav><button class="nav-toggle" aria-label="Menu">☰</button><a href="../index.html">← Torna ad Aral Maktar</a></nav>
 
 <header>
   <div class="hero-bg-icon"><img src="../Immagini/Garme_icon.png" alt=""></div>
@@ -136,6 +138,17 @@
     });
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
+
+  // ── HAMBURGER MENU ──
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      nav.classList.toggle('open');
+      btn.textContent = nav.classList.contains('open') ? '✕' : '☰';
+    });
+  })();
 </script>
 </body>
 </html>
