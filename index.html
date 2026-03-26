@@ -22,7 +22,7 @@
       --shadow: rgba(30,10,0,0.35);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: #1a1008; }
 
     body {
       background-color: #1a1008;
@@ -31,19 +31,6 @@
       font-size: 17px;
       line-height: 1.75;
       overflow-x: hidden;
-    }
-
-    /* iOS STATUS BAR COVER */
-    body::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: env(safe-area-inset-top, 0px);
-      background: rgba(20, 12, 4, 0.95);
-      z-index: 200;
-      pointer-events: none;
     }
 
     /* NOISE TEXTURE OVERLAY */
@@ -160,6 +147,7 @@
       display: flex;
       justify-content: center;
       gap: 0;
+      padding: constant(safe-area-inset-top) 0 0 0;
       padding: env(safe-area-inset-top, 0px) 0 0 0;
       flex-wrap: wrap;
     }
@@ -640,6 +628,8 @@
   </style>
 </head>
 <body>
+<!-- iOS safe-area status bar cover -->
+<div style="position:fixed;top:0;left:0;right:0;height:constant(safe-area-inset-top);height:env(safe-area-inset-top,0px);background:#1a1008;z-index:9998;pointer-events:none"></div>
 
 <!-- HERO -->
 <header>
