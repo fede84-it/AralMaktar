@@ -152,6 +152,17 @@
       flex-wrap: wrap;
     }
 
+    nav::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: #1a1008;
+      pointer-events: none;
+    }
+
     nav a {
       font-family: 'Cinzel', serif;
       font-size: 0.78rem;
@@ -628,8 +639,6 @@
   </style>
 </head>
 <body>
-<!-- iOS safe-area status bar cover -->
-<div style="position:fixed;top:0;left:0;right:0;height:constant(safe-area-inset-top);height:env(safe-area-inset-top,0px);background:#1a1008;z-index:9998;pointer-events:none"></div>
 
 <!-- HERO -->
 <header>
