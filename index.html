@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#140c04">
   <title>Aral Maktar — La Capitale del Nuovo Impero</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,7 +140,7 @@
     nav {
       position: -webkit-sticky;
       position: sticky;
-      top: 0;
+      top: env(safe-area-inset-top, 0px);
       z-index: 100;
       background: #140c04;
       border-bottom: 1px solid rgba(200,151,42,0.2);
@@ -150,6 +150,17 @@
       padding-top: constant(safe-area-inset-top);
       padding-top: env(safe-area-inset-top, 0px);
       flex-wrap: wrap;
+    }
+
+    nav::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: #140c04;
+      z-index: -1;
     }
 
     nav a {
