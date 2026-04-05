@@ -68,8 +68,9 @@
     .story-end .end-author { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-faded); margin-top: 0.5rem; font-size: 0.95rem; }
 
     .back-link { display: block; text-align: center; margin-top: 3.5rem; }
-    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; white-space: nowrap; }
     .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+    @media (max-width: 480px) { .back-link a { letter-spacing: 0.08em; padding: 0.7rem 1rem; font-size: 0.72rem; } }
 
     footer { text-align: center; padding: 3rem 2rem; padding-bottom: env(safe-area-inset-bottom, 0px); background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--ink-faded); font-size: 0.85rem; }
     footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
