@@ -32,8 +32,18 @@
     nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.6rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
     nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
     nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
-    .nav-toggle { display: none; background: none; border: none; color: var(--gold-light); font-size: 1.5rem; padding: 0.9rem 1.5rem; cursor: pointer; align-self: flex-end; line-height: 1; }
-    @media (max-width: 768px) { .nav-toggle { display: block; } nav a { display: none; border-right: none !important; border-left: none !important; border-bottom: 1px solid rgba(200,151,42,0.1); text-align: center; width: 100%; } nav.open a { display: block; } }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; line-height: 1; -webkit-tap-highlight-color: transparent; }
+    .nav-toggle img { height: 36px; width: auto; filter: drop-shadow(0 0 6px rgba(0,0,0,0.9)) drop-shadow(0 0 14px rgba(0,0,0,0.6)); }
+    @media (max-width: 768px) {
+      nav { background: transparent; border-bottom: none; justify-content: space-between; }
+      .nav-toggle { display: block; }
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(20, 12, 4, 0.95); z-index: 99; }
+      nav.open { background: rgba(20, 12, 4, 0.95); }
+      nav.open::before { content: 'Aral Maktar'; position: absolute; left: 50%; transform: translateX(-50%); top: 0; height: 47px; display: flex; align-items: center; font-family: 'Cinzel Decorative', serif; color: var(--gold-light); font-size: 0.85rem; letter-spacing: 0.2em; pointer-events: none; }
+      nav.open .nav-menu { display: block; }
+      .nav-menu a { display: block; border-bottom: 1px solid rgba(200,151,42,0.1); text-align: center; width: 100%; -webkit-tap-highlight-color: transparent; }
+      .nav-menu a:active { background: rgba(200,151,42,0.2); color: var(--gold-light); }
+    }
 
     /* ─── HERO ─── */
     header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
@@ -100,14 +110,17 @@
 <body>
 
 <nav>
-  <button class="nav-toggle" aria-label="Menu">☰</button>
-  <a href="index.html">← Aral Maktar</a>
-  <a href="#era1">Il Vecchio Impero</a>
-  <a href="#era2">L'Esilio</a>
-  <a href="#era3">La Fondazione</a>
-  <a href="#era4">Il Nuovo Impero</a>
-  <a href="#era5">L'Era del Caos</a>
-  <a href="#era6">Il Regno</a>
+  <button class="nav-toggle nav-toggle-left" aria-label="Menu"><img src="Immagini/Icona_aral_sinistra.png" alt="Menu"></button>
+  <button class="nav-toggle nav-toggle-right" aria-label="Menu"><img src="Immagini/Icona_aral_destra.png" alt="Menu"></button>
+  <div class="nav-menu">
+    <a href="index.html">← Aral Maktar</a>
+    <a href="#era1">Il Vecchio Impero</a>
+    <a href="#era2">L'Esilio</a>
+    <a href="#era3">La Fondazione</a>
+    <a href="#era4">Il Nuovo Impero</a>
+    <a href="#era5">L'Era del Caos</a>
+    <a href="#era6">Il Regno</a>
+  </div>
 </nav>
 
 <header>
@@ -297,12 +310,13 @@
 
   // ── HAMBURGER MENU ──
   (function() {
-    var btn = document.querySelector('.nav-toggle');
+    var btns = document.querySelectorAll('.nav-toggle');
     var nav = document.querySelector('nav');
-    if (!btn) return;
-    btn.addEventListener('click', function() {
-      nav.classList.toggle('open');
-      btn.textContent = nav.classList.contains('open') ? '✕' : '☰';
+    if (!btns.length) return;
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        nav.classList.toggle('open');
+      });
     });
   })();
 </script>
