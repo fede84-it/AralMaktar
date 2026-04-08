@@ -3,6 +3,21 @@
 // La home mostra automaticamente i primi 3.
 var EDITTI = [
   {
+    titolo: "Sulla Profanazione dei Nerocolli",
+    data: "Aral Maktar — 621 DE",
+    corpo: [
+      { tipo: "drop-cap", testo: "Sia noto a tutti i sudditi del Regno e a chiunque si trovi entro i confini di Aral Maktar: nei giorni recenti sono stati segnalati scavi non autorizzati nelle immediate vicinanze del Cerchio di Pietre. Tali operazioni, condotte da mano ignota e per scopo ancora oscuro, hanno turbato l'equilibrio di quel luogo sacro, risvegliando presenze ostili tra i morti che vi dimorano." },
+      { tipo: "p", testo: "Le creature emerse minacciano la sicurezza dei cittadini e offendono la memoria di coloro che riposano sotto quella terra. In nome della Legge Imperiale e per volontà di Alisard, che tutto ordina e tutto giudica, si convocano i difensori del Regno a porre fine a questa profanazione:" },
+      { tipo: "ol", voci: [
+        "Ricercare i responsabili degli scavi non autorizzati e consegnarli vivi al Collegio dei Giudici per il giudizio che spetta loro.",
+        "Respingere i non morti emersi dal Cerchio e ristabilire l'ordine in quel luogo sacro, affinché i morti tornino a dormire in pace.",
+        "Riferire ogni informazione utile alle indagini alle autorità competenti, senza omissioni né reticenze."
+      ]},
+      { tipo: "p", testo: "Chi si distinguerà in tale impresa riceverà il riconoscimento dovuto al servizio reso al Regno." },
+      { tipo: "p", testo: "Chi invece dovesse ostacolare le indagini, celare informazioni o risultare complice di questa violazione, risponderà dinanzi alla Legge. La profanazione di un luogo sacro è crimine contro il popolo e affronto ad Alisard stesso." }
+    ]
+  },
+  {
     titolo: "Sulla Restaurazione dell'Acquedotto Imperiale e l'Approvvigionamento Idrico",
     data: "Aral Maktar — 582 DE",
     corpo: [
