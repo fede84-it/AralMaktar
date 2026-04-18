@@ -3,6 +3,20 @@
 // La home mostra automaticamente i primi 3.
 var EDITTI = [
   {
+    titolo: "Sul Trasferimento del Mercato Ortofrutticolo di Aral",
+    data: "Aral Maktar — 621 DE",
+    corpo: [
+      { tipo: "drop-cap", testo: "Noi, Raziel Firelair, Re di Aral Maktar e Protettore delle Terre di Landmar, sentito il parere delle Gilde mercantili e valutate le condizioni dell'attuale sede del Mercato Ortofrutticolo, al fine di garantire ai cittadini prodotti freschi conservati con la dovuta cura e un ambiente degno della capitale del Regno, decretiamo quanto segue:" },
+      { tipo: "ol", voci: [
+        "Il Mercato Ortofrutticolo di Aral Maktar è trasferito in una nuova sede appositamente realizzata, situata a sud della precedente locazione. I lavori sono stati condotti sotto la supervisione della Corona e con il concorso delle Gilde mercantili.",
+        "La nuova struttura garantisce una migliore tenuta dell'ambiente raffreddato, assicurando la corretta conservazione delle merci deperibili a beneficio di venditori e acquirenti.",
+        "Le attività già operanti nella sede precedente sono state trasferite nella nuova locazione a cura delle autorità competenti. I mercanti sono invitati a riprendere la propria attività nella nuova sede senza indugio.",
+        "Le Gilde mercantili vigileranno sul rispetto delle norme di conservazione e sulla qualità delle merci esposte, riferendo alla Corona ogni irregolarità."
+      ]},
+      { tipo: "p", testo: "Che il nuovo Mercato Ortofrutticolo serva degnamente il popolo di Aral Maktar. Una città prospera si misura anche dalla qualità del pane e del raccolto che porta sulle proprie tavole." }
+    ]
+  },
+  {
     titolo: "Sulla Profanazione dei Nerocolli",
     data: "Aral Maktar — 621 DE",
     corpo: [
