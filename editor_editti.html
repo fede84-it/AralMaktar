@@ -704,11 +704,23 @@ function updateCode() {
 
 function copyCode() {
   var code = document.getElementById('code-output').textContent;
-  navigator.clipboard.writeText(code).then(function() {
-    var feedback = document.getElementById('copy-feedback');
+  var feedback = document.getElementById('copy-feedback');
+  function showFeedback() {
     feedback.classList.add('show');
     setTimeout(function() { feedback.classList.remove('show'); }, 2000);
-  });
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(showFeedback);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = code;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showFeedback();
+  }
 }
 
 function escapeHtml(str) {
@@ -716,7 +728,7 @@ function escapeHtml(str) {
 }
 
 function escapeJs(str) {
-  return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'");
+  return str.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r?\n/g, '\\n');
 }
 
 // ── INIT ──

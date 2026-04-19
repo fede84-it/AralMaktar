@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Gate — Editor di Mappe</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f2ec;
+    --surface: #fdfaf5;
+    --border: #c8bfa8;
+    --border-light: #e0d8c8;
+    --text: #2a2218;
+    --text-muted: #7a6e5e;
+    --text-faint: #b0a898;
+    --accent: #7a5c38;
+    --accent-light: #f0e8d8;
+    --connect-color: #4a7a5c;
+    --connect-bg: #e8f5ee;
+    --delete-color: #8a3a2a;
+    --room-bg: #fdfaf5;
+    --room-hover: #f8f0e0;
+    --line-color: #5a4a38;
+    --grid-dot: rgba(90,74,56,0.25);
+    --grid-line: rgba(90,74,56,0.07);
+    --popup-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1712;
+      --surface: #211e18;
+      --border: #4a4238;
+      --border-light: #332e26;
+      --text: #e8e0d0;
+      --text-muted: #8a8070;
+      --text-faint: #5a5248;
+      --accent: #c8a070;
+      --accent-light: #2a2418;
+      --connect-color: #6aaa8a;
+      --connect-bg: #182418;
+      --delete-color: #c87060;
+      --room-bg: #262218;
+      --room-hover: #302a1e;
+      --line-color: #a09080;
+      --grid-dot: rgba(200,180,140,0.2);
+      --grid-line: rgba(200,180,140,0.05);
+      --popup-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* Header */
+  #header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  #header h1 {
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-right: 8px;
+  }
+
+  .sep { width: 1px; height: 20px; background: var(--border-light); flex-shrink: 0; }
+
+  .tool-btn {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: 'Georgia', serif;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+  .tool-btn:hover { background: var(--accent-light); color: var(--text); border-color: var(--accent); }
+  .tool-btn.active { background: var(--accent-light); color: var(--accent); border-color: var(--accent); font-weight: bold; }
+  .tool-btn.connect.active { color: var(--connect-color); border-color: var(--connect-color); background: var(--connect-bg); }
+  .tool-btn.disconnect.active { color: var(--delete-color); border-color: var(--delete-color); background: #fdf0ee; }
+  .tool-btn.delete.active { color: var(--delete-color); border-color: var(--delete-color); background: #fdf0ee; }
+  @media (prefers-color-scheme: dark) {
+    .tool-btn.disconnect.active, .tool-btn.delete.active { background: #2a1810; }
+  }
+
+  .slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .slider-wrap label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.05em; }
+  input[type=range] {
+    width: 72px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  #cell-label { font-size: 11px; color: var(--text-faint); min-width: 26px; }
+
+  #status {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-style: italic;
+    margin-left: auto;
+  }
+
+  /* Canvas */
+  #canvas-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  canvas { display: block; }
+
+  /* Rename popup */
+  #rename-popup {
+    display: none;
+    position: absolute;
+    z-index: 30;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    box-shadow: var(--popup-shadow);
+    min-width: 180px;
+  }
+  #rename-popup label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+  }
+  #rename-popup input {
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 13px;
+    font-family: 'Georgia', serif;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+  }
+  #rename-popup input:focus, #rename-popup textarea:focus { border-color: var(--accent); }
+  #rename-popup textarea {
+    width: 100%;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-family: 'Georgia', serif;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    resize: vertical;
+    min-height: 60px;
+    margin-top: 8px;
+  }
+  #rename-popup .popup-label-2 {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    margin-top: 8px;
+  }
+  #rename-hint { font-size: 10px; margin-top: 5px; color: var(--text-faint); font-style: italic; }
+
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <h1>Aral Mapper</h1>
+    <div class="sep"></div>
+    <button class="tool-btn active" id="btn-add" onclick="setMode('add')">+ Stanza</button>
+    <button class="tool-btn connect" id="btn-connect" onclick="setMode('connect')">— Collega</button>
+    <button class="tool-btn disconnect" id="btn-disconnect" onclick="setMode('disconnect')">— Scollega</button>
+    <button class="tool-btn delete" id="btn-delete" onclick="setMode('delete')">✕ Elimina</button>
+    <div class="sep"></div>
+    <div class="slider-wrap">
+      <label>Griglia</label>
+      <input type="range" id="cell-size" min="80" max="180" value="110" step="10" oninput="updateCellSize(this.value)">
+      <span id="cell-label">110</span>
+    </div>
+    <div class="sep"></div>
+    <button class="tool-btn" onclick="clearAll()">Azzera</button>
+    <button class="tool-btn" onclick="exportPng()">↓ PNG</button>
+    <button class="tool-btn" onclick="exportJson()">↓ JSON</button>
+    <button class="tool-btn" onclick="importJson()">↑ Importa</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="loadJsonFile(this)">
+    <span id="status">Clicca su una cella per aggiungere una stanza</span>
+  </div>
+
+  <div id="canvas-wrap">
+    <canvas id="c"></canvas>
+
+    <div id="rename-popup">
+      <label>Nome stanza</label>
+      <input id="rename-input" type="text" maxlength="22" placeholder="Es. Ingresso"/>
+      <span class="popup-label-2">Descrizione</span>
+      <textarea id="rename-desc" placeholder="Descrizione della stanza..."></textarea>
+      <div id="rename-hint">Tab per passare al campo · Esc per annullare</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+
+let CELL = 110;
+let RW, RH, RPAD_X, RPAD_Y;
+
+function updateDims() {
+  RW = Math.round(CELL * 0.64);
+  RH = Math.round(CELL * 0.52);
+  RPAD_X = (CELL - RW) / 2;
+  RPAD_Y = (CELL - RH) / 2;
+}
+updateDims();
+
+let cols, rows;
+let rooms = {}, connections = [];
+let mode = 'add', connectStart = null, nextId = 1;
+let hoverCell = null, hoverConn = null, renamingKey = null;
+
+function updateCellSize(v) {
+  CELL = parseInt(v);
+  document.getElementById('cell-label').textContent = v;
+  updateDims();
+  cols = Math.floor(canvas.width / CELL);
+  rows = Math.floor(canvas.height / CELL);
+  draw();
+}
+
+function resize() {
+  canvas.width = wrap.clientWidth;
+  canvas.height = wrap.clientHeight;
+  cols = Math.floor(canvas.width / CELL);
+  rows = Math.floor(canvas.height / CELL);
+  draw();
+}
+
+function key(c, r) { return c + ',' + r; }
+
+function cellFromXY(x, y) {
+  const c = Math.floor(x / CELL), r = Math.floor(y / CELL);
+  if (c < 0 || r < 0 || c >= cols || r >= rows) return null;
+  return { c, r };
+}
+
+function cellPos(c, r) {
+  return { x: c * CELL + RPAD_X, y: r * CELL + RPAD_Y };
+}
+
+const STATUSES = {
+  add: 'Clicca su una cella vuota per aggiungere · Doppio click per rinominare',
+  connect: 'Clicca una stanza, poi un\'altra per collegarle · Doppio click per rinominare',
+  disconnect: 'Clicca una stanza, poi un\'altra per rimuovere il collegamento',
+  delete: 'Clicca una stanza o connessione per eliminarla'
+};
+
+function setMode(m) {
+  mode = m; connectStart = null; closeRename();
+  ['add', 'connect', 'disconnect', 'delete'].forEach(id =>
+    document.getElementById('btn-' + id).classList.toggle('active', id === m)
+  );
+  document.getElementById('status').textContent = STATUSES[m];
+  canvas.style.cursor = (mode === 'delete' || mode === 'disconnect') ? 'not-allowed' : 'crosshair';
+  draw();
+}
+
+function openRename(k) {
+  const r = rooms[k]; if (!r) return;
+  renamingKey = k;
+  const pos = cellPos(r.col, r.row);
+  const popup = document.getElementById('rename-popup');
+  const inp = document.getElementById('rename-input');
+  const desc = document.getElementById('rename-desc');
+  let px = pos.x, py = pos.y + RH + 8;
+  if (py + 160 > canvas.height) py = pos.y - 160;
+  if (px + 220 > canvas.width) px = canvas.width - 224;
+  if (px < 4) px = 4;
+  popup.style.left = px + 'px';
+  popup.style.top = py + 'px';
+  popup.style.display = 'block';
+  inp.value = r.name;
+  desc.value = r.desc || '';
+  inp.focus(); inp.select();
+}
+
+function closeRename(confirm = false) {
+  const inp = document.getElementById('rename-input');
+  const desc = document.getElementById('rename-desc');
+  if (renamingKey && confirm && rooms[renamingKey]) {
+    rooms[renamingKey].name = inp.value.trim() || rooms[renamingKey].name;
+    rooms[renamingKey].desc = desc.value.trim();
+  }
+  document.getElementById('rename-popup').style.display = 'none';
+  renamingKey = null;
+  draw();
+}
+
+document.getElementById('rename-input').addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeRename(false); }
+  e.stopPropagation();
+});
+document.getElementById('rename-desc').addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeRename(false); }
+  e.stopPropagation();
+});
+document.getElementById('rename-input').addEventListener('blur', () =>
+  setTimeout(() => { if (document.activeElement !== document.getElementById('rename-desc')) closeRename(true); }, 120)
+);
+document.getElementById('rename-desc').addEventListener('blur', () =>
+  setTimeout(() => { if (document.activeElement !== document.getElementById('rename-input')) closeRename(true); }, 120)
+);
+
+canvas.addEventListener('click', e => {
+  if (renamingKey) { closeRename(true); return; }
+  const cell = cellFromXY(e.offsetX, e.offsetY);
+  if (!cell) return;
+  const k = key(cell.c, cell.r);
+
+  if (mode === 'add') {
+    if (!rooms[k]) rooms[k] = { col: cell.c, row: cell.r, name: 'Stanza ' + nextId++, desc: '' };
+    draw();
+  } else if (mode === 'connect') {
+    if (!rooms[k]) return;
+    if (!connectStart) { connectStart = k; }
+    else if (connectStart !== k) {
+      const dup = connections.find(c =>
+        (c.a === connectStart && c.b === k) || (c.a === k && c.b === connectStart)
+      );
+      if (!dup) connections.push({ a: connectStart, b: k });
+      connectStart = null; draw();
+    } else { connectStart = null; draw(); }
+  } else if (mode === 'disconnect') {
+    if (!rooms[k]) return;
+    if (!connectStart) { connectStart = k; draw(); }
+    else if (connectStart !== k) {
+      connections = connections.filter(c =>
+        !((c.a === connectStart && c.b === k) || (c.a === k && c.b === connectStart))
+      );
+      connectStart = null; draw();
+    } else { connectStart = null; draw(); }
+  } else if (mode === 'delete') {
+    if (rooms[k]) {
+      delete rooms[k];
+      connections = connections.filter(c => c.a !== k && c.b !== k);
+    } else {
+      const hit = connNear(e.offsetX, e.offsetY);
+      if (hit) connections = connections.filter(c => c !== hit);
+    }
+    draw();
+  }
+});
+
+canvas.addEventListener('dblclick', e => {
+  const cell = cellFromXY(e.offsetX, e.offsetY);
+  if (!cell) return;
+  const k = key(cell.c, cell.r);
+  if (rooms[k]) openRename(k);
+});
+
+canvas.addEventListener('mousemove', e => {
+  hoverCell = cellFromXY(e.offsetX, e.offsetY);
+  const room = hoverCell ? rooms[key(hoverCell.c, hoverCell.r)] : null;
+  hoverConn = (!room && mode === 'delete') ? connNear(e.offsetX, e.offsetY) : null;
+  const isDestructive = mode === 'delete' || mode === 'disconnect';
+  canvas.style.cursor = (room || hoverConn)
+    ? (isDestructive ? 'not-allowed' : 'pointer')
+    : (isDestructive ? 'not-allowed' : 'crosshair');
+  draw();
+});
+canvas.addEventListener('mouseleave', () => { hoverCell = null; hoverConn = null; draw(); });
+
+function connNear(x, y) {
+  return connections.find(c => {
+    const ra = rooms[c.a], rb = rooms[c.b]; if (!ra || !rb) return false;
+    const ax = ra.col * CELL + CELL / 2, ay = ra.row * CELL + CELL / 2;
+    const bx = rb.col * CELL + CELL / 2, by = rb.row * CELL + CELL / 2;
+    const len2 = (bx - ax) ** 2 + (by - ay) ** 2; if (!len2) return false;
+    const t = Math.max(0, Math.min(1, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / len2));
+    return Math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay))) < 10;
+  });
+}
+
+function clearAll() {
+  if (!Object.keys(rooms).length && !connections.length) return;
+  if (!confirm('Azzerare tutta la mappa?')) return;
+  rooms = {}; connections = []; connectStart = null; nextId = 1;
+  closeRename(); draw();
+}
+
+const DIRS = {
+  '1,0': 'Est', '-1,0': 'Ovest', '0,1': 'Sud', '0,-1': 'Nord',
+  '1,-1': 'Nord-Est', '-1,-1': 'Nord-Ovest', '1,1': 'Sud-Est', '-1,1': 'Sud-Ovest'
+};
+
+function guessDir(a, b) {
+  const ra = rooms[a], rb = rooms[b]; if (!ra || !rb) return '?';
+  return DIRS[Math.sign(rb.col - ra.col) + ',' + Math.sign(rb.row - ra.row)] || '??';
+}
+
+function exportPng() {
+  const keys = Object.keys(rooms);
+  if (!keys.length) { alert('Nessuna stanza da esportare.'); return; }
+  let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  keys.forEach(k => {
+    const r = rooms[k];
+    minX = Math.min(minX, r.col * CELL);
+    minY = Math.min(minY, r.row * CELL);
+    maxX = Math.max(maxX, (r.col + 1) * CELL);
+    maxY = Math.max(maxY, (r.row + 1) * CELL);
+  });
+  const PAD = CELL;
+  minX = Math.max(0, minX - PAD);
+  minY = Math.max(0, minY - PAD);
+  maxX = Math.min(canvas.width, maxX + PAD);
+  maxY = Math.min(canvas.height, maxY + PAD);
+  const w = maxX - minX, h = maxY - minY;
+  const temp = document.createElement('canvas');
+  temp.width = w; temp.height = h;
+  temp.getContext('2d').drawImage(canvas, minX, minY, w, h, 0, 0, w, h);
+  const a = document.createElement('a');
+  a.href = temp.toDataURL('image/png');
+  a.download = 'mappa.png';
+  a.click();
+}
+
+function exportJson() {
+  if (!Object.keys(rooms).length) { alert('Nessuna stanza da esportare.'); return; }
+  const name = prompt('Nome del file:', 'mappa');
+  if (name === null) return;
+  const filename = (name.trim() || 'mappa').replace(/\.json$/i, '') + '.json';
+  const data = { rooms: rooms, connections: connections, nextId: nextId };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importJson() {
+  document.getElementById('import-file').value = '';
+  document.getElementById('import-file').click();
+}
+
+function loadJsonFile(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.rooms || !data.connections) throw new Error();
+      rooms = data.rooms;
+      connections = data.connections;
+      nextId = data.nextId || 1;
+      connectStart = null;
+      closeRename();
+      draw();
+    } catch(err) {
+      alert('File JSON non valido o danneggiato.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ── CSS variable cache ── */
+let cssCache = {};
+function refreshCssCache() {
+  const s = getComputedStyle(document.documentElement);
+  const read = name => s.getPropertyValue(name).trim();
+  cssCache = {
+    bg: read('--bg'), gridDot: read('--grid-dot'), gridLine: read('--grid-line'),
+    lineColor: read('--line-color'), roomBg: read('--room-bg'), roomHover: read('--room-hover'),
+    border: read('--border'), borderLight: read('--border-light'), accent: read('--accent'),
+    deleteColor: read('--delete-color'),
+    connectC: read('--connect-color'), connectBg: read('--connect-bg'),
+    text: read('--text'), textFaint: read('--text-faint')
+  };
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const { bg, gridDot, gridLine, lineColor, roomBg, roomHover,
+          border, borderLight, accent, connectC, connectBg, text, textFaint, deleteColor } = cssCache;
+
+  /* background */
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  /* grid dots */
+  for (let c = 0; c <= cols; c++) {
+    for (let r = 0; r <= rows; r++) {
+      ctx.fillStyle = gridDot;
+      ctx.beginPath();
+      ctx.arc(c * CELL, r * CELL, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  /* grid lines */
+  ctx.strokeStyle = gridLine; ctx.lineWidth = 0.5;
+  for (let c = 0; c < cols; c++)
+    for (let r = 0; r < rows; r++)
+      ctx.strokeRect(c * CELL, r * CELL, CELL, CELL);
+
+  /* hover ghost */
+  if (hoverCell && mode === 'add' && !rooms[key(hoverCell.c, hoverCell.r)]) {
+    ctx.fillStyle = 'rgba(0,0,0,0.02)';
+    ctx.fillRect(hoverCell.c * CELL, hoverCell.r * CELL, CELL, CELL);
+    ctx.strokeStyle = borderLight;
+    ctx.lineWidth = 1; ctx.setLineDash([5, 3]);
+    ctx.strokeRect(hoverCell.c * CELL + RPAD_X, hoverCell.r * CELL + RPAD_Y, RW, RH);
+    ctx.setLineDash([]);
+  }
+
+  /* connections */
+  connections.forEach(conn => {
+    const ra = rooms[conn.a], rb = rooms[conn.b]; if (!ra || !rb) return;
+    const ax = ra.col * CELL + CELL / 2, ay = ra.row * CELL + CELL / 2;
+    const bx = rb.col * CELL + CELL / 2, by = rb.row * CELL + CELL / 2;
+    const dx = bx - ax, dy = by - ay, dist = Math.hypot(dx, dy);
+    const ux = dx / dist, uy = dy / dist;
+    const margin = Math.min(RW, RH) / 2 + 4;
+    const isHoverConn = hoverConn === conn;
+    ctx.lineWidth = isHoverConn ? 3 : 2;
+    ctx.strokeStyle = isHoverConn ? deleteColor : lineColor;
+    ctx.beginPath();
+    ctx.moveTo(ax + ux * margin, ay + uy * margin);
+    ctx.lineTo(bx - ux * margin, by - uy * margin);
+    ctx.stroke();
+  });
+
+  /* rooms */
+  const fontSize = Math.max(11, Math.round(CELL * 0.115));
+  Object.entries(rooms).forEach(([k, r]) => {
+    const pos = cellPos(r.col, r.row);
+    const cx = pos.x + RW / 2, cy = pos.y + RH / 2;
+    const isConnect = connectStart === k;
+    const isHover = hoverCell && key(hoverCell.c, hoverCell.r) === k;
+    const isRenaming = renamingKey === k;
+
+    ctx.fillStyle = isConnect ? connectBg : isHover ? roomHover : roomBg;
+    ctx.strokeStyle = isRenaming ? '#5a8a5a' : isConnect ? connectC : border;
+    ctx.lineWidth = isRenaming || isConnect ? 2 : 1;
+    ctx.beginPath();
+    ctx.roundRect(pos.x, pos.y, RW, RH, 4);
+    ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = text;
+    ctx.font = `${fontSize}px Georgia, serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const words = r.name.split(' ');
+    const lh = fontSize + 3;
+    if (r.name.length > 9 && words.length > 1) {
+      const mid = Math.ceil(words.length / 2);
+      ctx.fillText(words.slice(0, mid).join(' '), cx, cy - lh / 2);
+      ctx.fillText(words.slice(mid).join(' '), cx, cy + lh / 2);
+    } else {
+      ctx.fillText(r.name, cx, cy);
+    }
+
+    if (isHover && !isRenaming) {
+      ctx.fillStyle = textFaint;
+      ctx.font = `${Math.round(fontSize * 0.9)}px Georgia, serif`;
+      ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+      ctx.fillText('✎', pos.x + RW - 5, pos.y + 5);
+    }
+  });
+}
+
+refreshCssCache();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', refreshCssCache);
+setMode('add');
+window.addEventListener('resize', resize);
+resize();
+</script>
+</body>
+</html>
