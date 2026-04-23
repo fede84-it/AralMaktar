@@ -194,6 +194,24 @@
     margin-top: 8px;
   }
   #rename-hint { font-size: 10px; margin-top: 5px; color: var(--text-faint); font-style: italic; }
+  .color-row { display: flex; gap: 6px; margin-top: 8px; align-items: center; }
+  .color-swatch {
+    width: 22px; height: 22px; border-radius: 3px; border: 2px solid transparent;
+    cursor: pointer; transition: transform 0.15s, border-color 0.15s; flex-shrink: 0;
+  }
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.selected { border-color: var(--text); }
+  .color-swatch.none { background: var(--bg); border: 2px solid var(--border); font-size: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+  .door-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 3px; width: 72px; margin-top: 8px; }
+  .door-btn {
+    width: 22px; height: 22px; font-size: 10px; font-family: 'Georgia', serif;
+    border: 1px solid var(--border); border-radius: 2px; background: transparent;
+    color: var(--text-muted); cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .door-btn:hover { border-color: var(--accent); color: var(--text); }
+  .door-btn.active { background: var(--accent-light); border-color: var(--accent); color: var(--accent); font-weight: bold; }
+  .door-btn.empty { visibility: hidden; cursor: default; }
 
 </style>
 </head>
@@ -229,6 +247,26 @@
       <input id="rename-input" type="text" maxlength="22" placeholder="Es. Ingresso"/>
       <span class="popup-label-2">Descrizione</span>
       <textarea id="rename-desc" placeholder="Descrizione della stanza..."></textarea>
+      <span class="popup-label-2">Porte</span>
+      <div class="door-grid">
+        <div class="door-btn empty"></div>
+        <button class="door-btn" id="door-N" onclick="toggleDoor('N')" title="Nord">N</button>
+        <div class="door-btn empty"></div>
+        <button class="door-btn" id="door-O" onclick="toggleDoor('O')" title="Ovest">O</button>
+        <div class="door-btn empty"></div>
+        <button class="door-btn" id="door-E" onclick="toggleDoor('E')" title="Est">E</button>
+        <div class="door-btn empty"></div>
+        <button class="door-btn" id="door-S" onclick="toggleDoor('S')" title="Sud">S</button>
+        <div class="door-btn empty"></div>
+      </div>
+      <span class="popup-label-2">Colore</span>
+      <div class="color-row">
+        <div class="color-swatch none" data-color="" onclick="selectColor('')" title="Nessuno">✕</div>
+        <div class="color-swatch" data-color="#7fb87f" onclick="selectColor('#7fb87f')" style="background:#7fb87f" title="Verde chiaro"></div>
+        <div class="color-swatch" data-color="#a0785a" onclick="selectColor('#a0785a')" style="background:#a0785a" title="Marroncino"></div>
+        <div class="color-swatch" data-color="#c8722a" onclick="selectColor('#c8722a')" style="background:#c8722a" title="Arancione scuro"></div>
+        <div class="color-swatch" data-color="#b0b8b0" onclick="selectColor('#b0b8b0')" style="background:#b0b8b0" title="Grigio chiaro"></div>
+      </div>
       <div id="rename-hint">Tab per passare al campo · Esc per annullare</div>
     </div>
 
@@ -318,6 +356,10 @@ function openRename(k) {
   popup.style.display = 'block';
   inp.value = r.name;
   desc.value = r.desc || '';
+  selectColor(r.color || '');
+  ['N','S','E','O'].forEach(d => {
+    document.getElementById('door-' + d).classList.toggle('active', (r.doors || []).includes(d));
+  });
   inp.focus(); inp.select();
 }
 
@@ -327,6 +369,8 @@ function closeRename(confirm = false) {
   if (renamingKey && confirm && rooms[renamingKey]) {
     rooms[renamingKey].name = inp.value.trim() || rooms[renamingKey].name;
     rooms[renamingKey].desc = desc.value.trim();
+    rooms[renamingKey].color = document.querySelector('.color-swatch.selected')?.dataset.color || '';
+    rooms[renamingKey].doors = ['N','S','E','O'].filter(d => document.getElementById('door-' + d).classList.contains('active'));
   }
   document.getElementById('rename-popup').style.display = 'none';
   renamingKey = null;
@@ -355,7 +399,7 @@ canvas.addEventListener('click', e => {
   const k = key(cell.c, cell.r);
 
   if (mode === 'add') {
-    if (!rooms[k]) rooms[k] = { col: cell.c, row: cell.r, name: 'Stanza ' + nextId++, desc: '' };
+    if (!rooms[k]) rooms[k] = { col: cell.c, row: cell.r, name: 'Stanza ' + nextId++, desc: '', color: '', doors: [] };
     draw();
   } else if (mode === 'connect') {
     if (!rooms[k]) return;
@@ -500,6 +544,16 @@ function loadJsonFile(input) {
   reader.readAsText(file);
 }
 
+function selectColor(c) {
+  document.querySelectorAll('.color-swatch').forEach(s => {
+    s.classList.toggle('selected', s.dataset.color === c);
+  });
+}
+
+function toggleDoor(d) {
+  document.getElementById('door-' + d).classList.toggle('active');
+}
+
 /* ── CSS variable cache ── */
 let cssCache = {};
 function refreshCssCache() {
@@ -577,7 +631,8 @@ function draw() {
     const isHover = hoverCell && key(hoverCell.c, hoverCell.r) === k;
     const isRenaming = renamingKey === k;
 
-    ctx.fillStyle = isConnect ? connectBg : isHover ? roomHover : roomBg;
+    const customBg = r.color ? (isHover ? r.color + 'cc' : r.color + '99') : null;
+    ctx.fillStyle = isConnect ? connectBg : customBg ? customBg : isHover ? roomHover : roomBg;
     ctx.strokeStyle = isRenaming ? '#5a8a5a' : isConnect ? connectC : border;
     ctx.lineWidth = isRenaming || isConnect ? 2 : 1;
     ctx.beginPath();
@@ -602,6 +657,22 @@ function draw() {
       ctx.font = `${Math.round(fontSize * 0.9)}px Georgia, serif`;
       ctx.textAlign = 'right'; ctx.textBaseline = 'top';
       ctx.fillText('✎', pos.x + RW - 5, pos.y + 5);
+    }
+
+    /* doors */
+    if (r.doors && r.doors.length) {
+      const dw = 12, dh = 6;
+      ctx.fillStyle = '#7a5c38';
+      ctx.strokeStyle = '#4a3020';
+      ctx.lineWidth = 1;
+      r.doors.forEach(d => {
+        ctx.beginPath();
+        if (d === 'N') ctx.rect(pos.x + RW/2 - dw/2, pos.y - dh/2, dw, dh);
+        else if (d === 'S') ctx.rect(pos.x + RW/2 - dw/2, pos.y + RH - dh/2, dw, dh);
+        else if (d === 'E') ctx.rect(pos.x + RW - dh/2, pos.y + RH/2 - dw/2, dh, dw);
+        else if (d === 'O') ctx.rect(pos.x - dh/2, pos.y + RH/2 - dw/2, dh, dw);
+        ctx.fill(); ctx.stroke();
+      });
     }
   });
 }
