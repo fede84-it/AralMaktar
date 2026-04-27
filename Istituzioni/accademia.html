@@ -66,7 +66,14 @@
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 600px) { nav a { padding: 0.9rem 1rem; font-size: 0.7rem; } .parchment-block, .info-block { padding: 1.8rem 1.5rem; } }
-  </style>
+  
+
+    .inst-nav { position: sticky; top: var(--nav-h, 50px); z-index: 90; background: transparent; border-bottom: 1px solid transparent; display: flex; justify-content: center; padding: 0.65rem 2rem; transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease; }
+    .inst-nav.stuck { background: rgba(20,12,4,0.95); backdrop-filter: blur(6px); border-bottom-color: rgba(200,151,42,0.12); }
+    @media (max-width: 768px) { .inst-nav { position: relative; top: auto; } }
+    .inst-select { font-family: 'Cinzel', serif; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(20,12,4,0.9); color: var(--gold); border: 1px solid rgba(200,151,42,0.35); border-radius: 2px; padding: 0.55rem 1.2rem; cursor: pointer; }
+    .inst-select:focus { outline: none; border-color: var(--gold); }
+    .inst-select option { background: #1a1008; color: var(--parchment); }</style>
 </head>
 <body>
 <nav>
@@ -84,6 +91,20 @@
   <p class="hero-sub">Custode della Memoria del Nuovo Impero</p>
   <div class="hero-divider"></div>
 </header>
+<div id="inst-nav-sentinel" style="height:0;pointer-events:none;"></div>
+<div class="inst-nav">
+  <select class="inst-select" onchange="window.location.href=this.value">
+    <option value="corona_di_aral.html">La Corona di Aral</option>
+    <option value="dragoni_imperiali.html">I Dragoni Imperiali</option>
+    <option value="gilda_arti_mestieri.html">Gilda delle Arti e dei Mestieri</option>
+    <option value="accademia.html" selected>L'Accademia delle Arti e delle Scienze</option>
+    <option value="gilda_del_sole.html">La Gilda del Sole</option>
+    <option value="collegio_giudici.html">Il Collegio dei Giudici</option>
+    <option value="chiesa_alisard.html">La Chiesa Imperiale di Alisard</option>
+    <option value="comunita_halfling.html">La Comunità Halfling dei Moli</option>
+    <option value="vecchi_moli.html">I Vecchi Moli</option>
+  </select>
+</div>
 
 <section>
 
@@ -151,6 +172,23 @@
       });
     });
   })();
-</script>
+
+  // ── STICKY INST-NAV ──
+  (function() {
+    function setNavH() {
+      var h = document.querySelector('nav').getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+      return h;
+    }
+    var navH = setNavH();
+    window.addEventListener('resize', setNavH);
+    var sentinel = document.getElementById('inst-nav-sentinel');
+    var instNav  = document.querySelector('.inst-nav');
+    if (sentinel && instNav && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries) {
+        instNav.classList.toggle('stuck', !entries[0].isIntersecting);
+      }, { rootMargin: '-' + Math.round(navH) + 'px 0px 0px 0px' }).observe(sentinel);
+    }
+  })();</script>
 </body>
 </html>
