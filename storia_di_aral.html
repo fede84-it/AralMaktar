@@ -78,6 +78,11 @@
     .tl-item.active .tl-dot { background: var(--gold); transform: scale(1.2); box-shadow: 0 0 6px 2px rgba(200,151,42,0.5), 0 0 16px 4px rgba(200,151,42,0.3), 0 0 30px 6px rgba(200,151,42,0.15); }
 
 
+    .tl-tooltip { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: rgba(20,12,4,0.96); border: 1px solid rgba(200,151,42,0.3); color: var(--parchment-dark); font-family: 'IM Fell English', serif; font-style: italic; font-size: 0.75rem; line-height: 1.4; white-space: nowrap; padding: 0.45rem 0.75rem; border-radius: 2px; pointer-events: none; opacity: 0; transition: opacity 0.25s ease; z-index: 200; }
+    .tl-tooltip::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: rgba(200,151,42,0.3); }
+    .tl-item:hover .tl-tooltip { opacity: 1; }
+    .timeline-wrap.stuck .tl-tooltip { bottom: auto; top: calc(100% + 10px); }
+    .timeline-wrap.stuck .tl-tooltip::after { top: auto; bottom: 100%; border-top-color: transparent; border-bottom-color: rgba(200,151,42,0.3); }
     .tl-era { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 0.2rem; transition: color 0.4s; }
     .tl-item.active .tl-era { color: var(--gold-light); }
     .tl-name { font-family: 'IM Fell English', serif; font-size: 0.78rem; color: var(--parchment-dark); text-align: center; line-height: 1.4; opacity: 0.75; transition: opacity 0.4s, color 0.4s; }
@@ -160,32 +165,32 @@
   <div class="timeline-inner">
 <div class="timeline">
     <a href="#era1" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">L'isola di Eliantir e la gloria dell'Impero Acheranide</span></div>
       <span class="tl-era">I Era</span>
       <span class="tl-name">Il Vecchio Impero</span>
     </a>
     <a href="#era2" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">Il cataclisma che distrusse Eliantir e la fuga per mare</span></div>
       <span class="tl-era">II Era</span>
       <span class="tl-name">La Caduta e l'Esilio</span>
     </a>
     <a href="#era3" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">L'approdo su Landmar e la nascita di Aral Maktar</span></div>
       <span class="tl-era">III Era</span>
       <span class="tl-name">La Fondazione</span>
     </a>
     <a href="#era4" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">La città al suo apice: commerci, leggi e istituzioni</span></div>
       <span class="tl-era">IV Era</span>
       <span class="tl-name">Il Nuovo Impero</span>
     </a>
     <a href="#era5" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">Guerre orchesche, demoni e la caduta dell'Impero</span></div>
       <span class="tl-era">V Era</span>
       <span class="tl-name">L'Era del Caos</span>
     </a>
     <a href="#era6" class="tl-item">
-      <div class="tl-dot"></div>
+      <div class="tl-dot"><span class="tl-tooltip">La Legge sopravvive all'Impero: nasce il Regno di Aral</span></div>
       <span class="tl-era">VI Era</span>
       <span class="tl-name">Il Regno di Aral</span>
     </a>
