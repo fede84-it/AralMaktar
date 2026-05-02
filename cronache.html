@@ -61,9 +61,10 @@
     /* ─── FILTRI ─── */
     .filters-wrap { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 1rem; text-align: center; }
     .filters-label { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.7; display: block; margin-bottom: 1rem; }
-    .filters { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
-    .filter-btn { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--parchment-dark); background: transparent; border: 1px solid rgba(200,151,42,0.3); padding: 0.45rem 1.1rem; border-radius: 2px; cursor: pointer; transition: all 0.3s; }
+    .filters { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+    .filter-btn { font-family: 'Cinzel', serif; font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--parchment-dark); background: transparent; border: 1px solid rgba(200,151,42,0.3); padding: 0.45rem 0.8rem; border-radius: 2px; cursor: pointer; transition: all 0.3s; }
     .filter-btn:hover, .filter-btn.active { color: var(--ink); background: var(--gold); border-color: var(--gold); }
+    .cronache-count { text-align: center; font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-top: 1.2rem; }
 
     /* ─── GRID ─── */
     .archive-wrap { max-width: 1000px; margin: 0 auto; padding: 2rem 2rem 5rem; }
@@ -127,7 +128,7 @@
   <button class="nav-toggle nav-toggle-right" aria-label="Menu"><img src="Immagini/Icona_aral_destra.png" alt="Menu"></button>
   <div class="nav-menu">
     <a href="index.html">← Aral Maktar</a>
-    <a href="#archivio">Archivio</a>
+    <a href="#filtri">Archivio</a>
   </div>
 </nav>
 
@@ -140,7 +141,7 @@
 </header>
 
 <!-- FILTRI -->
-<div class="filters-wrap reveal">
+<div class="filters-wrap reveal" id="filtri">
   <span class="filters-label">Filtra per categoria</span>
   <div class="filters">
     <button class="filter-btn active" data-filter="all">Tutte</button>
@@ -150,9 +151,8 @@
     <button class="filter-btn" data-filter="mistero">Mistero</button>
     <button class="filter-btn" data-filter="corsari">Corsari</button>
     <button class="filter-btn" data-filter="leggende">Leggende</button>
-    
-
   </div>
+  <div class="cronache-count" id="cronache-count"></div>
 </div>
 
 <!-- ARCHIVIO -->
@@ -161,7 +161,7 @@
 
     <!-- RACCONTO 1 -->
     <a href="Racconti/racconto_nuovo_inizio.html" class="story-card reveal" data-category="intrigo">
-      <div class="card-cover-wrap"><img src="Immagini/Nuovo_inizio.jpg" alt="Un Nuovo Inizio per Aral" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Nuovo_inizio.jpg" alt="Un Nuovo Inizio per Aral" loading="lazy" class="card-cover"></div>
       <span class="card-category">Intrigo</span>
       <div class="card-title">Un Nuovo Inizio per Aral</div>
       <div class="card-author">dalle Cronache di Aral Maktar</div>
@@ -175,7 +175,7 @@
 
     <!-- RACCONTO 2 -->
     <a href="Racconti/racconto_assalto_di_azog.html" class="story-card reveal" data-category="guerra">
-      <div class="card-cover-wrap"><img src="Immagini/Azog.jpg" alt="L'Assalto di Azog" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Azog.jpg" alt="L'Assalto di Azog" loading="lazy" class="card-cover"></div>
       <span class="card-category">Cronaca di Guerra</span>
       <div class="card-title">L'Assalto di Azog</div>
       <div class="card-author">dai Registri dei Dragoni di Aral Maktar</div>
@@ -189,7 +189,7 @@
 
     <!-- RACCONTO 3 -->
     <a href="Racconti/racconto_guardiani_soglia.html" class="story-card reveal" data-category="leggende">
-      <div class="card-cover-wrap"><img src="Immagini/Armand.jpg" alt="I Guardiani della Soglia" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Armand.jpg" alt="I Guardiani della Soglia" loading="lazy" class="card-cover"></div>
       <span class="card-category">Leggenda</span>
       <div class="card-title">I Guardiani della Soglia</div>
       <div class="card-author">dagli Annali del Nuovo Impero di Eliantir</div>
@@ -203,7 +203,7 @@
 
     <!-- RACCONTO 4 (ex 3) -->
     <a href="Racconti/racconto_notte_octavia.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Octavia.jpg" alt="La Notte dell'Octavia" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Octavia.jpg" alt="La Notte dell'Octavia" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">La Notte dell'Octavia</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -217,7 +217,7 @@
 	
 	<!-- RACCONTO 4 -->
     <a href="Racconti/racconto_miniera_parte1.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Isola_granito.jpg" alt="La Miniera del Patto Silente" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Isola_granito.jpg" alt="La Miniera del Patto Silente" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">La Miniera del Patto Silente &nbsp;·&nbsp; Parte I</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -231,7 +231,7 @@
 
     <!-- RACCONTO 5 -->
     <a href="Racconti/racconto_miniera_parte2.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Guardiano_profondo.jpg" alt="Il Guardiano del Profondo" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Guardiano_profondo.jpg" alt="Il Guardiano del Profondo" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">La Miniera del Patto Silente &nbsp;·&nbsp; Parte II</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -245,7 +245,7 @@
 	
     <!-- RACCONTO: VECCHIA NONNA -->
     <a href="Racconti/racconto_vecchia_nonna.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Vecchia_Nonna.webp" alt="L'Ultimo Ormeggio della Vecchia Nonna" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Vecchia_Nonna.webp" alt="L'Ultimo Ormeggio della Vecchia Nonna" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">L'Ultimo Ormeggio della Vecchia Nonna</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -259,7 +259,7 @@
 
     <!-- RACCONTO: CAPO NEVOSO -->
     <a href="Racconti/racconto_capo_nevoso.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Capo_Nevoso.webp" alt="Resa dei Conti a Capo Nevoso" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Capo_Nevoso.webp" alt="Resa dei Conti a Capo Nevoso" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">Resa dei Conti a Capo Nevoso</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -273,7 +273,7 @@
 
     <!-- RACCONTO: VENTRE DEL GHIACCIO -->
     <a href="Racconti/racconto_ventre_ghiaccio.html" class="story-card reveal" data-category="avventura corsari">
-      <div class="card-cover-wrap"><img src="Immagini/Isola_Riks.webp" alt="Nel Ventre del Ghiaccio" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Isola_Riks.webp" alt="Nel Ventre del Ghiaccio" loading="lazy" class="card-cover"></div>
       <span class="card-category">Avventura</span>
       <div class="card-title">Nel Ventre del Ghiaccio</div>
       <div class="card-author">Accademia di Storia Imperiale di Aral</div>
@@ -287,7 +287,7 @@
 
     <!-- RACCONTO 6 -->
     <a href="Racconti/racconto_figli_afassian.html" class="story-card reveal" data-category="mistero">
-      <div class="card-cover-wrap"><img src="Immagini/Mar_igmar.jpg" alt="I Figli di Afassian" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Mar_igmar.jpg" alt="I Figli di Afassian" loading="lazy" class="card-cover"></div>
       <span class="card-category">Mistero</span>
       <div class="card-title">I Figli di Afassian</div>
       <div class="card-author">dal Diario di Raziel Firelair</div>
@@ -301,7 +301,7 @@
 
     <!-- RACCONTO 8 -->
     <a href="Racconti/racconto_ektalis_parte1.html" class="story-card reveal" data-category="leggende">
-      <div class="card-cover-wrap"><img src="Immagini/Ektalis_trionfo.jpg" alt="La Leggenda di Re Ektalis" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Ektalis_trionfo.jpg" alt="La Leggenda di Re Ektalis" loading="lazy" class="card-cover"></div>
       <span class="card-category">Leggenda</span>
       <div class="card-title">La Leggenda di Re Ektalis &nbsp;·&nbsp; Parte I</div>
       <div class="card-author">Cronache dell'Emer</div>
@@ -315,7 +315,7 @@
 
     <!-- RACCONTO 9 -->
     <a href="Racconti/racconto_ektalis_parte2.html" class="story-card reveal" data-category="leggende">
-      <div class="card-cover-wrap"><img src="Immagini/Ektalis_sacrificio.jpg" alt="La Leggenda di Re Ektalis" class="card-cover"></div>
+      <div class="card-cover-wrap"><img src="Immagini/Ektalis_sacrificio.jpg" alt="La Leggenda di Re Ektalis" loading="lazy" class="card-cover"></div>
       <span class="card-category">Leggenda</span>
       <div class="card-title">La Leggenda di Re Ektalis &nbsp;·&nbsp; Parte II</div>
       <div class="card-author">Cronache dell'Emer</div>
@@ -352,6 +352,28 @@
   // Filtri
   const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.archive-grid > *[data-category]');
+  const countEl = document.getElementById('cronache-count');
+  function updateCount(f, label) {
+    const n = f === 'all' ? cards.length : [...cards].filter(c => c.dataset.category.split(' ').includes(f)).length;
+    countEl.textContent = f === 'all' ? n + ' cronache in archivio' : n + ' ' + label.toLowerCase();
+  }
+  const timers = new WeakMap();
+  function showCard(c) {
+    clearTimeout(timers.get(c));
+    c.style.display = '';
+    c.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      c.style.opacity = '1';
+      c.style.transform = '';
+    }));
+  }
+  function hideCard(c) {
+    clearTimeout(timers.get(c));
+    c.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    c.style.opacity = '0';
+    c.style.transform = 'scale(0.95) translateY(6px)';
+    timers.set(c, setTimeout(() => { c.style.display = 'none'; }, 350));
+  }
   btns.forEach(btn => {
     btn.addEventListener('click', () => {
       btns.forEach(b => b.classList.remove('active'));
@@ -359,10 +381,12 @@
       const f = btn.dataset.filter;
       cards.forEach(c => {
         const cats = c.dataset.category.split(' ');
-        c.style.display = (f === 'all' || cats.includes(f)) ? '' : 'none';
+        (f === 'all' || cats.includes(f)) ? showCard(c) : hideCard(c);
       });
+      updateCount(f, btn.textContent);
     });
   });
+  updateCount('all', '');
 
   // ── HAMBURGER MENU ──
   (function() {
