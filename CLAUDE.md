@@ -42,7 +42,7 @@ Hero content structure: `hero-ornament (— ✦ —)` → page title → subtitl
 - `Racconti/` — story/chronicle pages (including Ektalis parts 1-2)
 - `Lore/` — reference documents (PDF, text) for world-building content
 - `Immagini/` — all images (character portraits, backgrounds, faction icons, custom cursors)
-- `Font/` — `GoudyInitialen.ttf` used for drop-cap initial letters
+- `Font/` — `GoudyIni.woff2` used for drop-cap initial letters
 
 ### Shared CSS Design System
 All pages use the same CSS custom properties (defined inline per page):
