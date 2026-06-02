@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="L'Atlante del Cielo: un cartografo dell'Accademia segue la catena di tavole astronomiche di Tehox attraverso Landmar, fino all'Osservatorio Impossibile.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Aral Maktar">
+  <meta property="og:url" content="https://aralmaktar.it/Racconti/racconto_atlante_cielo.html">
+  <meta property="og:title" content="L'Atlante del Cielo — Cronache di Aral">
+  <meta property="og:description" content="L'Atlante del Cielo: un cartografo dell'Accademia segue la catena di tavole astronomiche di Tehox attraverso Landmar, fino all'Osservatorio Impossibile.">
+  <meta property="og:image" content="https://aralmaktar.it/Immagini/Atlante_cielo.webp">
+  <link rel="canonical" href="https://aralmaktar.it/Racconti/racconto_atlante_cielo.html">
+  <title>L'Atlante del Cielo — Cronache di Aral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=IM+Fell+English:ital@0;1&display=swap"></noscript>
+  <link rel="icon" type="image/png" href="../Immagini/Favicon_aral.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --parchment: #f2e8c9; --parchment-dark: #e0ccA0; --ink: #2a1a0a;
+      --ink-light: #5c3d1e; --ink-faded: #8b6340; --gold: #c8972a;
+      --gold-light: #e8b84b; --crimson: #7a1a1a;
+    }
+    html { scroll-behavior: smooth; }
+    body { background-color: #1a1008; color: var(--ink); font-family: 'IM Fell English', Georgia, serif; font-size: 17px; line-height: 1.75; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 9999; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 200px 200px; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1a1008; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+    @font-face { font-family: 'GoudyInitialen'; src: url('../Font/GoudyIni.woff2') format('woff2'); font-display: swap; }
+
+    /* ─── NAV ─── */
+    nav { position: -webkit-sticky; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 100; background: rgba(20,12,4,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,151,42,0.2); display: flex; justify-content: center; flex-wrap: wrap; }
+    nav a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment-dark); text-decoration: none; padding: 1rem 1.8rem; border-right: 1px solid rgba(200,151,42,0.1); transition: color 0.3s, background 0.3s; }
+    nav a:first-child { border-left: 1px solid rgba(200,151,42,0.1); }
+    nav a:hover { color: var(--gold-light); background: rgba(200,151,42,0.06); }
+    .nav-menu { display: contents; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; line-height: 1; -webkit-tap-highlight-color: transparent; }
+    .nav-toggle img { height: 36px; width: auto; filter: drop-shadow(0 0 6px rgba(0,0,0,0.9)) drop-shadow(0 0 14px rgba(0,0,0,0.6)); }
+    @media (max-width: 768px) {
+      nav { background: transparent; border-bottom: none; justify-content: space-between; backdrop-filter: none; }
+      .nav-toggle { display: block; }
+      .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(20, 12, 4, 0.95); z-index: 99; }
+      nav.open { background: rgba(20, 12, 4, 0.95); }
+      nav.open::before { content: 'Aral Maktar'; position: absolute; left: 50%; transform: translateX(-50%); top: 0; height: 47px; display: flex; align-items: center; font-family: 'Cinzel Decorative', serif; color: var(--gold-light); font-size: 0.85rem; letter-spacing: 0.2em; pointer-events: none; }
+      nav.open .nav-menu { display: block; }
+      .nav-menu a { display: block; border-bottom: 1px solid rgba(200,151,42,0.1); text-align: center; width: 100%; -webkit-tap-highlight-color: transparent; }
+      .nav-menu a:active { background: rgba(200,151,42,0.2); color: var(--gold-light); }
+    }
+
+    /* ─── HERO ─── */
+    header { position: relative; min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 4rem 2rem 5vh;
+      background: linear-gradient(to bottom, transparent 0%, transparent 70%, rgba(26,16,8,0.85) 90%, rgba(26,16,8,1) 100%), url('../Immagini/Atlante_cielo.webp') center 35% / cover no-repeat; overflow: hidden; }
+    .hero-ornament { color: var(--gold); font-size: 1.3rem; letter-spacing: 0.5em; margin-bottom: 1rem; animation: fadeIn 2s ease both; position: relative; z-index: 2; }
+    .hero-category { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; position: relative; z-index: 2; animation: fadeIn 2s 0.3s ease both; }
+    h1.story-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 6vw, 4rem); font-weight: 700; color: var(--gold-light); text-shadow: 0 0 40px rgba(200,151,42,0.4), 0 2px 0 rgba(0,0,0,0.8); letter-spacing: 0.06em; line-height: 1.2; animation: heroReveal 1.5s cubic-bezier(.16,1,.3,1) both; position: relative; z-index: 2; }
+    .story-meta { font-family: 'IM Fell English', serif; font-style: italic; font-size: 1rem; color: var(--parchment-dark); margin-top: 0.8rem; opacity: 0.7; animation: fadeIn 2s 0.8s ease both; position: relative; z-index: 2; }
+    .story-meta span { color: var(--gold); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; }
+    .hero-divider { margin: 1.8rem auto; width: 180px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: fadeIn 2s 1s ease both; }
+
+    /* ─── STORY BODY ─── */
+    .story-wrap { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .parchment-block { background: linear-gradient(135deg, rgba(242,232,201,0.97) 0%, rgba(224,204,160,0.95) 100%); border: 1px solid rgba(200,151,42,0.4); border-radius: 2px; padding: 3rem 3.5rem; position: relative; box-shadow: 0 4px 40px rgba(0,0,0,0.5), inset 0 0 60px rgba(200,151,42,0.06); }
+    .parchment-block::before { content: '✦'; position: absolute; top: 0.8rem; left: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+    .parchment-block::after  { content: '✦'; position: absolute; bottom: 0.8rem; right: 0.8rem; color: var(--gold); font-size: 1rem; opacity: 0.4; }
+
+    .story-text p { color: var(--ink); margin-bottom: 1.4rem; font-size: 1.06rem; line-height: 1.85; text-align: justify; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-text p.drop-cap::first-letter { font-family: 'GoudyInitialen', 'Cinzel Decorative', serif; font-size: 4.6em; line-height: 0.82; float: left; margin-top: 0.04em; margin-right: 0.08em; margin-bottom: -0.06em; color: var(--crimson); text-shadow: 1px 2px 6px rgba(200,151,42,0.3); }
+    .story-text p.thought { font-style: italic; color: var(--ink-light); border-left: 2px solid rgba(200,151,42,0.4); padding-left: 1rem; margin-left: 0.5rem; }
+
+    .scene-break { text-align: center; color: var(--gold); opacity: 0.5; font-size: 1rem; letter-spacing: 0.8rem; margin: 2rem 0; }
+
+    .scene-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--crimson); text-align: center; margin: 2.5rem 0 1.5rem; }
+
+    /* Nota finale */
+    .story-note { margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid rgba(200,151,42,0.3); font-size: 0.88rem; font-style: italic; color: var(--ink-faded); text-align: center; }
+
+    .story-end { text-align: center; margin-top: 2.5rem; }
+    .story-end .end-mark { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+    .story-end .end-author { font-family: 'IM Fell English', serif; font-style: italic; color: var(--ink-faded); margin-top: 0.5rem; font-size: 0.95rem; }
+
+    .back-link { display: block; text-align: center; margin-top: 3.5rem; }
+    .back-link a { font-family: 'Cinzel', serif; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid rgba(200,151,42,0.35); padding: 0.7rem 1.8rem; border-radius: 2px; transition: background 0.3s, color 0.3s; white-space: nowrap; }
+    .back-link a:hover { background: rgba(200,151,42,0.1); color: var(--gold-light); }
+    @media (max-width: 480px) { .back-link a { letter-spacing: 0.08em; padding: 0.7rem 1rem; font-size: 0.72rem; } }
+
+    footer { text-align: center; padding: 3rem 2rem; padding-bottom: env(safe-area-inset-bottom, 0px); background: #120c04; border-top: 1px solid rgba(200,151,42,0.15); color: var(--parchment-dark); font-size: 0.85rem; }
+    footer .footer-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+    footer a { color: var(--gold); text-decoration: none; font-family: 'Cinzel', serif; letter-spacing: 0.1em; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroReveal { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      nav a { padding: 0.8rem 0.9rem; font-size: 0.68rem; }
+      .parchment-block { padding: 2rem 1.5rem; }
+      .story-text p { text-align: left; }
+    }
+  </style>
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "L'Atlante del Cielo",
+      "description": "L'Atlante del Cielo: un cartografo dell'Accademia segue la catena di tavole astronomiche di Tehox attraverso Landmar, fino all'Osservatorio Impossibile.",
+      "image": "https://aralmaktar.it/Immagini/Atlante_cielo.webp",
+      "url": "https://aralmaktar.it/Racconti/racconto_atlante_cielo.html",
+      "inLanguage": "it",
+      "isPartOf": {
+        "@type": "CreativeWorkSeries",
+        "name": "Cronache di Aral",
+        "url": "https://aralmaktar.it/cronache.html"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Aral Maktar",
+        "url": "https://aralmaktar.it/"
+      },
+      "mainEntityOfPage": "https://aralmaktar.it/Racconti/racconto_atlante_cielo.html"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Aral Maktar", "item": "https://aralmaktar.it/" },
+        { "@type": "ListItem", "position": 2, "name": "Cronache", "item": "https://aralmaktar.it/cronache.html" },
+        { "@type": "ListItem", "position": 3, "name": "L'Atlante del Cielo", "item": "https://aralmaktar.it/Racconti/racconto_atlante_cielo.html" }
+      ]
+    }
+  ]
+  </script>
+</head>
+<body>
+
+<nav>
+  <button class="nav-toggle nav-toggle-left" aria-label="Menu"><img src="../Immagini/Icona_aral_destra.webp" width="500" height="500" alt="Menu" style="transform:scaleX(-1)"></button>
+  <button class="nav-toggle nav-toggle-right" aria-label="Menu"><img src="../Immagini/Icona_aral_destra.webp" width="500" height="500" alt="Menu"></button>
+  <div class="nav-menu">
+    <a href="../index.html">← Aral Maktar</a>
+    <a href="../cronache.html">Cronache di Aral</a>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-ornament">— ✦ —</div>
+  <span class="hero-category">Mistero &nbsp;·&nbsp; Landmar</span>
+  <h1 class="story-title">L'Atlante del Cielo</h1>
+  <p class="story-meta">dai <span>Registri dell'Accademia di Storia Imperiale di Aral</span> — Anno 623 DE</p>
+  <div class="hero-divider"></div>
+</header>
+
+<div class="story-wrap">
+  <div class="parchment-block reveal">
+    <div class="story-text">
+
+      <p class="drop-cap">Ci sono ricerche che cominciano per caso e finiscono per necessità. Questa è iniziata con una prefazione.</p>
+
+      <p>Una pergamena di qualità superiore alle altre, rilegata su un'asse di legno scuro con bordi in ottone, un frontespizio, non un semplice foglio. <em>Atlante del Cielo di Ikhari</em>, scritto a lettere precise. Sul retro dell'asse, quasi nascosta dall'ottone del bordo inferiore, una nota in inchiostro minuto che indicava il castello di Dor Kvan.</p>
+
+      <p>Tehox il Cartografo aveva compilato la prefazione nel 388 DE, duecentotrentacinque anni prima di quella mattina. Aveva lasciato quella nota come se parlasse a qualcuno di preciso, come se sapesse che prima o poi qualcuno l'avrebbe letta e avrebbe capito cosa farne.</p>
+
+      <p>Siamo andati a Dor Kvan.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h2 class="scene-title">Il Metodo di Tehox</h2>
+
+      <p>Al castello di Dor Kvan trovammo la prima tavola dell'Atlante: Il Cavaliere, con la sua stella Alshar, e dentro la copertina di cuoio nero gli anelli di ottone per raccogliere le altre. Un contenitore in attesa del suo contenuto. Non sapevo ancora che quel contenuto si trovasse in tredici luoghi diversi di Landmar.</p>
+
+      <p>Lo capii guardando il modo in cui la tavola era confezionata.</p>
+
+      <p>Tehox aveva nascosto ogni pergamena in un luogo connesso alla costellazione che descriveva, e aveva lasciato nell'involucro della tavola stessa l'indizio per trovare la successiva. Non istruzioni esplicite: un oggetto. Un frammento di materiale locale, un sigillo di ceralacca, una pietra, un nodo. Chi sapeva leggere il cielo sapeva anche leggere quegli oggetti. Chi non sapeva non aveva accesso all'atlante, e Tehox riteneva evidentemente che andasse bene così.</p>
+
+      <p>Abbiamo cominciato a seguire la catena.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h2 class="scene-title">Il Viaggio</h2>
+
+      <p>Nei mesi che seguirono percorremmo Landmar in modi che non avevo percorso da tempo, o che non avevo mai percorso, in certi casi.</p>
+
+      <p>Porti dove i nodi marinari hanno nomi diversi a seconda del cantiere in cui li hai imparati. Laghi con pietre che si riconoscono dalla forma e dal colore, e che non si trovano da nessun'altra parte. Chiese di città lontane con archivi che custodiscono cose senza sapere di custodirle. Sorgenti di acqua calda in mezzo al bosco, locande con gettoni di ottone nei cassetti delle camere. Comunità nomadi che accettano di parlare con gli stranieri se gli stranieri sanno mostrare la cosa giusta. Vulcani spenti nel Doredhel occidentale, cascate, boschi con due essenze di alberi che crescono sempre affiancate.</p>
+
+      <p>Ogni tavola portava una costellazione e un indizio. Ogni indizio portava altrove.</p>
+
+      <p>Il metodo di Tehox era preciso come le sue misurazioni astronomiche: aveva costruito una mappa del cielo che poteva essere trovata solo da chi conosceva abbastanza la terra. Chi non aveva camminato su Landmar, chi non ne riconosceva i materiali e le tradizioni e i luoghi, si fermava alla prima tavola senza capire dove andare. L'Atlante del Cielo era anche un atlante di Landmar, ed era probabilmente la cosa più onesta che un cartografo terrestre potesse fare prima di dedicarsi al cielo.</p>
+
+      <p>Cominciavo ad apprezzare quell'uomo.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h2 class="scene-title">Alveridan</h2>
+
+      <p>La dodicesima tavola portava una parola sola sul retro dell'involucro.</p>
+
+      <p class="thought"><em>Alveridan.</em></p>
+
+      <p>La foresta di Alveridan non è un luogo ostile. È un luogo indifferente. Gli alberi crescono alti e fitti come se il cielo non li riguardasse, il sottobosco si chiude dietro i passi senza rumore, e più ci si addentra, più si ha la sensazione di muoversi in un posto che non aveva bisogno della nostra presenza e non ne avvertirà la mancanza.</p>
+
+      <p>La torre emergeva dalla cima degli alberi come un osso. Pietra scura, scalinata elicoidale consumata dal tempo. Alle pareti, simboli geometrici incisi a diverse altezze: cerchi concentrici, figure che richiamavano posizioni stellari. Ho riconosciuto alcune costellazioni dell'Atlante. Tehox era passato di qui, aveva lavorato qui, aveva lasciato nella pietra quello che non entrava nelle pergamene.</p>
+
+      <p>La tredicesima tavola era alla sommità. Non era arrotolata con cura come le altre: era sgualcita, tenuta chiusa da un semplice filo annodato due volte. L'inchiostro era sbiadito e irregolare, come scritto di notte o con la mano che tremava. Nessun titolo, nessun mese assegnato. Sette stelle disposte a spirale, anomalia unica in un cielo dove ogni altra figura è statica. Tehox non le dava un nome perché dare un nome a qualcosa significa comprenderlo, e lui non comprendeva questo.</p>
+
+      <p class="thought">Nell'ultima riga: <em>Chi troverà queste righe saprà cosa farne. Ma dovrà cercarlo nell'ora in cui anche le stelle sembrano dormire.</em></p>
+
+      <p>Al centro del pavimento di granito, sette cavità circolari disposte a spirale aspettavano.</p>
+
+      <p>Ho pronunciato la parola.</p>
+
+      <div class="scene-break">✦ &nbsp; ✦ &nbsp; ✦</div>
+
+      <h2 class="scene-title">L'Osservatorio</h2>
+
+      <p>Non era una porta. Era un riconoscimento.</p>
+
+      <p>Le cavità si illuminarono dall'esterno verso l'interno, luce blu-bianca fredda. Nel tessuto del cielo sopra la piattaforma si aprì qualcosa che non ha nome nelle lingue che conosco, e ne conosco abbastanza da saper riconoscere quando manca il termine.</p>
+
+      <p>L'Osservatorio Impossibile non era stato costruito: era stato pensato. L'ossessione di Tehox per la tredicesima costellazione aveva impresso se stessa nel piano astrale fino a darle forma. Stanze dove mappe flottavano nell'aria a diverse altezze. Corridoi sospesi nel nulla, con stelle sconosciute visibili attraverso il pavimento trasparente. Strumenti che ruotavano lentamente da soli su banchi di pietra scura. Il silenzio di un luogo abituato a essere solo che improvvisamente non lo era più.</p>
+
+      <p>Eravamo i primi ad entrare da quando Tehox era morto. Lo si sentiva.</p>
+
+      <p>Alla fine del percorso trovammo la Terrazza Astrale.</p>
+
+      <p>Una piattaforma aperta, senza balaustra, sospesa nel vuoto del piano astrale. Non c'era vento. Non c'era suono. Sotto i piedi, la pietra reggeva con una fermezza che sembrava quasi una promessa, e intorno non c'era nulla, nessuna parete, nessuna ringhiera, nessun confine visibile tra noi e l'infinito.</p>
+
+      <p>Sopra di noi si apriva un cielo che non apparteneva a Ikhari.</p>
+
+      <p>Costellazioni sconosciute si muovevano lentamente in direzioni diverse, figure che nessun popolo di Landmar ha mai tracciato su una mappa, stelle di colori che il cielo di Ikhari non conosce. La luce che ne veniva era silenziosa e precisa, come la luce di qualcosa che illumina da molto lontano e da molto tempo. Guardandola si aveva la sensazione di essere osservati da una distanza che nessuna misurazione potrebbe esprimere.</p>
+
+      <p>E poi c'era la Spirale.</p>
+
+      <p>Enorme, direttamente sopra la testa, immobile come non lo è mai a Ikhari. Qui non sembrava muoversi. Qui sembrava a casa. Le sette stelle ardevano con una luce propria, diversa da tutto il resto del cielo astrale, e a guardarle a lungo si capiva perché Tehox non avesse voluto nominarle: nominarle avrebbe significato ridurle, e non c'era modo di ridurle senza perdere qualcosa di essenziale.</p>
+
+      <p>Sul bordo della piattaforma, tacche incise nella pietra formavano una scala di misura astronomica. Tehox aveva tentato di misurare anche questo. Forse ci aveva trascorso anni, su quella terrazza, con i suoi strumenti e i suoi calcoli, cercando di trovare il numero giusto per qualcosa che non voleva essere misurato.</p>
+
+      <p>Ho guardato a lungo quel cielo che non riconoscevo. Ho pensato a quante cose, nel corso di quasi duecento anni, ho visto senza comprendere e ho nominato lo stesso, perché un nome è anche un modo di tenere a distanza ciò che fa paura. Tehox aveva scelto diversamente. Il lavoro che aveva lasciato incompiuto non era un fallimento: era una domanda tenuta aperta di proposito, perché alcune domande valgono più delle risposte che si potrebbero dare.</p>
+
+      <p>Siamo usciti senza toccare nulla. Fuori, sulla piattaforma della torre, la foresta di Alveridan era immobile.</p>
+
+      <p>Il cielo sopra di noi no.</p>
+
+    </div>
+
+    <div class="story-end">
+      <p class="end-mark">— Fine —</p>
+      <p class="end-author">Dai registri dell'Accademia di Storia Imperiale di Aral, Anno 623 DE</p>
+    </div>
+  </div>
+
+  <div class="back-link reveal">
+    <a href="../cronache.html">← Torna alle Cronache di Aral</a>
+  </div>
+</div>
+
+<footer>
+  <p class="footer-title">Cronache di Aral</p>
+  <p style="margin-bottom:0.4rem;">La Capitale del Nuovo Impero &nbsp;·&nbsp; <a href="../index.html">← Torna alla città</a> &nbsp;·&nbsp; <a href="https://thegatemud.it" target="_blank">TheGate MUD</a> &nbsp;·&nbsp; <a href="https://play.thegatemud.it/" target="_blank">Gioca ora</a> &nbsp;·&nbsp; <a href="https://discord.gg/xs5BcRqkxf" target="_blank">Discord</a></p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 100);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── HAMBURGER MENU ──
+  (function() {
+    var btns = document.querySelectorAll('.nav-toggle');
+    var nav = document.querySelector('nav');
+    if (!btns.length) return;
+    btns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        nav.classList.toggle('open');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
